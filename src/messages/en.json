@@ -1,0 +1,87 @@
+{
+  "Index": {
+    "title": "Wehttam Blog",
+    "subtitle": "Sharing knowledge, experiences, and thoughts on technology, programming, and life.",
+    "viewBlog": "View Blog",
+    "aboutMe": "About Me"
+  },
+  "Navigation": {
+    "home": "Home",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "language": "Language",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "All Posts",
+    "readMore": "Read more",
+    "publishedOn": "Published on",
+    "by": "by",
+    "backToList": "Back to all posts",
+    "categories": "Categories",
+    "tags": "Tags",
+    "relatedPosts": "Related Posts",
+    "noPostsFound": "No posts found."
+  },
+  "BlogPost": {
+    "tableOfContents": "Table of Contents",
+    "share": "Share this post",
+    "nextPost": "Next Post",
+    "previousPost": "Previous Post"
+  },
+  "About": {
+    "title": "About",
+    "authorTitle": "About the Author",
+    "blogTitle": "About Wehttam Blog",
+    "techTitle": "Technologies Used",
+    "techStack": "Tech Stack",
+    "contactMe": "Contact Me"
+  },
+  "Contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send message",
+    "success": "Your message has been sent successfully. We will respond as soon as possible.",
+    "error": "An error occurred while sending your message. Please try again later.",
+    "required": "Required field",
+    "invalidEmail": "Please enter a valid email address"
+  },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backToHome": "Back to home",
+    "viewBlog": "View blog posts"
+  },
+  "Error": {
+    "title": "Error",
+    "description": "An error occurred while loading this page.",
+    "tryAgain": "Try again",
+    "contactSupport": "Contact support"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "viewAll": "View all",
+    "learnMore": "Learn more",
+    "readMore": "Read more",
+    "search": "Search",
+    "searchPlaceholder": "Search for posts...",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode"
+  },
+  "Footer": {
+    "copyright": "© {year} Wehttam Blog. All rights reserved.",
+    "poweredBy": "Powered by Next.js, Tailwind CSS, Framer Motion & Decap CMS",
+    "followMe": "Follow me on",
+    "newsletter": "Subscribe to newsletter",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "Index": {
+    "title": "Wehttam Blog",
+    "subtitle": "Chia sẻ kiến thức, trải nghiệm và suy nghĩ về công nghệ, lập trình và cuộc sống.",
+    "viewBlog": "Xem Blog",
+    "aboutMe": "Về Tôi"
+  },
+  "Navigation": {
+    "home": "Trang chủ",
+    "blog": "Blog",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "language": "Ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Tất cả bài viết",
+    "readMore": "Đọc tiếp",
+    "publishedOn": "Đăng ngày",
+    "by": "bởi",
+    "backToList": "Quay lại tất cả bài viết",
+    "categories": "Danh mục",
+    "tags": "Thẻ",
+    "relatedPosts": "Bài viết liên quan",
+    "noPostsFound": "Không tìm thấy bài viết nào."
+  },
+  "BlogPost": {
+    "tableOfContents": "Mục lục",
+    "share": "Chia sẻ bài viết này",
+    "nextPost": "Bài tiếp theo",
+    "previousPost": "Bài trước đó"
+  },
+  "About": {
+    "title": "Giới thiệu",
+    "authorTitle": "Về tác giả",
+    "blogTitle": "Về Wehttam Blog",
+    "techTitle": "Công nghệ sử dụng",
+    "techStack": "Công nghệ",
+    "contactMe": "Liên hệ với tôi"
+  },
+  "Contact": {
+    "title": "Liên hệ",
+    "subtitle": "Kết nối với tôi",
+    "name": "Họ tên",
+    "email": "Email",
+    "subject": "Chủ đề",
+    "message": "Tin nhắn",
+    "send": "Gửi tin nhắn",
+    "success": "Tin nhắn của bạn đã được gửi thành công. Chúng tôi sẽ phản hồi sớm nhất có thể.",
+    "error": "Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau.",
+    "required": "Trường bắt buộc",
+    "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ"
+  },
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Không tìm thấy trang",
+    "description": "Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.",
+    "backToHome": "Quay lại trang chủ",
+    "viewBlog": "Xem các bài viết blog"
+  },
+  "Error": {
+    "title": "Lỗi",
+    "description": "Đã xảy ra lỗi khi tải trang này.",
+    "tryAgain": "Thử lại",
+    "contactSupport": "Liên hệ hỗ trợ"
+  },
+  "Common": {
+    "loading": "Đang tải...",
+    "viewAll": "Xem tất cả",
+    "learnMore": "Tìm hiểu thêm",
+    "readMore": "Đọc tiếp",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm kiếm bài viết...",
+    "darkMode": "Chế độ tối",
+    "lightMode": "Chế độ sáng"
+  },
+  "Footer": {
+    "copyright": "© {year} Wehttam Blog. Đã đăng ký bản quyền.",
+    "poweredBy": "Được phát triển bằng Next.js, Tailwind CSS, Framer Motion & Decap CMS",
+    "followMe": "Theo dõi tôi trên",
+    "newsletter": "Đăng ký nhận bản tin",
+    "emailPlaceholder": "Địa chỉ email của bạn",
+    "subscribe": "Đăng ký"
+  }
+}
