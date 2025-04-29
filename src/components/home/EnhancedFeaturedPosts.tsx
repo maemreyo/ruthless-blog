@@ -411,76 +411,145 @@ export default function EnhancedFeaturedPosts({
               animate={controls}
               className="space-y-6"
             >
-              <motion.h3 
-                className="text-2xl font-bold text-gray-800 dark:text-white mb-6"
+              <motion.div
+                className="flex items-center justify-between mb-6"
                 variants={titleVariants}
               >
-                More Featured Articles
-              </motion.h3>
+                <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
+                  More Featured Articles
+                </h3>
+                
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-primary">
+                    {posts.filter((_, i) => i !== currentIndex).length} articles
+                  </span>
+                </div>
+              </motion.div>
               
-              {posts.filter((_, i) => i !== currentIndex).slice(0, 3).map((post, index) => (
-                <motion.div
-                  key={post.slug}
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { 
-                      opacity: 1, 
-                      y: 0,
-                      transition: { delay: 0.2 + index * 0.1, duration: 0.5 }
-                    }
-                  }}
-                  whileHover={{ scale: 1.03 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row"
-                >
-                  {/* Thumbnail */}
-                  <div className="relative w-full md:w-1/3 aspect-video md:aspect-square">
-                    <Image
-                      src={post.coverImage}
-                      alt={post.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-4 md:p-5 flex-1">
-                    <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2 line-clamp-2">
-                      {post.title}
-                    </h4>
-                    
-                    <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-3">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>{post.date}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        <span>{post.readingTime || '5 min'}</span>
-                      </div>
+              {/* Featured side posts - first 2 with larger display */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {posts.filter((_, i) => i !== currentIndex).slice(0, 2).map((post, index) => (
+                  <motion.div
+                    key={post.slug}
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: { 
+                        opacity: 1, 
+                        y: 0,
+                        transition: { delay: 0.2 + index * 0.1, duration: 0.5 }
+                      }
+                    }}
+                    whileHover={{ scale: 1.03, y: -5 }}
+                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col h-full group"
+                  >
+                    {/* Thumbnail */}
+                    <div className="relative w-full aspect-video overflow-hidden">
+                      <Image
+                        src={post.coverImage}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      {post.category && (
+                        <div className="absolute top-3 left-3 bg-primary/80 text-white text-xs font-medium px-2 py-1 rounded-md backdrop-blur-sm">
+                          {post.category}
+                        </div>
+                      )}
                     </div>
                     
-                    <Link 
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1 text-primary hover:text-primary-dark font-medium text-sm transition-colors"
-                    >
-                      <span>Read more</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </motion.div>
-              ))}
+                    {/* Content */}
+                    <div className="p-5 flex-1 flex flex-col">
+                      <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                        {post.title}
+                      </h4>
+                      
+                      <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 mb-3">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-3.5 h-3.5" />
+                          <span>{post.date}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5" />
+                          <span>{post.readingTime || '5 min'}</span>
+                        </div>
+                      </div>
+                      
+                      <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+                        {post.excerpt}
+                      </p>
+                      
+                      <div className="mt-auto">
+                        <Link 
+                          href={`/blog/${post.slug}`}
+                          className="inline-flex items-center gap-1 text-primary hover:text-primary-dark font-medium text-sm transition-colors group-hover:underline"
+                        >
+                          <span>Read more</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
               
+              {/* Additional side posts - compact list style */}
               <motion.div
                 variants={titleVariants}
-                className="text-center mt-8"
+                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-5 border border-gray-100 dark:border-gray-700"
               >
-                <Link 
-                  href="/blog"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white font-medium rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <span>{viewAllText}</span>
-                  <ArrowRight weight="bold" className="w-4 h-4" />
-                </Link>
+                <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+                  <Fire weight="fill" className="w-5 h-5 text-primary mr-2" />
+                  <span>More to explore</span>
+                </h4>
+                
+                <div className="space-y-4 divide-y divide-gray-100 dark:divide-gray-700">
+                  {posts.filter((_, i) => i !== currentIndex).slice(2, 6).map((post, index) => (
+                    <motion.div
+                      key={post.slug}
+                      variants={{
+                        hidden: { opacity: 0, x: 20 },
+                        visible: { 
+                          opacity: 1, 
+                          x: 0,
+                          transition: { delay: 0.4 + index * 0.1, duration: 0.5 }
+                        }
+                      }}
+                      className={`${index > 0 ? 'pt-4' : ''} group`}
+                    >
+                      <Link href={`/blog/${post.slug}`} className="flex items-start gap-3">
+                        <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                          <Image
+                            src={post.coverImage}
+                            alt={post.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        
+                        <div className="flex-1">
+                          <h5 className="font-medium text-gray-800 dark:text-white line-clamp-2 group-hover:text-primary transition-colors">
+                            {post.title}
+                          </h5>
+                          
+                          <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            <Calendar className="w-3 h-3 mr-1" />
+                            <span>{post.date}</span>
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                <div className="mt-6 text-center">
+                  <Link 
+                    href="/blog"
+                    className="inline-flex items-center justify-center gap-1 text-sm font-medium text-primary hover:underline"
+                  >
+                    <span>View all articles</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </motion.div>
             </motion.div>
           </div>

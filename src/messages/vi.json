@@ -83,8 +83,17 @@
     "newsletter": "Đăng ký nhận bản tin",
     "emailPlaceholder": "Địa chỉ email của bạn",
     "subscribe": "Đăng ký",
+    "subscribed": "Đã đăng ký!",
     "navigation": "Điều hướng",
     "followUs": "Theo dõi chúng tôi",
-    "allRightsReserved": "Tất cả quyền được bảo lưu."
+    "allRightsReserved": "Tất cả quyền được bảo lưu.",
+    "stayUpdated": "Cập nhật nội dung mới nhất của chúng tôi",
+    "newsletterDescription": "Đăng ký nhận bản tin để nhận các cập nhật, bài viết mới nhất và nội dung độc quyền trực tiếp vào hộp thư của bạn.",
+    "privacyNotice": "Chúng tôi tôn trọng quyền riêng tư của bạn. Hủy đăng ký bất cứ lúc nào.",
+    "joinCommunity": "Tham gia cộng đồng",
+    "exclusiveContent": "Nhận nội dung độc quyền và truy cập sớm",
+    "footerDescription": "Blog về công nghệ, lập trình và trải nghiệm cá nhân. Chia sẻ kiến thức và góc nhìn với cộng đồng.",
+    "quickLinks": "Liên kết nhanh",
+    "madeWith": "Được tạo với"
   }
 }

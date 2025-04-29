@@ -83,8 +83,17 @@
     "newsletter": "Subscribe to newsletter",
     "emailPlaceholder": "Your email address",
     "subscribe": "Subscribe",
+    "subscribed": "Subscribed!",
     "navigation": "Navigation",
     "followUs": "Follow Us",
-    "allRightsReserved": "All rights reserved."
+    "allRightsReserved": "All rights reserved.",
+    "stayUpdated": "Stay updated with our latest content",
+    "newsletterDescription": "Subscribe to our newsletter to receive the latest updates, articles, and exclusive content directly to your inbox.",
+    "privacyNotice": "We respect your privacy. Unsubscribe at any time.",
+    "joinCommunity": "Join Our Community",
+    "exclusiveContent": "Get exclusive content and early access",
+    "footerDescription": "A blog about technology, programming, and personal experiences. Sharing knowledge and insights with the community.",
+    "quickLinks": "Quick Links",
+    "madeWith": "Made with"
   }
 }
