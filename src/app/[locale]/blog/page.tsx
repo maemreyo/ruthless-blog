@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
-import BlogPostList from '@/components/blog/BlogPostList';
-import BlogHeader from '@/components/blog/BlogHeader';
+import AnimatedBlogGrid from '@/components/blog/AnimatedBlogGrid';
+import ImmersiveBlogHeader from '@/components/blog/ImmersiveBlogHeader';
 import { getAllPosts } from '@/lib/blog';
 
 export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -26,13 +26,18 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   }));
   
   return (
-    <div className="container mx-auto px-4 py-12">
-      <BlogHeader 
+    <div className="overflow-hidden">
+      <ImmersiveBlogHeader 
         title={t('title')}
         subtitle={t('subtitle')}
       />
       
-      <BlogPostList posts={formattedPosts} />
+      <div className="container mx-auto px-4 py-12">
+        <AnimatedBlogGrid 
+          posts={formattedPosts}
+          readMoreText={t('readMore') || 'Read More'}
+        />
+      </div>
     </div>
   );
 }

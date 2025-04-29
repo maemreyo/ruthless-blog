@@ -113,7 +113,7 @@
 - [ ] Cấu hình các biến môi trường cần thiết
 - [ ] Thiết lập tên miền tùy chỉnh (nếu có)
 - [ ] Cấu hình webhook từ Git đến Vercel
-
+<!-- 
 ## 10. Tối ưu hóa và SEO
 - [ ] Tối ưu hóa hiệu năng:
   - [ ] Sử dụng Image Optimization của Next.js
@@ -134,18 +134,8 @@
   - [ ] Đảm bảo đủ contrast ratio
   - [ ] Hỗ trợ keyboard navigation
   - [ ] Tối ưu hóa cho screen readers
+ -->
 
-## 11. Kiểm thử
-- [ ] Kiểm thử trên các trình duyệt khác nhau
-- [ ] Kiểm thử trên các thiết bị khác nhau
-- [ ] Kiểm thử các tính năng đa ngôn ngữ
-- [ ] Kiểm thử quy trình Decap CMS (tạo, chỉnh sửa, xuất bản bài viết)
-- [ ] Kiểm thử hiệu năng (Lighthouse, Web Vitals)
-
-## 12. Tài liệu hóa
-- [ ] Cập nhật file README.md với hướng dẫn cài đặt và sử dụng
-- [ ] Tạo tài liệu hướng dẫn sử dụng CMS cho người quản trị
-- [ ] Tạo tài liệu phát triển cho nhà phát triển
 
 ## 13. Tính năng bổ sung (tùy chọn)
 - [ ] Thêm chức năng tìm kiếm:

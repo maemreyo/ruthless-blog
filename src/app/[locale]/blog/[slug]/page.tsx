@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/blog';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import { Metadata } from 'next';
-import BlogPostContent from '@/components/blog/BlogPostContent';
+import ImmersiveBlogPost from '@/components/blog/ImmersiveBlogPost';
 
 // Tạo metadata cho trang
 export async function generateMetadata({ 
@@ -74,8 +74,8 @@ export default async function BlogPostPage({
   }));
   
   return (
-    <div className="container mx-auto px-4 py-12">
-      <BlogPostContent 
+    <div className="overflow-hidden">
+      <ImmersiveBlogPost 
         title={frontmatter.title as string}
         content={content}
         formattedDate={formattedDate}

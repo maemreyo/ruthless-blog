@@ -4,8 +4,8 @@ import { getFeaturedPosts, getAllPosts } from '@/lib/blog';
 import fs from 'fs';
 import path from 'path';
 import { Metadata } from 'next';
-import HeroSection from '@/components/home/HeroSection';
-import FeaturedPostsSection from '@/components/home/FeaturedPostsSection';
+import ParallaxHero from '@/components/home/ParallaxHero';
+import FeaturedPostsCarousel from '@/components/home/FeaturedPostsCarousel';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -47,15 +47,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   }
   
   return (
-    <div className="container mx-auto px-4 py-12">
-      <HeroSection 
+    <div className="overflow-hidden">
+      <ParallaxHero 
         title={siteData.title}
         description={siteData.description}
         viewBlogText={t('viewBlog')}
         aboutMeText={t('aboutMe')}
       />
       
-      <FeaturedPostsSection 
+      <FeaturedPostsCarousel 
         title="Featured Posts"
         viewAllText={commonT('viewAll')}
         posts={formattedPosts}
