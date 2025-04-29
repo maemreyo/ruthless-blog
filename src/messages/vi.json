@@ -112,27 +112,27 @@
   "Categories": {
     "title": "Danh mục",
     "description": "Duyệt bài viết theo danh mục để tìm nội dung bạn quan tâm.",
-    "postCount": "{{count}} bài viết",
-    "categoryDescription": "Tất cả bài viết trong danh mục {{category}}",
-    "noPostsInCategory": "Không tìm thấy bài viết nào trong danh mục {{category}}.",
+    "postCount": "{count} bài viết",
+    "categoryDescription": "Tất cả bài viết trong danh mục {category}",
+    "noPostsInCategory": "Không tìm thấy bài viết nào trong danh mục {category}.",
     "backToCategories": "Quay lại Danh mục",
     "readMore": "Đọc tiếp"
   },
   "Series": {
     "title": "Series",
     "description": "Duyệt các series bài viết của chúng tôi để có cái nhìn sâu sắc về nhiều chủ đề khác nhau.",
-    "partCount": "{{count}} phần",
-    "seriesDescription": "Tất cả bài viết trong series {{series}}",
-    "noPostsInSeries": "Không tìm thấy bài viết nào trong series {{series}}.",
+    "partCount": "{count} phần",
+    "seriesDescription": "Tất cả bài viết trong series {series}",
+    "noPostsInSeries": "Không tìm thấy bài viết nào trong series {series}.",
     "backToSeries": "Quay lại Series",
-    "partOf": "Phần của series {{series}}",
+    "partOf": "Phần của series {series}",
     "part": "Phần",
     "of": "của",
     "viewSeries": "Xem toàn bộ series",
     "previous": "Trước",
     "next": "Tiếp",
     "seriesParts": "Các phần trong series",
-    "totalParts": "Tổng cộng {{count}} phần"
+    "totalParts": "Tổng cộng {count} phần"
   },
   "Common": {
     "loading": "Đang tải...",
