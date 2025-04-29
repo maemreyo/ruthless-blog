@@ -22,14 +22,22 @@
   "Blog": {
     "title": "Blog",
     "subtitle": "Tất cả bài viết",
+    "allPosts": "Tất cả bài viết",
     "readMore": "Đọc tiếp",
+    "readArticle": "Đọc bài viết",
     "publishedOn": "Đăng ngày",
     "by": "bởi",
     "backToList": "Quay lại tất cả bài viết",
     "categories": "Danh mục",
     "tags": "Thẻ",
     "relatedPosts": "Bài viết liên quan",
-    "noPostsFound": "Không tìm thấy bài viết nào."
+    "noPostsFound": "Không tìm thấy bài viết nào.",
+    "exploreCollection": "Khám phá bộ sưu tập bài viết, hướng dẫn và kiến thức của chúng tôi",
+    "searchPlaceholder": "Tìm kiếm bài viết...",
+    "filterByCategory": "Lọc theo danh mục",
+    "showing": "Hiển thị",
+    "articles": "bài viết",
+    "clearFilters": "Xóa bộ lọc"
   },
   "BlogPost": {
     "tableOfContents": "Mục lục",

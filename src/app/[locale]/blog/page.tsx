@@ -47,7 +47,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   });
   
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden relative">
       {/* Custom cursor effect */}
       <CursorFollower trailEffect={true} />
       
