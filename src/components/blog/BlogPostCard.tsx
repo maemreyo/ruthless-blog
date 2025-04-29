@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { formatDate } from '@/lib/utils';
 
 interface BlogPostCardProps {
   title: string;
@@ -32,12 +34,24 @@ export default function BlogPostCard({
       transition={{ duration: 0.3 }}
     >
       {coverImage && (
-        <div className="h-48 overflow-hidden">
-          <img
-            src={coverImage}
-            alt={title}
-            className="w-full h-full object-cover"
-          />
+        <div className="h-48 overflow-hidden relative">
+          {coverImage.startsWith('/') ? (
+            <Image
+              src={coverImage}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
+              priority={false}
+            />
+          ) : (
+            // Fallback for external images
+            <img
+              src={coverImage}
+              alt={title}
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
       )}
       
@@ -45,7 +59,7 @@ export default function BlogPostCard({
         <h2 className="text-2xl font-bold mb-2">{title}</h2>
         
         <div className="text-gray-600 text-sm mb-4">
-          {t('publishedOn')} {date}
+          {t('publishedOn')} {formatDate(date)}
           {author && <span> {t('by')} {author}</span>}
         </div>
         

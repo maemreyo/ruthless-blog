@@ -6,6 +6,7 @@ import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/blog';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
 
 // Tạo metadata cho trang
 export async function generateMetadata({ 
@@ -71,12 +72,24 @@ export default function BlogPostPage({
     <div className="container mx-auto px-4 py-12">
       {/* Thumbnail */}
       {frontmatter.thumbnail && (
-        <div className="mb-8 rounded-lg overflow-hidden">
-          <img 
-            src={frontmatter.thumbnail as string} 
-            alt={frontmatter.title as string}
-            className="w-full h-auto object-cover"
-          />
+        <div className="mb-8 rounded-lg overflow-hidden relative h-[400px]">
+          {(frontmatter.thumbnail as string).startsWith('/') ? (
+            <Image 
+              src={frontmatter.thumbnail as string} 
+              alt={frontmatter.title as string}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+              className="object-cover"
+              priority={true}
+            />
+          ) : (
+            // Fallback for external images
+            <img 
+              src={frontmatter.thumbnail as string} 
+              alt={frontmatter.title as string}
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
       )}
       

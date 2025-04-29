@@ -5,6 +5,7 @@ import BlogPostList from '@/components/blog/BlogPostList';
 import { getFeaturedPosts, getAllPosts } from '@/lib/blog';
 import fs from 'fs';
 import path from 'path';
+import { Metadata } from 'next';
 
 export default function HomePage({ params }: { params: { locale: string } }) {
   const { locale } = params;
@@ -87,4 +88,41 @@ export default function HomePage({ params }: { params: { locale: string } }) {
 // Tạo các tham số tĩnh cho trang
 export function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'vi' }];
+}
+
+// Tạo metadata cho trang
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { locale: string } 
+}): Promise<Metadata> {
+  const { locale } = params;
+  
+  // Đọc dữ liệu site từ file JSON
+  let siteData = { title: 'Wehttam Blog', description: '' };
+  try {
+    const siteFilePath = path.join(process.cwd(), 'src', 'data', 'site.json');
+    const siteFileContent = fs.readFileSync(siteFilePath, 'utf8');
+    const siteJson = JSON.parse(siteFileContent);
+    siteData = siteJson[locale] || siteJson['en'];
+  } catch (error) {
+    console.error('Error reading site data:', error);
+  }
+  
+  return {
+    title: siteData.title,
+    description: siteData.description,
+    openGraph: {
+      title: siteData.title,
+      description: siteData.description,
+      type: 'website',
+      locale: locale,
+      alternateLocale: locale === 'en' ? 'vi' : 'en',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: siteData.title,
+      description: siteData.description,
+    },
+  };
 }
