@@ -1,0 +1,1126 @@
+{
+  "personalInfo": {
+    "fullName": "Ngô Như Thành Trung",
+    "displayName": "Matthew Ngo",
+    "title": "Senior Frontend Engineer",
+    "motto": "Crafting exceptional digital experiences with precision and passion.",
+    "location": {
+      "city": "Hanoi",
+      "country": "Vietnam"
+    },
+    "contact": {
+      "email": "matthewngo1114@gmail.com",
+      "phone": "0961219097",
+      "preferredContactMethod": ["email", "phone"]
+    },
+    "links": [
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/maemreyo",
+        "username": "maemreyo"
+      },
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/maemreyo",
+        "username": "maemreyo"
+      },
+      {
+        "platform": "Personal Website",
+        "url": "https://maemreyo.vercel.app"
+      }
+    ],
+    "photoUrl": "/images/profile/profile-photo.jpg",
+    "logoUrl": "/images/profile/personal-logo.jpeg",
+    "coverImage": "/images/background/cover-image.jpg",
+    "languages": [
+      { "language": "Vietnamese", "proficiency": "Native" },
+      {
+        "language": "English",
+        "proficiency": "Professional Working Proficiency"
+      }
+    ]
+  },
+  "profileSummary": {
+    "fullText": "Dedicated and skilled frontend developer with over 5 years of experience, expert in React.js and TypeScript, and advanced experience in Next.js leveraging SSR, SSG. Proven ability to translate design concepts from Figma into pixel-perfect, interactive user interfaces. Strong focus on building high-performance, reusable components, implementing animations, while ensuring robust cross-browser compatibility.",
+    "keywords": [
+      "Frontend Developer",
+      "Software Engineer",
+      "React.js",
+      "TypeScript",
+      "Next.js",
+      "SSR",
+      "SSG",
+      "Figma",
+      "Pixel-Perfect UI",
+      "High-Performance",
+      "Reusable Components",
+      "Animations",
+      "Cross-Browser Compatibility",
+      "State Management",
+      "Redux",
+      "Zustand",
+      "Material-UI",
+      "Component Library",
+      "Performance Tuning",
+      "UI/UX Collaboration",
+      "Agile Development",
+      "WebRTC",
+      "WebSocket",
+      "React Native",
+      "Vue.js"
+    ],
+    "yearsOfExperience": 5,
+    "elevatorPitch": "Highly motivated Frontend Developer with 5+ years crafting high-performance, pixel-perfect UIs using React, TypeScript, and Next.js. Proven in delivering scalable solutions, optimizing performance, and leading teams in dynamic environments. Excels at translating complex requirements into intuitive user experiences.",
+    "keyStrengths": [
+      "Expertise in React Ecosystem (React.js, Next.js, Redux, Zustand, TypeScript)",
+      "Building Scalable, Maintainable & Reusable Frontend Architectures",
+      "Cross-functional Collaboration (UX/UI, Backend, PMs)",
+      "Frontend Performance Optimization & Debugging",
+      "Real-time Communication Implementation (WebSocket, WebRTC)",
+      "Pixel-Perfect UI Development from Figma Designs"
+    ],
+    "secondaryImage": "/images/profile/secondary-photo.jpg"
+  },
+  "keyHighlights": [
+    {
+      "area": "Technical Leadership & Full-Stack Awareness",
+      "highlight": "Led a small team in the end-to-end development and launch of the 'Stella' social network (React/React Native), incorporating real-time chat (WebSocket) and video calls (WebRTC).",
+      "impact": "Successfully delivered a complex, cross-platform application fostering real-time user engagement in a specific market niche.",
+      "skillsDemonstrated": [
+        "React.js",
+        "React Native",
+        "WebSocket",
+        "WebRTC",
+        "Team Leadership",
+        "Project Coordination",
+        "AWS CI/CD"
+      ]
+    },
+    {
+      "area": "Performance Optimization & Complex UI",
+      "highlight": "Optimized the WebUI Data Virtualization platform (TIBCO), significantly improving rendering speed and interactivity for large, complex datasets.",
+      "impact": "Enhanced user experience by reducing data visualization load times by an estimated 20-25% for large datasets, enabling smoother data interaction.",
+      "skillsDemonstrated": [
+        "React Performance Tools",
+        "Redux Optimization",
+        "Virtualization Techniques",
+        "Debugging",
+        "Problem Solving"
+      ]
+    },
+    {
+      "area": "Component Architecture & Code Quality",
+      "highlight": "Designed and maintained a large, reusable React component library with TypeScript for TIBCO, adopted by a multi-national team, improving consistency and development velocity.",
+      "impact": "Streamlined UI development, reduced code duplication by ~30%, and facilitated faster feature implementation across the team.",
+      "skillsDemonstrated": [
+        "React.js",
+        "TypeScript",
+        "Component-Based Architecture",
+        "Material-UI",
+        "Storybook",
+        "Code Review"
+      ]
+    },
+    {
+      "area": "Cross-functional Collaboration & Feature Delivery",
+      "highlight": "Effectively collaborated with UX/UI designers (using Figma) and backend developers to translate intricate user requirements, like the visual data filtering node interface, into functional and intuitive frontend features.",
+      "impact": "Ensured seamless integration and a cohesive user experience, delivering features that met both user needs and technical specifications.",
+      "skillsDemonstrated": [
+        "Communication",
+        "API Integration",
+        "Figma",
+        "Agile Methodologies",
+        "Requirement Analysis"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Telecommunication Engineer",
+      "degreeType": "Bachelor",
+      "major": "Telecommunications Engineering",
+      "institution": "Posts and Telecommunications Institute of Technology",
+      "location": { "city": "Hanoi", "country": "Vietnam" },
+      "startDate": "2016-09",
+      "endDate": "2021-03",
+      "graduationStatus": "Graduated",
+      "honors": "Graduated with honors",
+      "gpa": null,
+      "relevantCoursework": [],
+      "thesisTitle": null
+    }
+  ],
+  "workExperience": [
+    {
+      "jobTitle": "Frontend Developer",
+      "companyName": "DataNest",
+      "location": { "city": "Hanoi", "country": "Vietnam" },
+      "startDate": "2024-04",
+      "endDate": "Present",
+      "employmentType": "Full-time",
+      "companyWebsite": "https://datanest.vn",
+      "companyIndustry": "Software Development / Data Services",
+      "companyLogo": "/images/companies/datanest-logo.png",
+      "projects": [
+        {
+          "projectName": "Company Websites & HRM System",
+          "projectDescription": "Responsible for the frontend maintenance and development of company's public websites and internal Human Resource Management system.",
+          "projectType": ["Corporate Website", "Internal Tool"],
+          "roleWithinProject": "Frontend Developer",
+          "responsibilities": [
+            "Contributed to the maintenance and development of the frontend for company websites and the HRM system.",
+            "Participated in the frontend development process from the design phase to deployment and maintenance.",
+            "Ensured the quality and performance of the user interface across various web projects."
+          ],
+          "keyContributions": [
+            "Implemented new features for the HRM system using React and Next.js.",
+            "Refactored legacy code to improve performance and maintainability.",
+            "Collaborated with backend team to define API contracts for new functionalities."
+          ],
+          "achievements": [
+            {
+              "description": "Ensured high uptime and performance for company websites.",
+              "metric": "Website Load Time / Uptime",
+              "quantification": "Maintained >99.9% uptime and optimized page loads.",
+              "skillsApplied": [
+                "Next.js",
+                "Performance Monitoring",
+                "Debugging"
+              ]
+            },
+            {
+              "description": "Improved developer experience by introducing Zustand for state management in the HRM system.",
+              "metric": "Code Complexity / Development Time",
+              "quantification": "Simplified state logic compared to previous solutions.",
+              "skillsApplied": ["React.js", "Zustand", "State Management"]
+            }
+          ],
+          "challengesFaced": [
+            "Integrating new features into existing codebases.",
+            "Ensuring consistent UI/UX across different company web properties."
+          ],
+          "technicalDecisions": [
+            "Utilized Mantine component library for rapid UI development in the HRM system.",
+            "Adopted Zustand for lightweight global state management needs."
+          ],
+          "impactStatement": "Maintaining and enhancing the company's digital presence and internal operational tools through robust frontend development.",
+          "technologiesUsed": {
+            "frontend": [
+              "React.js",
+              "Next.js",
+              "TypeScript",
+              "HTML5",
+              "CSS3",
+              "SCSS"
+            ],
+            "stateManagement": ["Zustand"],
+            "uiLibraries": ["Mantine"],
+            "concepts": ["Responsive web design principles", "SSR", "SSG"],
+            "collaborationTools": ["Slack", "Jira", "Confluence"]
+          },
+          "teamSize": null,
+          "teamComposition": null
+        }
+      ]
+    },
+    {
+      "jobTitle": "Frontend Developer",
+      "companyName": "TIBCO Orchestra Networks",
+      "location": { "city": "Hanoi", "country": "Vietnam" },
+      "startDate": "2022-08",
+      "endDate": "2024-03",
+      "employmentType": "Full-time",
+      "companyWebsite": "https://www.tibco.com/products/tibco-ebx",
+      "companyIndustry": "Software Development (Master Data Management)",
+      "companyLogo": "/images/companies/tibco-logo.svg",
+      "projects": [
+        {
+          "projectName": "WebUI Data Virtualization",
+          "projectDescription": "Developed a user-friendly data virtualization platform enabling non-IT users to interact with complex datasets visually using React.js and TypeScript.",
+          "projectType": [
+            "Data Visualization",
+            "Platform Development",
+            "Enterprise Software"
+          ],
+          "roleWithinProject": "Frontend Developer",
+          "responsibilities": [
+            "Developed the platform using React.js and TypeScript.",
+            "Designed and implemented a user-friendly filtering node interface using React.js components and Material-UI.",
+            "Collaborated closely with UX/UI designers and product managers on requirements and mockups (Figma).",
+            "Developed and maintained a large codebase of reusable React.js components and TypeScript modules for a multi-national team.",
+            "Implemented state management and data synchronization using Redux.",
+            "Collaborated with backend developers on API requirements and data exchange."
+          ],
+          "keyContributions": [
+            "Architected and implemented the core visual data filtering module.",
+            "Championed TypeScript adoption within the project for enhanced code quality.",
+            "Developed and documented a significant portion of the shared component library.",
+            "Proactively identified and resolved key performance bottlenecks related to large data rendering."
+          ],
+          "achievements": [
+            {
+              "description": "Enabled non-technical users to perform complex data filtering visually, reducing reliance on IT.",
+              "metric": "User Task Completion Time / IT Support Requests",
+              "quantification": "Estimated 40% reduction in effort for common filtering tasks.",
+              "skillsApplied": [
+                "React.js",
+                "Material-UI",
+                "UX Collaboration",
+                "Problem Solving"
+              ]
+            },
+            {
+              "description": "Significantly improved frontend performance for large dataset interactions.",
+              "metric": "Rendering Time / Interaction Latency",
+              "quantification": "Achieved ~20-25% faster rendering for datasets >1M rows.",
+              "skillsApplied": [
+                "React Performance Tools",
+                "Redux Optimization",
+                "Virtualization Techniques",
+                "Debugging"
+              ]
+            },
+            {
+              "description": "Contributed to a high-quality, maintainable codebase used by a global team.",
+              "metric": "Code Review Cycles / Bug Density",
+              "quantification": "Maintained low post-release bug rates via testing and reviews.",
+              "skillsApplied": [
+                "TypeScript",
+                "ESLint",
+                "Testing",
+                "Gitflow",
+                "Component Design"
+              ]
+            }
+          ],
+          "challengesFaced": [
+            "Managing complex, interconnected state using Redux for real-time data synchronization.",
+            "Optimizing performance for potentially massive and nested datasets.",
+            "Ensuring UI consistency and accessibility across diverse user environments.",
+            "Effective collaboration within a geographically distributed, multi-national team."
+          ],
+          "technicalDecisions": [
+            "Selected Redux for robust state management of complex, shared application state.",
+            "Adopted Material-UI for its comprehensive component suite and design consistency.",
+            "Implemented lazy loading and virtualization for performance-critical components."
+          ],
+          "impactStatement": "Empowered business users with intuitive data interaction tools, enhancing data accessibility and operational efficiency within the TIBCO EBX platform.",
+          "technologiesUsed": {
+            "frontend": [
+              "React.js (with hooks)",
+              "TypeScript",
+              "HTML5",
+              "CSS3",
+              "SCSS"
+            ],
+            "stateManagement": ["Redux"],
+            "uiLibraries": ["Material-UI", "Syncfusion library"],
+            "concepts": [
+              "Responsive web design principles",
+              "Reusable Components",
+              "Scalability",
+              "Maintainability",
+              "Data Visualization Principles"
+            ],
+            "collaborationTools": ["Slack", "Jira", "Confluence"],
+            "teamComposition": ["Multi-national frontend team"]
+          },
+          "teamSize": null,
+          "leadershipResponsibilities": null
+        }
+      ]
+    },
+    {
+      "jobTitle": "Frontend Developer",
+      "companyName": "CMC Global",
+      "location": { "city": "Hanoi", "country": "Vietnam" },
+      "startDate": "2022-02",
+      "endDate": "2022-08",
+      "employmentType": "Full-time",
+      "companyWebsite": "https://cmcglobal.com.vn/",
+      "companyIndustry": "IT Services & Consulting",
+      "companyLogo": "/images/companies/cmc-logo.svg",
+      "projects": [
+        {
+          "projectName": "Zalora Website Enhancement",
+          "projectDescription": "Collaborated on enhancing features and maintaining the frontend of the Zalora e-commerce platform.",
+          "projectType": ["E-commerce"],
+          "clientName": "Zalora",
+          "roleWithinProject": "Frontend Developer",
+          "responsibilities": [
+            "Collaborated with a multidisciplinary team to develop Zalora website features.",
+            "Integrated Contentful CMS for dynamic content management (product listings, descriptions, images).",
+            "Designed and implemented reusable UI components and patterns using ReactJS following atomic design.",
+            "Utilized Storybook for component-driven development, documentation, and visual testing."
+          ],
+          "keyContributions": [
+            "Implemented key UI components for product display and filtering.",
+            "Integrated Contentful CMS, enabling content updates by non-technical staff.",
+            "Contributed to the Storybook library, improving UI consistency and testing efficiency."
+          ],
+          "achievements": [
+            {
+              "description": "Enabled efficient content updates via CMS integration.",
+              "metric": "Content Update Time",
+              "quantification": "Reduced time for marketing team to update promotions by ~50%.",
+              "skillsApplied": ["React.js", "Contentful", "API Integration"]
+            },
+            {
+              "description": "Improved code reusability and maintainability with atomic design components.",
+              "metric": "Code Duplication / New Feature Velocity",
+              "quantification": "Accelerated development of new UI elements.",
+              "skillsApplied": [
+                "React.js",
+                "Component-Based Architecture",
+                "Atomic Design"
+              ]
+            },
+            {
+              "description": "Enhanced UI consistency and quality using Storybook.",
+              "metric": "UI Bugs Reported / Design Consistency Score",
+              "quantification": "Reduced visual regressions through component testing.",
+              "skillsApplied": ["Storybook", "UI Testing", "CSS"]
+            }
+          ],
+          "challengesFaced": [
+            "Working within a large, existing codebase.",
+            "Ensuring high performance and responsiveness for an e-commerce platform.",
+            "Integrating with multiple third-party services and APIs."
+          ],
+          "technicalDecisions": [
+            "Leveraged Contentful's API for flexible content delivery.",
+            "Adopted Storybook for robust UI component development lifecycle."
+          ],
+          "impactStatement": "Contributed to enhancing the user experience and operational efficiency of the Zalora e-commerce platform through frontend development and CMS integration.",
+          "technologiesUsed": {
+            "frontend": ["React.js", "HTML5", "CSS3", "SCSS"],
+            "cms": ["Contentful"],
+            "testingTools": ["Storybook"],
+            "packageManagement": ["npm"],
+            "designPrinciples": ["Atomic design principles"],
+            "concepts": [
+              "Responsive design",
+              "Accessibility",
+              "E-commerce Best Practices"
+            ],
+            "codeQualityTools": ["ESLint", "Prettier"],
+            "collaborationTools": ["Jira", "Slack"]
+          },
+          "teamSize": null,
+          "teamComposition": ["Multidisciplinary"]
+        }
+      ]
+    },
+    {
+      "jobTitle": "Frontend Developer",
+      "companyName": "NTQ Solution",
+      "location": { "city": "Hanoi", "country": "Vietnam" },
+      "startDate": "2020-03",
+      "endDate": "2022-02",
+      "employmentType": "Full-time",
+      "companyWebsite": "https://ntq.com.vn/",
+      "companyIndustry": "IT Services & Consulting",
+      "companyLogo": "/images/companies/ntq-logo.png",
+      "projects": [
+        {
+          "projectName": "Stella - Japanese Social Network for Fortune Tellers",
+          "projectDescription": "Led a small team developing 'Stella', a unique Japanese social network connecting fortune tellers and users via web and mobile apps, featuring real-time chat and video calls.",
+          "projectType": [
+            "Social Network",
+            "Mobile App (iOS/Android)",
+            "Web App",
+            "Real-time Communication"
+          ],
+          "roleWithinProject": "Team Lead / Frontend Developer",
+          "responsibilities": [
+            "Led a small team in frontend development (ReactJS for Web, React Native for Mobile).",
+            "Implemented responsive UIs ensuring consistency across web, Android, and iOS.",
+            "Integrated WebSocket for real-time chat/notifications and WebRTC for audio/video calls.",
+            "Architected and maintained frontend codebase, optimizing for performance and scalability.",
+            "Ensured cross-browser/cross-platform compatibility and call quality optimization.",
+            "Utilized AWS services for CI/CD pipelines."
+          ],
+          "keyContributions": [
+            "Led technical design and implementation of the React/React Native frontend.",
+            "Successfully integrated and optimized WebRTC for stable real-time calls.",
+            "Established automated CI/CD pipelines using AWS CodePipeline/CodeBuild.",
+            "Mentored junior team members on React/React Native best practices."
+          ],
+          "achievements": [
+            {
+              "description": "Successfully launched a complex, cross-platform social network from concept to production.",
+              "metric": "App Store Rating / User Adoption",
+              "quantification": "Achieved 4.5+ star rating within months of launch.",
+              "skillsApplied": [
+                "React.js",
+                "React Native",
+                "Project Planning",
+                "Team Leadership",
+                "AWS"
+              ]
+            },
+            {
+              "description": "Implemented reliable real-time chat and notification system.",
+              "metric": "Message Delivery Rate / Latency",
+              "quantification": ">99.9% delivery rate with low latency.",
+              "skillsApplied": ["WebSocket", "Socket.IO", "System Design"]
+            },
+            {
+              "description": "Enabled seamless peer-to-peer audio/video calling within the app.",
+              "metric": "Call Success Rate / Call Quality",
+              "quantification": ">95% call connection success across diverse networks.",
+              "skillsApplied": [
+                "WebRTC",
+                "Network Optimization",
+                "Troubleshooting"
+              ]
+            }
+          ],
+          "challengesFaced": [
+            "Managing state consistency and code sharing between ReactJS and React Native.",
+            "Optimizing WebRTC performance and stability across various devices/networks.",
+            "Leading and coordinating a small team to meet project deadlines."
+          ],
+          "technicalDecisions": [
+            "Chose React Native for cross-platform mobile development efficiency.",
+            "Utilized WebSocket/Socket.IO for scalable real-time messaging.",
+            "Leveraged AWS CI/CD for automated build and deployment processes."
+          ],
+          "impactStatement": "Created a unique platform connecting a niche community in Japan through innovative real-time communication features on both web and mobile.",
+          "technologiesUsed": {
+            "frontend": ["ReactJS", "React Native", "HTML5", "CSS3", "SCSS"],
+            "realtime": ["WebSocket", "Socket.IO", "WebRTC"],
+            "devops": [
+              "AWS (S3, Route53, CodeCommit, CodeBuild, CodePipeline)"
+            ],
+            "platforms": ["Web", "Android", "iOS"],
+            "concepts": [
+              "Cross-Platform Development",
+              "Real-time Communication",
+              "Performance Optimization"
+            ],
+            "collaborationTools": ["Jira", "Slack"]
+          },
+          "teamSize": "Small",
+          "leadershipResponsibilities": [
+            "Led daily stand-ups and sprint planning.",
+            "Task assignment and progress tracking.",
+            "Technical guidance and mentorship.",
+            "Code reviews.",
+            "Frontend architectural decisions."
+          ]
+        },
+        {
+          "projectName": "To-U - Japanese Streaming Network",
+          "projectDescription": "Contributed to developing 'To-U', a Japanese streaming network for artists, utilizing Vue.js with Nuxt.js framework.",
+          "projectType": ["Streaming Platform", "Web App"],
+          "roleWithinProject": "Frontend Developer",
+          "responsibilities": [
+            "Contributed to the frontend development using Vue.js and Nuxt.js.",
+            "Designed and implemented frontend components and pages following best practices.",
+            "Worked closely with backend developers for API integration.",
+            "Collaborated with UX/UI designers to translate mockups into interactive interfaces."
+          ],
+          "keyContributions": [
+            "Developed key UI sections like artist profiles and streaming player interface.",
+            "Implemented state management solutions within the Vue/Nuxt application.",
+            "Ensured frontend components were modular and performant."
+          ],
+          "achievements": [
+            {
+              "description": "Contributed to the successful launch of the streaming platform.",
+              "metric": "Feature Completion Rate",
+              "quantification": "Delivered assigned features on schedule.",
+              "skillsApplied": ["Vue.js", "Nuxt.js", "CSS3"]
+            },
+            {
+              "description": "Ensured visually appealing UI consistent with brand guidelines.",
+              "metric": "Design Fidelity / User Feedback",
+              "quantification": "Received positive feedback on UI implementation.",
+              "skillsApplied": [
+                "Vue.js",
+                "HTML5",
+                "CSS3",
+                "UI/UX Collaboration"
+              ]
+            }
+          ],
+          "challengesFaced": [
+            "Adapting to Vue.js/Nuxt.js after focusing primarily on React.",
+            "Integrating with streaming-specific backend APIs."
+          ],
+          "technicalDecisions": [
+            "Utilized Nuxt.js features for server-side rendering and routing."
+          ],
+          "impactStatement": "Played a role in building a dedicated streaming platform for Japanese artists, contributing to its frontend foundation.",
+          "technologiesUsed": {
+            "frontend": ["Vue.js", "Nuxt.js", "HTML5", "CSS3"],
+            "devops": ["AWS", "Docker"],
+            "concepts": [
+              "Modularity",
+              "Performance Optimization",
+              "Brand Consistency",
+              "SSR (via Nuxt)"
+            ],
+            "collaborationTools": ["Jira", "Slack"]
+          },
+          "teamSize": null,
+          "leadershipResponsibilities": null
+        }
+      ]
+    },
+    {
+      "jobTitle": "Frontend Developer",
+      "companyName": "NBM",
+      "location": { "city": "Hanoi", "country": "Vietnam" },
+      "startDate": "2019-09",
+      "endDate": "2020-03",
+      "employmentType": "Full-time",
+      "companyWebsite": null,
+      "companyIndustry": "Healthcare / IT Services",
+      "projects": [
+        {
+          "projectName": "Bao Nam Clinic Website",
+          "projectDescription": "Developed a responsive website for Bao Nam Clinic, featuring appointment scheduling, patient registration, and interactive maps.",
+          "projectType": ["Healthcare Website", "Corporate Website"],
+          "roleWithinProject": "Frontend Developer",
+          "responsibilities": [
+            "Collaborated with design and backend teams to develop the clinic website.",
+            "Translated mockups/wireframes into pixel-perfect, cross-browser compatible UI using HTML5, CSS3, JavaScript, PHP.",
+            "Implemented frontend functionality for appointment scheduling, patient forms, and interactive maps."
+          ],
+          "keyContributions": [
+            "Built the core UI layout and components for the website.",
+            "Implemented interactive elements like appointment forms using JavaScript/jQuery.",
+            "Ensured cross-browser compatibility for key user flows."
+          ],
+          "achievements": [
+            {
+              "description": "Delivered a functional and responsive clinic website meeting design specifications.",
+              "metric": "Project Completion",
+              "quantification": "Completed assigned frontend tasks within deadlines.",
+              "skillsApplied": [
+                "HTML5",
+                "CSS3",
+                "JavaScript",
+                "PHP",
+                "Bootstrap",
+                "jQuery"
+              ]
+            },
+            {
+              "description": "Implemented key patient interaction features like appointment scheduling.",
+              "metric": "Feature Functionality",
+              "quantification": "Successfully integrated frontend forms with backend logic.",
+              "skillsApplied": ["JavaScript", "PHP", "HTML Forms"]
+            }
+          ],
+          "challengesFaced": [
+            "Ensuring pixel-perfect implementation across various browsers.",
+            "Working with a mix of frontend (JS/jQuery) and backend (PHP) logic."
+          ],
+          "technicalDecisions": [
+            "Utilized Bootstrap framework for rapid responsive layout development."
+          ],
+          "impactStatement": "Created the online presence for Bao Nam Clinic, enabling patients to find information and schedule appointments easily.",
+          "technologiesUsed": {
+            "frontend": [
+              "HTML5",
+              "CSS3 (Sass)",
+              "JavaScript",
+              "jQuery",
+              "Bootstrap"
+            ],
+            "backendIntegration": ["PHP"],
+            "versionControl": ["Git"],
+            "packageManagement": ["npm"],
+            "concepts": [
+              "Responsive Design",
+              "Pixel-Perfect UI",
+              "Cross-Browser Compatibility"
+            ]
+          },
+          "teamSize": null,
+          "teamComposition": null,
+          "leadershipResponsibilities": null
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "React.js",
+      "level": 95,
+      "years": 5,
+      "category": "Frontend Framework/Library",
+      "projectHighlights": ["Stella (Lead)", "TIBCO (Core Dev)", "Zalora"],
+      "specificApplications": [
+        "Hooks, Context API, Performance Profiling, Component Architecture",
+        "Building large-scale SPAs"
+      ]
+    },
+    {
+      "name": "TypeScript",
+      "level": 95,
+      "years": 4,
+      "category": "Language",
+      "projectHighlights": [
+        "TIBCO (Mandatory)",
+        "DataNest",
+        "Personal Projects"
+      ],
+      "specificApplications": [
+        "Large codebase type safety",
+        "Complex data structures",
+        "Improved maintainability"
+      ]
+    },
+    {
+      "name": "Next.js",
+      "level": 75,
+      "years": 3,
+      "category": "Frontend Framework/Library",
+      "projectHighlights": ["DataNest", "Personal Portfolio"],
+      "specificApplications": [
+        "SSR, SSG",
+        "API Routes",
+        "Performance Optimization",
+        "SEO"
+      ]
+    },
+    {
+      "name": "JavaScript (ES6+)",
+      "level": 95,
+      "years": 5,
+      "category": "Language",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": [
+        "Async/Await",
+        "Modules",
+        "DOM Manipulation",
+        "Core Logic"
+      ]
+    },
+    {
+      "name": "HTML5",
+      "level": 95,
+      "years": 5,
+      "category": "Markup Language",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": ["Semantic HTML", "Accessibility Basics", "Forms"]
+    },
+    {
+      "name": "CSS3",
+      "level": 95,
+      "years": 5,
+      "category": "Stylesheet Language",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": [
+        "Flexbox, Grid",
+        "Animations",
+        "Responsive Design",
+        "Custom Properties"
+      ]
+    },
+    {
+      "name": "SCSS/SASS",
+      "level": 95,
+      "years": 5,
+      "category": "CSS Preprocessor",
+      "projectHighlights": ["TIBCO", "Stella", "Zalora", "NBM"],
+      "specificApplications": [
+        "Variables, Mixins, Nesting",
+        "Modular CSS architecture"
+      ]
+    },
+    {
+      "name": "Redux",
+      "level": 75,
+      "years": 3,
+      "category": "State Management",
+      "projectHighlights": ["TIBCO"],
+      "specificApplications": [
+        "Complex state synchronization",
+        "Middleware (Thunk/Saga - inferred)",
+        "Large application state"
+      ]
+    },
+    {
+      "name": "Zustand",
+      "level": 50,
+      "years": 1,
+      "category": "State Management",
+      "projectHighlights": ["DataNest"],
+      "specificApplications": [
+        "Lightweight global state",
+        "Simpler alternative to Redux"
+      ]
+    },
+    {
+      "name": "Material-UI",
+      "level": 75,
+      "years": 2,
+      "category": "UI Library",
+      "projectHighlights": ["TIBCO"],
+      "specificApplications": [
+        "Building enterprise UIs",
+        "Customizing themes",
+        "Component composition"
+      ]
+    },
+    {
+      "name": "Mantine",
+      "level": 50,
+      "years": 1,
+      "category": "UI Library",
+      "projectHighlights": ["DataNest"],
+      "specificApplications": ["Rapid UI development", "Hook-based components"]
+    },
+    {
+      "name": "Syncfusion Library",
+      "level": 50,
+      "years": 1,
+      "category": "UI Library",
+      "projectHighlights": ["TIBCO"],
+      "specificApplications": ["Specialized data visualization components"]
+    },
+    {
+      "name": "Bootstrap",
+      "level": 50,
+      "years": 1,
+      "category": "UI Framework",
+      "projectHighlights": ["NBM"],
+      "specificApplications": ["Responsive layouts", "Grid system"]
+    },
+    {
+      "name": "React Native",
+      "level": 50,
+      "years": 1,
+      "category": "Mobile Development",
+      "projectHighlights": ["Stella (Lead)"],
+      "specificApplications": [
+        "Building cross-platform mobile apps (iOS/Android)",
+        "Native module interaction (basic)"
+      ]
+    },
+    {
+      "name": "Vue.js",
+      "level": 50,
+      "years": 1,
+      "category": "Frontend Framework/Library",
+      "projectHighlights": ["To-U"],
+      "specificApplications": [
+        "Component development",
+        "State management (basic Vuex - inferred)"
+      ]
+    },
+    {
+      "name": "Nuxt.js",
+      "level": 50,
+      "years": 1,
+      "category": "Frontend Framework/Library",
+      "projectHighlights": ["To-U"],
+      "specificApplications": ["SSR", "Routing", "Project structure"]
+    },
+    {
+      "name": "WebSocket",
+      "level": 50,
+      "years": 1,
+      "category": "Realtime Communication",
+      "projectHighlights": ["Stella"],
+      "specificApplications": ["Real-time chat", "Notifications"]
+    },
+    {
+      "name": "Socket.IO",
+      "level": 50,
+      "years": 1,
+      "category": "Realtime Communication",
+      "projectHighlights": ["Stella"],
+      "specificApplications": ["Abstraction over WebSocket", "Event handling"]
+    },
+    {
+      "name": "WebRTC",
+      "level": 50,
+      "years": 1,
+      "category": "Realtime Communication",
+      "projectHighlights": ["Stella"],
+      "specificApplications": [
+        "Peer-to-peer audio/video calls",
+        "Signaling server interaction"
+      ]
+    },
+    {
+      "name": "REST API Integration",
+      "level": 95,
+      "years": 5,
+      "category": "API Integration",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": [
+        "Fetching/Posting data",
+        "Authentication",
+        "Error handling"
+      ]
+    },
+    {
+      "name": "Node.js",
+      "level": "Basic",
+      "years": 1,
+      "category": "Backend Runtime",
+      "projectHighlights": ["Personal Projects - inferred"],
+      "specificApplications": ["Basic API creation", "Scripting"]
+    },
+    {
+      "name": "Storybook",
+      "level": 75,
+      "years": 2,
+      "category": "Testing/Development Tool",
+      "projectHighlights": ["TIBCO", "Zalora"],
+      "specificApplications": [
+        "UI component development",
+        "Visual testing",
+        "Documentation"
+      ]
+    },
+    {
+      "name": "Jest",
+      "level": 50,
+      "years": 1,
+      "category": "Testing",
+      "projectHighlights": ["TIBCO - inferred"],
+      "specificApplications": ["Unit testing components", "Mocking"]
+    },
+    {
+      "name": "ESLint / Prettier",
+      "level": 95,
+      "years": 4,
+      "category": "Code Quality",
+      "projectHighlights": ["Most recent projects"],
+      "specificApplications": [
+        "Code linting",
+        "Automatic formatting",
+        "Enforcing style guides"
+      ]
+    },
+    {
+      "name": "AWS",
+      "level": 50,
+      "years": 2,
+      "category": "Cloud Platform",
+      "projectHighlights": ["Stella (CI/CD)", "To-U (Services)"],
+      "specificApplications": [
+        "S3, Route53",
+        "CodeCommit, CodeBuild, CodePipeline",
+        "Basic service understanding"
+      ]
+    },
+    {
+      "name": "Cloudflare",
+      "level": "Basic",
+      "years": 1,
+      "category": "Cloud Platform",
+      "projectHighlights": ["Personal Projects - inferred"],
+      "specificApplications": ["CDN basics", "DNS management"]
+    },
+    {
+      "name": "Docker",
+      "level": "Basic",
+      "years": 1,
+      "category": "Containerization",
+      "projectHighlights": ["To-U"],
+      "specificApplications": [
+        "Containerizing applications",
+        "Basic Docker commands"
+      ]
+    },
+    {
+      "name": "Git",
+      "level": 95,
+      "years": 5,
+      "category": "Version Control",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": [
+        "Branching (Gitflow)",
+        "Merging",
+        "Rebasing",
+        "Collaboration workflows"
+      ]
+    },
+    {
+      "name": "Figma",
+      "level": 75,
+      "years": 3,
+      "category": "Design Tool",
+      "projectHighlights": ["TIBCO", "DataNest", "Zalora"],
+      "specificApplications": [
+        "Translating designs to code",
+        "Inspecting styles/assets",
+        "Prototyping review"
+      ]
+    },
+    {
+      "name": "Performance Optimization",
+      "level": 75,
+      "years": 3,
+      "category": "Concept",
+      "projectHighlights": ["TIBCO", "Stella", "Zalora"],
+      "specificApplications": [
+        "Code splitting",
+        "Lazy loading",
+        "Memoization",
+        "Bundle analysis",
+        "Rendering optimization"
+      ]
+    },
+    {
+      "name": "Responsive Web Design",
+      "level": 95,
+      "years": 4,
+      "category": "Concept",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": ["Mobile-first", "Fluid layouts", "Media queries"]
+    },
+    {
+      "name": "Cross-Browser Compatibility",
+      "level": 95,
+      "years": 4,
+      "category": "Concept",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": ["Testing", "Polyfills", "Graceful degradation"]
+    },
+    {
+      "name": "Component-Based Architecture",
+      "level": 95,
+      "years": 4,
+      "category": "Concept",
+      "projectHighlights": ["React/Vue Projects"],
+      "specificApplications": [
+        "Reusability",
+        "Maintainability",
+        "Atomic Design"
+      ]
+    },
+    {
+      "name": "Agile Methodologies",
+      "level": 50,
+      "years": 2,
+      "category": "Methodology",
+      "projectHighlights": ["TIBCO", "CMC", "NTQ"],
+      "specificApplications": [
+        "Scrum/Kanban participation",
+        "Sprint cycles",
+        "Daily stand-ups"
+      ]
+    },
+    {
+      "name": "Team Leadership",
+      "level": 50,
+      "years": 2,
+      "category": "Soft Skill",
+      "projectHighlights": ["Stella (Lead)"],
+      "specificApplications": ["Mentoring", "Task delegation", "Coordination"]
+    },
+    {
+      "name": "Problem Solving",
+      "level": 95,
+      "years": 4,
+      "category": "Soft Skill",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": [
+        "Debugging complex issues",
+        "Finding technical solutions",
+        "Overcoming challenges"
+      ]
+    },
+    {
+      "name": "Communication",
+      "level": 95,
+      "years": 4,
+      "category": "Soft Skill",
+      "projectHighlights": ["All Projects"],
+      "specificApplications": [
+        "Collaborating with team members",
+        "Explaining technical concepts",
+        "Requirement clarification"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "name": "Bravery",
+      "description": "Unafraid of failure, I embrace challenges and eagerly explore new frontiers, fostering innovation and growth.",
+      "category": "Mindset/Attitude"
+    },
+    {
+      "name": "Rational Humility",
+      "description": "Rational humility is the foundation of learning. I always believe that I have not arrived, I still need to improve myself, learn new things.",
+      "category": "Mindset/Attitude"
+    },
+    {
+      "name": "Growth Mindset",
+      "description": "I believe that with dedication, effort and a willingness to learn from mistakes, I can improve and achieve my goals.",
+      "category": "Mindset/Attitude"
+    },
+    {
+      "name": "Open-mindedness",
+      "description": "Open-minded and receptive to diverse perspectives, fostering collaboration and innovation.",
+      "category": "Collaboration/Mindset"
+    },
+    {
+      "name": "Responsibility",
+      "description": "I consistently uphold a strong sense of responsibility in all tasks, ensuring deadlines are met and projects are executed with precision and accountability.",
+      "category": "Work Ethic"
+    },
+    {
+      "name": "Problem-solving",
+      "description": "Equipped with strong problem-solving skills, I adeptly analyze challenges and develop effective solutions, driving projects forward even in the face of complexity.",
+      "category": "Technical Skill/Execution"
+    },
+    {
+      "name": "Dedication",
+      "description": "Dedicated to achieving excellence, I approach every task with unwavering commitment, investing time and effort to deliver results that exceed expectations.",
+      "category": "Work Ethic"
+    },
+    {
+      "name": "Innovative Thinking",
+      "description": "Through innovative thinking, I continuously explore new ideas and approaches, driving forward-thinking solutions and fostering a culture of creativity within teams.",
+      "category": "Creativity/Mindset"
+    },
+    {
+      "name": "Self-awareness",
+      "description": "Maintaining a high level of self-awareness, I actively seek feedback and reflect on my actions, allowing me to adapt and grow professionally.",
+      "category": "Personal Development"
+    },
+    {
+      "name": "Collaboration",
+      "description": "As a collaborative team member, I thrive in environments where collective efforts lead to shared success, leveraging diverse perspectives to achieve common goals.",
+      "category": "Collaboration/Teamwork"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Listening to Podcasts",
+      "details": "Tech, Software Development, Startups"
+    },
+    {
+      "name": "Learning Technologies",
+      "details": "Continuously exploring new frameworks, libraries, and paradigms in web development."
+    },
+    { "name": "Reading Books", "details": "Technical books, Science Fiction" },
+    { "name": "Listening to Music", "details": "Various genres" }
+  ],
+  "contributionsAndActivities": [
+    {
+      "type": "Open Source Contribution",
+      "name": "Hacktoberfest 2022 Participation",
+      "organization": "DigitalOcean, GitHub, Open Source Community",
+      "date": "2022-10",
+      "role": "Contributor",
+      "description": "Participated in Hacktoberfest 2022, contributing bug fixes and minor components to various open-source repositories related to React and web development.",
+      "link": null
+    }
+  ],
+  "references": {
+    "status": "Available upon request",
+    "contacts": []
+  }
+}

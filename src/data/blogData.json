@@ -1,0 +1,245 @@
+{
+  "siteInfo": {
+    "name": "Wehttam Blog",
+    "description": "Blog cá nhân chia sẻ kiến thức, trải nghiệm và suy nghĩ về công nghệ, lập trình và cuộc sống.",
+    "logo": "/images/logo.png",
+    "author": {
+      "name": "Matthew Ngo",
+      "fullName": "Ngô Như Thành Trung",
+      "title": "Senior Frontend Engineer",
+      "bio": "Dedicated and skilled frontend developer with over 5 years of experience, expert in React.js and TypeScript, and advanced experience in Next.js leveraging SSR, SSG.",
+      "avatar": "/images/profile/profile-photo.jpg",
+      "email": "matthewngo1114@gmail.com",
+      "phone": "096 121 9097",
+      "location": {
+        "city": "Hanoi",
+        "country": "Vietnam"
+      },
+      "social": [
+        {
+          "platform": "GitHub",
+          "url": "https://github.com/maemreyo",
+          "username": "maemreyo",
+          "icon": "🐙"
+        },
+        {
+          "platform": "LinkedIn",
+          "url": "https://linkedin.com/in/maemreyo",
+          "username": "maemreyo",
+          "icon": "🔗"
+        },
+        {
+          "platform": "Twitter",
+          "url": "https://twitter.com",
+          "username": "maemreyo",
+          "icon": "𝕏"
+        },
+        {
+          "platform": "Personal Website",
+          "url": "https://maemreyo.vercel.app",
+          "icon": "🌐"
+        }
+      ]
+    }
+  },
+  "navigation": {
+    "header": [
+      { "name": "Trang chủ", "path": "/" },
+      { "name": "Blog", "path": "/blog" },
+      { "name": "Giới thiệu", "path": "/about" },
+      { "name": "Liên hệ", "path": "/contact" }
+    ],
+    "footer": [
+      { "name": "Trang chủ", "path": "/" },
+      { "name": "Blog", "path": "/blog" },
+      { "name": "Giới thiệu", "path": "/about" },
+      { "name": "Liên hệ", "path": "/contact" },
+      { "name": "Chính sách bảo mật", "path": "/privacy" },
+      { "name": "Điều khoản sử dụng", "path": "/terms" }
+    ]
+  },
+  "homepage": {
+    "hero": {
+      "title": "Wehttam Blog",
+      "subtitle": "Chia sẻ kiến thức, trải nghiệm và suy nghĩ về công nghệ, lập trình và cuộc sống.",
+      "image": "/images/hero.jpg",
+      "buttons": [
+        {
+          "text": "Xem tất cả bài viết",
+          "url": "/blog",
+          "variant": "primary"
+        },
+        {
+          "text": "Giới thiệu",
+          "url": "/about",
+          "variant": "secondary"
+        }
+      ]
+    },
+    "features": [
+      {
+        "title": "Next.js App Router",
+        "description": "Tận dụng sức mạnh của React Server Components để tối ưu hiệu năng và SEO.",
+        "icon": "🚀"
+      },
+      {
+        "title": "Tailwind CSS",
+        "description": "Giao diện độc đáo với phong cách Neobrutalism, dễ dàng tùy chỉnh.",
+        "icon": "🎨"
+      },
+      {
+        "title": "Decap CMS",
+        "description": "Quản lý nội dung dễ dàng thông qua giao diện thân thiện, không cần kiến thức kỹ thuật.",
+        "icon": "📝"
+      }
+    ],
+    "newsletter": {
+      "title": "Đăng ký nhận bản tin",
+      "description": "Nhận thông báo khi có bài viết mới và các cập nhật thú vị.",
+      "buttonText": "Đăng ký"
+    }
+  },
+  "about": {
+    "title": "Giới thiệu",
+    "authorSection": {
+      "title": "Về tác giả",
+      "content": [
+        "Xin chào! Tôi là Matthew Ngo, người sáng lập Wehttam Blog. Tôi là một Web Developer với niềm đam mê về công nghệ web hiện đại, trải nghiệm người dùng và thiết kế sáng tạo.",
+        "Với hơn 5 năm kinh nghiệm trong lĩnh vực phát triển web, tôi đã làm việc với nhiều công nghệ khác nhau từ frontend đến backend, đặc biệt là các framework JavaScript/TypeScript hiện đại.",
+        "Thông qua blog này, tôi muốn chia sẻ kiến thức, kinh nghiệm và những suy nghĩ của mình về công nghệ, lập trình và cuộc sống. Mục tiêu của tôi là tạo ra một cộng đồng nơi mọi người có thể học hỏi và phát triển cùng nhau."
+      ],
+      "image": "/images/profile/profile-photo.jpg"
+    },
+    "blogSection": {
+      "title": "Về Wehttam Blog",
+      "content": [
+        "Wehttam Blog được tạo ra với mục tiêu cung cấp một nền tảng hiệu năng cao, thẩm mỹ độc đáo và dễ quản lý để chia sẻ nội dung, suy nghĩ và kiến thức về công nghệ web, lập trình và phát triển cá nhân.",
+        "Blog này được xây dựng bằng các công nghệ hiện đại như Next.js App Router, Tailwind CSS, Framer Motion và Decap CMS, mang lại trải nghiệm tốt nhất cho cả người đọc và người quản trị.",
+        "Tên \"Wehttam\" là \"Matthew\" viết ngược, thể hiện cách nhìn khác biệt và sáng tạo mà blog này hướng đến. Chúng tôi tin rằng đôi khi, việc nhìn vấn đề từ một góc độ khác có thể mang lại những giải pháp và ý tưởng đột phá."
+      ],
+      "topics": [
+        {
+          "title": "Phát triển Web hiện đại",
+          "description": "React, Next.js, TypeScript và các công nghệ frontend mới nhất"
+        },
+        {
+          "title": "Thiết kế UI/UX",
+          "description": "Nguyên tắc thiết kế, xu hướng và các kỹ thuật tạo trải nghiệm người dùng tuyệt vời"
+        },
+        {
+          "title": "Hiệu suất và Tối ưu hóa",
+          "description": "Cách tạo ra các ứng dụng web nhanh, hiệu quả và thân thiện với SEO"
+        },
+        {
+          "title": "Phát triển cá nhân",
+          "description": "Chia sẻ kinh nghiệm học tập, làm việc và phát triển sự nghiệp trong ngành công nghệ"
+        }
+      ]
+    },
+    "techSection": {
+      "title": "Công nghệ sử dụng",
+      "technologies": [
+        {
+          "name": "Next.js (App Router)",
+          "description": "Framework React fullstack, cung cấp nền tảng vững chắc cho ứng dụng.",
+          "details": "App Router mang lại lợi ích từ React Server Components (RSC) giúp tối ưu hiệu năng bằng cách render phần lớn giao diện trên server, giảm lượng JavaScript phía client, cải thiện tốc độ tải trang ban đầu và SEO."
+        },
+        {
+          "name": "Tailwind CSS",
+          "description": "Framework CSS utility-first, cho phép xây dựng giao diện tùy chỉnh cao một cách nhanh chóng.",
+          "details": "Phong cách Neobrutalism được áp dụng trong thiết kế blog này, với các đặc trưng như màu sắc tương phản cao, đổ bóng cứng, rõ nét, và đường viền sắc nét."
+        },
+        {
+          "name": "Decap CMS",
+          "description": "Hệ thống quản lý nội dung mã nguồn mở, hoạt động dựa trên Git.",
+          "details": "Cung cấp giao diện người dùng web thân thiện cho phép quản lý bài viết (lưu dưới dạng file Markdown trong kho Git) mà không cần tương tác trực tiếp với Git."
+        },
+        {
+          "name": "Framer Motion",
+          "description": "Thư viện animation mạnh mẽ và dễ sử dụng cho React.",
+          "details": "Được sử dụng để tạo ra các hiệu ứng chuyển trang mượt mà và các tương tác động trên giao diện người dùng, nâng cao đáng kể trải nghiệm người dùng."
+        },
+        {
+          "name": "Vercel",
+          "description": "Nền tảng đám mây được tối ưu hóa cho việc triển khai các ứng dụng frontend hiện đại.",
+          "details": "Cung cấp quy trình CI/CD tích hợp liền mạch với Git, CDN toàn cầu, HTTPS tự động, và môi trường Serverless Functions tối ưu cho các tính năng của Next.js."
+        }
+      ],
+      "quote": "Công nghệ tốt nhất là công nghệ vô hình - nó hoạt động mà không cần người dùng phải suy nghĩ về nó."
+    }
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "info": {
+      "email": "matthewngo1114@gmail.com",
+      "address": "Hanoi, Vietnam",
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4241674197956!2d106.69173681532069!3d10.780260992319734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f3a9d8d1bb3%3A0xd7ab182b35e0735e!2sIndependence%20Palace!5e0!3m2!1sen!2s!4v1650000000000!5m2!1sen!2s"
+    },
+    "form": {
+      "fields": [
+        {
+          "name": "name",
+          "label": "Họ tên",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true
+        },
+        {
+          "name": "subject",
+          "label": "Chủ đề",
+          "type": "select",
+          "options": [
+            { "value": "", "label": "-- Chọn chủ đề --" },
+            { "value": "general", "label": "Câu hỏi chung" },
+            { "value": "support", "label": "Hỗ trợ kỹ thuật" },
+            { "value": "business", "label": "Hợp tác kinh doanh" },
+            { "value": "other", "label": "Khác" }
+          ],
+          "required": true
+        },
+        {
+          "name": "message",
+          "label": "Tin nhắn",
+          "type": "textarea",
+          "rows": 5,
+          "required": true
+        }
+      ],
+      "submitButton": "Gửi tin nhắn",
+      "successMessage": "Tin nhắn của bạn đã được gửi thành công. Chúng tôi sẽ phản hồi sớm nhất có thể.",
+      "errorMessage": "Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau."
+    }
+  },
+  "footer": {
+    "copyright": "© {year} Wehttam Blog. All rights reserved.",
+    "tagline": "Được xây dựng với ❤️ bằng Next.js, Tailwind CSS, Framer Motion & Decap CMS"
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Không tìm thấy trang",
+    "description": "Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.",
+    "suggestions": [
+      "Kiểm tra lại URL",
+      "Quay lại trang trước đó",
+      "Truy cập trang chủ",
+      "Tìm kiếm nội dung bạn cần"
+    ],
+    "buttons": [
+      {
+        "text": "Quay lại trang chủ",
+        "url": "/",
+        "variant": "primary"
+      },
+      {
+        "text": "Xem blog",
+        "url": "/blog",
+        "variant": "secondary"
+      }
+    ]
+  }
+}
