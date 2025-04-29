@@ -3,7 +3,12 @@
     "title": "Wehttam Blog",
     "subtitle": "Chia sẻ kiến thức, trải nghiệm và suy nghĩ về công nghệ, lập trình và cuộc sống.",
     "viewBlog": "Xem Blog",
-    "aboutMe": "Về Tôi"
+    "aboutMe": "Về Tôi",
+    "featuredPosts": "Bài Viết Nổi Bật",
+    "discoverArticles": "Khám phá những bài viết phổ biến và thịnh hành của chúng tôi",
+    "readArticle": "Đọc Bài Viết",
+    "trending": "Thịnh hành",
+    "moreToExplore": "Khám phá thêm"
   },
   "Navigation": {
     "home": "Trang chủ",
@@ -35,14 +40,34 @@
   "About": {
     "title": "Giới thiệu",
     "authorTitle": "Về tác giả",
+    "authorIntro": "Xin chào! Tôi là Matthew, một nhà phát triển và người viết đầy đam mê. Tôi tạo ra blog này để chia sẻ kiến thức và kinh nghiệm của mình trong lĩnh vực công nghệ, lập trình và phát triển cá nhân.",
+    "authorExperience": "Với hơn 5 năm kinh nghiệm trong phát triển web, tôi chuyên tạo ra các ứng dụng web hiện đại, dễ tiếp cận và hiệu suất cao bằng cách sử dụng các công nghệ mới nhất.",
+    "github": "GitHub",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn",
     "blogTitle": "Về Wehttam Blog",
+    "blogDescription1": "Wehttam Blog là nền tảng nơi tôi chia sẻ suy nghĩ, hướng dẫn và hiểu biết sâu sắc về phát triển web, các phương pháp lập trình tốt nhất và xu hướng công nghệ. Blog được thiết kế để trở thành nguồn tài nguyên cho các nhà phát triển ở mọi cấp độ kỹ năng, từ người mới bắt đầu đến chuyên gia.",
+    "blogDescription2": "Mục tiêu của tôi là tạo ra nội dung không chỉ mang tính thông tin mà còn hấp dẫn và dễ tiếp cận. Tôi tin vào sức mạnh của việc chia sẻ kiến thức và xây dựng cộng đồng trong ngành công nghệ.",
+    "blogDescription3": "Cho dù bạn đang tìm hiểu một công nghệ mới, cải thiện kỹ năng lập trình của mình, hay cập nhật các xu hướng mới nhất, tôi hy vọng bạn sẽ tìm thấy điều gì đó có giá trị ở đây.",
     "techTitle": "Công nghệ sử dụng",
     "techStack": "Công nghệ",
-    "contactMe": "Liên hệ với tôi"
+    "nextjsDescription": "Framework React cho sản phẩm",
+    "typescriptDescription": "JavaScript có kiểu dữ liệu",
+    "tailwindDescription": "Framework CSS theo phương pháp utility-first",
+    "framerDescription": "Thư viện animation cho React",
+    "nextIntlDescription": "Quốc tế hóa cho Next.js",
+    "mdxDescription": "Markdown cho thời đại component",
+    "vercelDescription": "Nền tảng cho các framework frontend",
+    "contactMe": "Liên hệ với tôi",
+    "contactDescription": "Bạn có câu hỏi, đề xuất, hoặc chỉ muốn nói xin chào? Tôi rất muốn nghe từ bạn! Hãy liên hệ thông qua biểu mẫu liên hệ hoặc kết nối với tôi trên mạng xã hội."
   },
   "Contact": {
     "title": "Liên hệ",
     "subtitle": "Kết nối với tôi",
+    "getInTouch": "Liên hệ ngay",
+    "formDescription": "Bạn có câu hỏi hoặc muốn hợp tác? Hãy điền vào biểu mẫu và tôi sẽ phản hồi sớm nhất có thể.",
+    "contactEmail": "contact@wehttam.com",
+    "authorName": "Matthew Ngo",
     "name": "Họ tên",
     "email": "Email",
     "subject": "Chủ đề",
@@ -77,6 +102,7 @@
     "lightMode": "Chế độ sáng"
   },
   "Footer": {
+    "title": "Wehttam Blog",
     "copyright": "© {year} Wehttam Blog. Đã đăng ký bản quyền.",
     "poweredBy": "Được phát triển bằng Next.js, Tailwind CSS, Framer Motion & Decap CMS",
     "followMe": "Theo dõi tôi trên",
@@ -94,6 +120,11 @@
     "exclusiveContent": "Nhận nội dung độc quyền và truy cập sớm",
     "footerDescription": "Blog về công nghệ, lập trình và trải nghiệm cá nhân. Chia sẻ kiến thức và góc nhìn với cộng đồng.",
     "quickLinks": "Liên kết nhanh",
-    "madeWith": "Được tạo với"
+    "madeWith": "Được tạo với",
+    "terms": "Điều khoản",
+    "privacy": "Quyền riêng tư",
+    "cookies": "Cookie",
+    "faq": "Câu hỏi thường gặp",
+    "help": "Trợ giúp"
   }
 }

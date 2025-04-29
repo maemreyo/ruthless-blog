@@ -86,11 +86,12 @@ export default function Footer() {
     { href: 'https://linkedin.com/in/wehttam', icon: <LinkedinLogo weight="fill" className="w-5 h-5" />, label: 'LinkedIn', color: 'hover:text-[#0077B5]' },
   ];
   
+  const navT = useTranslations('Navigation');
   const navItems = [
-    { href: '/', icon: <House weight="fill" className="w-5 h-5" />, label: 'Home' },
-    { href: '/blog', icon: <Article weight="fill" className="w-5 h-5" />, label: 'Blog' },
-    { href: '/about', icon: <User weight="fill" className="w-5 h-5" />, label: 'About' },
-    { href: '/contact', icon: <EnvelopeSimple weight="fill" className="w-5 h-5" />, label: 'Contact' },
+    { href: '/', icon: <House weight="fill" className="w-5 h-5" />, label: navT('home') },
+    { href: '/blog', icon: <Article weight="fill" className="w-5 h-5" />, label: navT('blog') },
+    { href: '/about', icon: <User weight="fill" className="w-5 h-5" />, label: navT('about') },
+    { href: '/contact', icon: <EnvelopeSimple weight="fill" className="w-5 h-5" />, label: navT('contact') },
   ];
   
   // Animation variants
@@ -339,7 +340,7 @@ export default function Footer() {
                   href="/" 
                   className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary transition-all duration-500"
                 >
-                  Wehttam Blog
+                  {t('title', { year: currentYear })}
                 </Link>
               </motion.div>
               
@@ -425,13 +426,19 @@ export default function Footer() {
                 variants={containerVariants}
                 className="flex flex-col gap-3"
               >
-                {['Terms', 'Privacy', 'Cookies', 'FAQ', 'Help'].map((item) => (
-                  <motion.div key={item} variants={itemVariants}>
+                {[
+                  { key: 'terms', label: t('terms') },
+                  { key: 'privacy', label: t('privacy') },
+                  { key: 'cookies', label: t('cookies') },
+                  { key: 'faq', label: t('faq') },
+                  { key: 'help', label: t('help') }
+                ].map((item) => (
+                  <motion.div key={item.key} variants={itemVariants}>
                     <Link 
                       href="#" 
                       className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors"
                     >
-                      {item}
+                      {item.label}
                     </Link>
                   </motion.div>
                 ))}

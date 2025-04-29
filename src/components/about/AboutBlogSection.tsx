@@ -1,12 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface AboutBlogSectionProps {
   blogTitle: string;
 }
 
 export default function AboutBlogSection({ blogTitle }: AboutBlogSectionProps) {
+  const t = useTranslations('About');
+  
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -48,13 +51,13 @@ export default function AboutBlogSection({ blogTitle }: AboutBlogSectionProps) {
         variants={fadeInUp}
       >
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Wehttam Blog is a platform where I share my thoughts, tutorials, and insights on web development, programming best practices, and technology trends. The blog is designed to be a resource for developers of all skill levels, from beginners to experts.
+          {t('blogDescription1')}
         </p>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          My goal is to create content that is not only informative but also engaging and accessible. I believe in the power of knowledge sharing and community building in the tech industry.
+          {t('blogDescription2')}
         </p>
         <p className="text-gray-700 dark:text-gray-300">
-          Whether you're looking to learn a new technology, improve your coding skills, or stay updated with the latest trends, I hope you'll find something valuable here.
+          {t('blogDescription3')}
         </p>
       </motion.div>
     </motion.section>

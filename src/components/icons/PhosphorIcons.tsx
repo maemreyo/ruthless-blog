@@ -35,7 +35,13 @@ import {
   Funnel,
   Copy,
   ArrowUpRight,
-  Share
+  Share,
+  ArrowUp,
+  Planet,
+  Rocket,
+  Star,
+  Sparkle,
+  Lightning
 } from "@phosphor-icons/react";
 
 // Export all icons as named exports
@@ -74,5 +80,11 @@ export {
   Funnel,
   Copy,
   ArrowUpRight,
-  Share
+  Share,
+  ArrowUp,
+  Planet,
+  Rocket,
+  Star,
+  Sparkle,
+  Lightning
 };

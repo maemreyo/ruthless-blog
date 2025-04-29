@@ -16,13 +16,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   
   // Định nghĩa các công nghệ được sử dụng
   const technologies = [
-    { name: 'Next.js', description: 'React framework for production' },
-    { name: 'TypeScript', description: 'Typed JavaScript at scale' },
-    { name: 'Tailwind CSS', description: 'Utility-first CSS framework' },
-    { name: 'Framer Motion', description: 'Animation library for React' },
-    { name: 'next-intl', description: 'Internationalization for Next.js' },
-    { name: 'MDX', description: 'Markdown for the component era' },
-    { name: 'Vercel', description: 'Platform for frontend frameworks' }
+    { name: 'Next.js', description: t('nextjsDescription') },
+    { name: 'TypeScript', description: t('typescriptDescription') },
+    { name: 'Tailwind CSS', description: t('tailwindDescription') },
+    { name: 'Framer Motion', description: t('framerDescription') },
+    { name: 'next-intl', description: t('nextIntlDescription') },
+    { name: 'MDX', description: t('mdxDescription') },
+    { name: 'Vercel', description: t('vercelDescription') }
   ];
   
   return (
@@ -53,3 +53,4 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 export function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'vi' }];
 }
+

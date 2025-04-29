@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, JSX } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { X, List, House, Article, User, EnvelopeSimple } from '@/components/icons/PhosphorIcons';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher';
 import ThemeSwitcher from '@/components/layout/ThemeSwitcher';
@@ -27,6 +28,7 @@ export default function EnhancedNavigation({
   aboutText,
   contactText
 }: EnhancedNavigationProps) {
+  const t = useTranslations('Footer');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
@@ -145,7 +147,7 @@ export default function EnhancedNavigation({
                     transition={{ duration: 0.5, delay: 0.1 }}
                   >
                     <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-size-200 animate-gradient">
-                      Wehttam Blog
+                      {t('title')}
                     </span>
                   </motion.div>
                 </div>
@@ -311,7 +313,7 @@ export default function EnhancedNavigation({
                     transition={{ delay: 0.2, duration: 0.5 }}
                   >
                     <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                      Wehttam Blog
+                      {t('title')}
                     </span>
                   </motion.div>
                   
@@ -395,7 +397,7 @@ export default function EnhancedNavigation({
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7 }}
                   >
-                    &copy; 2024 Wehttam Blog
+                    {t('copyright', { year: new Date().getFullYear() })}
                   </motion.div>
                 </motion.div>
               </div>

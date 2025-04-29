@@ -3,8 +3,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useAnimation, useInView, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { ArrowRight, ArrowLeft, Calendar, User, Star, Clock, Fire, Tag } from '@/components/icons/PhosphorIcons';
+import { ArrowRight, ArrowLeft, Calendar, User, Clock, Fire, Tag } from '@/components/icons/PhosphorIcons';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
 interface Post {
@@ -29,6 +30,7 @@ export default function EnhancedFeaturedPosts({
   viewAllText, 
   posts 
 }: EnhancedFeaturedPostsProps) {
+  const t = useTranslations('Index');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -214,7 +216,7 @@ export default function EnhancedFeaturedPosts({
             className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4"
             variants={titleVariants}
           >
-            Discover our most popular and trending articles
+            {t('discoverArticles')}
           </motion.p>
         </motion.div>
         
@@ -328,7 +330,7 @@ export default function EnhancedFeaturedPosts({
                               </div>
                               <div className="flex items-center gap-2">
                                 <Fire weight="fill" className="w-4 h-4 text-amber-500" />
-                                <span>Trending</span>
+                                <span>{t('trending')}</span>
                               </div>
                             </motion.div>
                             
@@ -353,7 +355,7 @@ export default function EnhancedFeaturedPosts({
                                 href={`/blog/${posts[currentIndex].slug}`}
                                 className="relative inline-flex items-center gap-2 px-8 py-3 bg-white text-primary font-medium rounded-full shadow-xl hover:shadow-white/30 transition-all duration-300 group overflow-hidden"
                               >
-                                <span className="relative z-10">Read Article</span>
+                                <span className="relative z-10">{t('readArticle')}</span>
                                 <motion.span
                                   initial={{ x: 0 }}
                                   whileHover={{ x: 5 }}
@@ -499,7 +501,7 @@ export default function EnhancedFeaturedPosts({
               >
                 <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center">
                   <Fire weight="fill" className="w-5 h-5 text-primary mr-2" />
-                  <span>More to explore</span>
+                  <span>{t('moreToExplore')}</span>
                 </h4>
                 
                 <div className="space-y-4 divide-y divide-gray-100 dark:divide-gray-700">
@@ -546,7 +548,7 @@ export default function EnhancedFeaturedPosts({
                     href="/blog"
                     className="inline-flex items-center justify-center gap-1 text-sm font-medium text-primary hover:underline"
                   >
-                    <span>View all articles</span>
+                    <span>{viewAllText}</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

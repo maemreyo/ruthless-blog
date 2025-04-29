@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { GithubLogo, TwitterLogo, LinkedinLogo } from '@/components/icons/PhosphorIcons';
 
@@ -10,6 +11,8 @@ interface AboutHeroProps {
 }
 
 export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
+  const t = useTranslations('About');
+  
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -67,10 +70,10 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
               {authorTitle}
             </h2>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Hello! I'm Matthew, a passionate developer and writer. I created this blog to share my knowledge and experiences in the world of technology, programming, and personal growth.
+              {t('authorIntro')}
             </p>
             <p className="text-gray-700 dark:text-gray-300 mb-6">
-              With over 5 years of experience in web development, I specialize in creating modern, accessible, and performant web applications using the latest technologies.
+              {t('authorExperience')}
             </p>
             
             <div className="flex flex-wrap gap-4">
@@ -81,7 +84,7 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
               >
                 <GithubLogo weight="fill" className="w-5 h-5" />
-                <span>GitHub</span>
+                <span>{t('github')}</span>
               </a>
               <a 
                 href="https://twitter.com/wehttam" 
@@ -90,7 +93,7 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
               >
                 <TwitterLogo weight="fill" className="w-5 h-5" />
-                <span>Twitter</span>
+                <span>{t('twitter')}</span>
               </a>
               <a 
                 href="https://linkedin.com/in/wehttam" 
@@ -99,7 +102,7 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
               >
                 <LinkedinLogo weight="fill" className="w-5 h-5" />
-                <span>LinkedIn</span>
+                <span>{t('linkedin')}</span>
               </a>
             </div>
           </div>

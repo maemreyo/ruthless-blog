@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useAnimation, useInView, AnimatePresence } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { ArrowRight, Calendar, User, Clock, Tag, MagnifyingGlass, Funnel, X } from '@/components/icons/PhosphorIcons';
 import ScrollReveal from '@/components/ui/ScrollReveal';
@@ -32,6 +33,8 @@ export default function EnhancedBlogGrid({
   posts,
   categories = ['All', 'Technology', 'Design', 'Development', 'Business']
 }: EnhancedBlogGridProps) {
+  const t = useTranslations('Blog');
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -142,7 +145,7 @@ export default function EnhancedBlogGrid({
             className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-4"
             variants={itemVariants}
           >
-            Explore our collection of articles, tutorials, and insights
+            {t('exploreCollection')}
           </motion.p>
         </motion.div>
         
@@ -166,7 +169,7 @@ export default function EnhancedBlogGrid({
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search articles..."
+                    placeholder={t('searchPlaceholder')}
                     className="w-full py-3 px-5 pl-12 bg-gray-100 dark:bg-gray-700 border-none rounded-full focus:outline-none focus:ring-2 focus:ring-primary/30 text-gray-700 dark:text-gray-300"
                   />
                   <MagnifyingGlass className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400" />
@@ -193,7 +196,7 @@ export default function EnhancedBlogGrid({
                   className="w-full flex items-center justify-center gap-2 py-3 px-5 bg-gray-100 dark:bg-gray-700 rounded-full"
                 >
                   <Funnel className="w-5 h-5" />
-                  <span>Filter by category</span>
+                  <span>{t('filterByCategory')}</span>
                   {selectedCategory !== 'All' && (
                     <span className="ml-2 px-2 py-0.5 bg-primary/10 text-primary rounded-full text-sm">
                       {selectedCategory}
@@ -268,7 +271,7 @@ export default function EnhancedBlogGrid({
             className="text-gray-600 dark:text-gray-400"
             variants={itemVariants}
           >
-            Showing <span className="font-medium text-gray-800 dark:text-white">{filteredPosts.length}</span> articles
+            {t('showing')} <span className="font-medium text-gray-800 dark:text-white">{filteredPosts.length}</span> {t('articles')}
           </motion.p>
           
           {(searchTerm || selectedCategory !== 'All') && (
@@ -283,7 +286,7 @@ export default function EnhancedBlogGrid({
               whileTap={{ scale: 0.95 }}
             >
               <X className="w-4 h-4" />
-              <span>Clear filters</span>
+              <span>{t('clearFilters')}</span>
             </motion.button>
           )}
         </motion.div>
@@ -337,7 +340,7 @@ export default function EnhancedBlogGrid({
                         href={`/blog/${post.slug}`}
                         className="px-6 py-3 bg-primary text-white font-medium rounded-full transform transition-transform duration-300 hover:scale-105 shadow-md"
                       >
-                        Read Article
+                        {t('readArticle')}
                       </Link>
                     </motion.div>
                   </div>

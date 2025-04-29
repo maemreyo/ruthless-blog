@@ -3,7 +3,12 @@
     "title": "Wehttam Blog",
     "subtitle": "Sharing knowledge, experiences, and thoughts on technology, programming, and life.",
     "viewBlog": "View Blog",
-    "aboutMe": "About Me"
+    "aboutMe": "About Me",
+    "featuredPosts": "Featured Posts",
+    "discoverArticles": "Discover our most popular and trending articles",
+    "readArticle": "Read Article",
+    "trending": "Trending",
+    "moreToExplore": "More to explore"
   },
   "Navigation": {
     "home": "Home",
@@ -17,14 +22,22 @@
   "Blog": {
     "title": "Blog",
     "subtitle": "All Posts",
+    "allPosts": "All Posts",
     "readMore": "Read more",
+    "readArticle": "Read Article",
     "publishedOn": "Published on",
     "by": "by",
     "backToList": "Back to all posts",
     "categories": "Categories",
     "tags": "Tags",
     "relatedPosts": "Related Posts",
-    "noPostsFound": "No posts found."
+    "noPostsFound": "No posts found.",
+    "exploreCollection": "Explore our collection of articles, tutorials, and insights",
+    "searchPlaceholder": "Search articles...",
+    "filterByCategory": "Filter by category",
+    "showing": "Showing",
+    "articles": "articles",
+    "clearFilters": "Clear filters"
   },
   "BlogPost": {
     "tableOfContents": "Table of Contents",
@@ -35,14 +48,34 @@
   "About": {
     "title": "About",
     "authorTitle": "About the Author",
+    "authorIntro": "Hello! I'm Matthew, a passionate developer and writer. I created this blog to share my knowledge and experiences in the world of technology, programming, and personal growth.",
+    "authorExperience": "With over 5 years of experience in web development, I specialize in creating modern, accessible, and performant web applications using the latest technologies.",
+    "github": "GitHub",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn",
     "blogTitle": "About Wehttam Blog",
+    "blogDescription1": "Wehttam Blog is a platform where I share my thoughts, tutorials, and insights on web development, programming best practices, and technology trends. The blog is designed to be a resource for developers of all skill levels, from beginners to experts.",
+    "blogDescription2": "My goal is to create content that is not only informative but also engaging and accessible. I believe in the power of knowledge sharing and community building in the tech industry.",
+    "blogDescription3": "Whether you're looking to learn a new technology, improve your coding skills, or stay updated with the latest trends, I hope you'll find something valuable here.",
     "techTitle": "Technologies Used",
     "techStack": "Tech Stack",
-    "contactMe": "Contact Me"
+    "nextjsDescription": "React framework for production",
+    "typescriptDescription": "Typed JavaScript at scale",
+    "tailwindDescription": "Utility-first CSS framework",
+    "framerDescription": "Animation library for React",
+    "nextIntlDescription": "Internationalization for Next.js",
+    "mdxDescription": "Markdown for the component era",
+    "vercelDescription": "Platform for frontend frameworks",
+    "contactMe": "Contact Me",
+    "contactDescription": "Have a question, suggestion, or just want to say hello? I'd love to hear from you! Feel free to reach out through the contact form or connect with me on social media."
   },
   "Contact": {
     "title": "Contact",
     "subtitle": "Get in touch",
+    "getInTouch": "Get in Touch",
+    "formDescription": "Have a question or want to work together? Fill out the form and I'll get back to you as soon as possible.",
+    "contactEmail": "contact@wehttam.com",
+    "authorName": "Matthew Ngo",
     "name": "Name",
     "email": "Email",
     "subject": "Subject",
@@ -77,6 +110,7 @@
     "lightMode": "Light mode"
   },
   "Footer": {
+    "title": "Wehttam Blog",
     "copyright": "© {year} Wehttam Blog. All rights reserved.",
     "poweredBy": "Powered by Next.js, Tailwind CSS, Framer Motion & Decap CMS",
     "followMe": "Follow me on",
@@ -94,6 +128,11 @@
     "exclusiveContent": "Get exclusive content and early access",
     "footerDescription": "A blog about technology, programming, and personal experiences. Sharing knowledge and insights with the community.",
     "quickLinks": "Quick Links",
-    "madeWith": "Made with"
+    "madeWith": "Made with",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "cookies": "Cookies",
+    "faq": "FAQ",
+    "help": "Help"
   }
 }

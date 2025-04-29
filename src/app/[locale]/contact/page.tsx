@@ -109,20 +109,20 @@ export default function ContactPage() {
           <motion.div variants={fadeInUp}>
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-elegant p-8">
               <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-                Get in Touch
+                {t('getInTouch')}
               </h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Have a question or want to work together? Fill out the form and I'll get back to you as soon as possible.
+                {t('formDescription')}
               </p>
               
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                   <EnvelopeSimple weight="fill" className="w-5 h-5 text-primary" />
-                  <span>contact@wehttam.com</span>
+                  <span>{t('contactEmail')}</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                   <User weight="fill" className="w-5 h-5 text-primary" />
-                  <span>Matthew Ngo</span>
+                  <span>{t('authorName')}</span>
                 </div>
               </div>
             </div>

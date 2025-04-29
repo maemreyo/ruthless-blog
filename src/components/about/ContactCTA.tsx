@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { EnvelopeSimple } from '@/components/icons/PhosphorIcons';
 
@@ -10,6 +11,7 @@ interface ContactCTAProps {
 }
 
 export default function ContactCTA({ contactMeTitle, learnMoreText }: ContactCTAProps) {
+  const t = useTranslations('About');
   return (
     <motion.section 
       className="text-center"
@@ -20,7 +22,7 @@ export default function ContactCTA({ contactMeTitle, learnMoreText }: ContactCTA
     >
       <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">{contactMeTitle}</h2>
       <p className="text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-        Have a question, suggestion, or just want to say hello? I'd love to hear from you! Feel free to reach out through the contact form or connect with me on social media.
+        {t('contactDescription')}
       </p>
       <Link 
         href="/contact" 

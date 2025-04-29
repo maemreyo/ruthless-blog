@@ -72,7 +72,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       />
       
       <EnhancedFeaturedPosts 
-        title="Featured Posts"
+        title={t('featuredPosts')}
         viewAllText={commonT('viewAll')}
         posts={formattedPosts}
       />
