@@ -12,14 +12,24 @@
         "order": 2
       },
       {
+        "label": "Categories",
+        "url": "/categories",
+        "order": 3
+      },
+      {
+        "label": "Series",
+        "url": "/series",
+        "order": 4
+      },
+      {
         "label": "About",
         "url": "/about",
-        "order": 3
+        "order": 5
       },
       {
         "label": "Contact",
         "url": "/contact",
-        "order": 4
+        "order": 6
       }
     ],
     "footer": [
@@ -34,24 +44,34 @@
         "order": 2
       },
       {
+        "label": "Categories",
+        "url": "/categories",
+        "order": 3
+      },
+      {
+        "label": "Series",
+        "url": "/series",
+        "order": 4
+      },
+      {
         "label": "About",
         "url": "/about",
-        "order": 3
+        "order": 5
       },
       {
         "label": "Contact",
         "url": "/contact",
-        "order": 4
+        "order": 6
       },
       {
         "label": "Privacy Policy",
         "url": "/privacy",
-        "order": 5
+        "order": 7
       },
       {
         "label": "Terms of Service",
         "url": "/terms",
-        "order": 6
+        "order": 8
       }
     ]
   },
@@ -68,14 +88,24 @@
         "order": 2
       },
       {
+        "label": "Danh mục",
+        "url": "/categories",
+        "order": 3
+      },
+      {
+        "label": "Series",
+        "url": "/series",
+        "order": 4
+      },
+      {
         "label": "Giới thiệu",
         "url": "/about",
-        "order": 3
+        "order": 5
       },
       {
         "label": "Liên hệ",
         "url": "/contact",
-        "order": 4
+        "order": 6
       }
     ],
     "footer": [
@@ -90,24 +120,34 @@
         "order": 2
       },
       {
+        "label": "Danh mục",
+        "url": "/categories",
+        "order": 3
+      },
+      {
+        "label": "Series",
+        "url": "/series",
+        "order": 4
+      },
+      {
         "label": "Giới thiệu",
         "url": "/about",
-        "order": 3
+        "order": 5
       },
       {
         "label": "Liên hệ",
         "url": "/contact",
-        "order": 4
+        "order": 6
       },
       {
         "label": "Chính sách bảo mật",
         "url": "/privacy",
-        "order": 5
+        "order": 7
       },
       {
         "label": "Điều khoản dịch vụ",
         "url": "/terms",
-        "order": 6
+        "order": 8
       }
     ]
   }

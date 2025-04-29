@@ -30,6 +30,7 @@
     "backToList": "Back to all posts",
     "categories": "Categories",
     "tags": "Tags",
+    "series": "Series",
     "relatedPosts": "Related Posts",
     "noPostsFound": "No posts found.",
     "exploreCollection": "Explore our collection of articles, tutorials, and insights",
@@ -37,7 +38,9 @@
     "filterByCategory": "Filter by category",
     "showing": "Showing",
     "articles": "articles",
-    "clearFilters": "Clear filters"
+    "clearFilters": "Clear filters",
+    "viewAllCategories": "View all categories",
+    "viewAllSeries": "View all series"
   },
   "BlogPost": {
     "tableOfContents": "Table of Contents",
@@ -105,6 +108,31 @@
     "description": "An error occurred while loading this page.",
     "tryAgain": "Try again",
     "contactSupport": "Contact support"
+  },
+  "Categories": {
+    "title": "Categories",
+    "description": "Browse articles by category to find content that interests you.",
+    "postCount": "{{count}} posts",
+    "categoryDescription": "All articles in the {{category}} category",
+    "noPostsInCategory": "No posts found in the {{category}} category.",
+    "backToCategories": "Back to Categories",
+    "readMore": "Read More"
+  },
+  "Series": {
+    "title": "Series",
+    "description": "Browse our article series for in-depth coverage on various topics.",
+    "partCount": "{{count}} parts",
+    "seriesDescription": "All articles in the {{series}} series",
+    "noPostsInSeries": "No posts found in the {{series}} series.",
+    "backToSeries": "Back to Series",
+    "partOf": "Part of the {{series}} series",
+    "part": "Part",
+    "of": "of",
+    "viewSeries": "View entire series",
+    "previous": "Previous",
+    "next": "Next",
+    "seriesParts": "Series Parts",
+    "totalParts": "{{count}} parts in total"
   },
   "Common": {
     "loading": "Loading...",

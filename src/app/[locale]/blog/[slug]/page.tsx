@@ -1,10 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/blog';
+import { getPostBySlug, getAllPostSlugs, getRelatedPosts, getNextPostInSeries, getPreviousPostInSeries } from '@/lib/blog';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import { Metadata } from 'next';
 import EnhancedBlogPost from '@/components/blog/EnhancedBlogPost';
+import SeriesNavigation from '@/components/blog/SeriesNavigation';
 import CursorFollower from '@/components/ui/CursorFollower';
 
 // Tạo metadata cho trang
@@ -74,10 +75,47 @@ export default async function BlogPostPage({
     slug: post.slug as string
   }));
   
+  // Kiểm tra xem bài viết có thuộc series nào không
+  const seriesName = frontmatter.series as string;
+  const seriesPart = frontmatter.seriesPart as number;
+  
+  // Nếu bài viết thuộc một series, lấy bài viết trước và sau
+  let previousPost = null;
+  let nextPost = null;
+  let totalParts = 0;
+  
+  if (seriesName) {
+    previousPost = getPreviousPostInSeries(slug, seriesName, locale);
+    nextPost = getNextPostInSeries(slug, seriesName, locale);
+    
+    // Lấy tổng số bài viết trong series
+    const seriesPosts = getPostsBySeries(seriesName, locale);
+    totalParts = seriesPosts.length;
+  }
+  
   return (
     <div className="overflow-hidden">
       {/* Custom cursor effect */}
       <CursorFollower trailEffect={true} />
+      
+      <div className="container mx-auto px-4">
+        {/* Series Navigation */}
+        {seriesName && (
+          <SeriesNavigation
+            seriesName={seriesName}
+            currentPart={seriesPart || 1}
+            totalParts={totalParts}
+            previousPost={previousPost ? {
+              title: previousPost.title as string,
+              slug: previousPost.slug
+            } : null}
+            nextPost={nextPost ? {
+              title: nextPost.title as string,
+              slug: nextPost.slug
+            } : null}
+          />
+        )}
+      </div>
       
       <EnhancedBlogPost 
         title={frontmatter.title as string}
@@ -86,6 +124,9 @@ export default async function BlogPostPage({
         author={frontmatter.author as string}
         readingTime={readingTime}
         thumbnail={frontmatter.thumbnail as string}
+        category={frontmatter.category as string}
+        series={frontmatter.series as string}
+        seriesPart={frontmatter.seriesPart as number}
         tags={frontmatter.tags as string[]}
         relatedPosts={formattedRelatedPosts}
         slug={slug}

@@ -5,8 +5,10 @@ import { motion, useAnimation, useInView, AnimatePresence } from 'framer-motion'
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { ArrowRight, Calendar, User, Clock, Tag, MagnifyingGlass, Funnel, X } from '@/components/icons/PhosphorIcons';
+import { ArrowRight, Calendar, User, Clock, Tag, MagnifyingGlass, Funnel, X, BookOpen } from '@/components/icons/PhosphorIcons';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import CategoryBadge from '@/components/blog/CategoryBadge';
+import SeriesBadge from '@/components/blog/SeriesBadge';
 
 interface Post {
   title: string;
@@ -17,6 +19,8 @@ interface Post {
   coverImage: string;
   readingTime?: string;
   category?: string;
+  series?: string;
+  seriesPart?: number;
   tags?: string[];
 }
 
@@ -322,9 +326,14 @@ export default function EnhancedBlogGrid({
                     {/* Category badge */}
                     {post.category && (
                       <div className="absolute top-4 left-4 z-10">
-                        <span className="px-3 py-1 bg-primary/90 text-white text-xs font-medium rounded-full backdrop-blur-sm">
-                          {post.category}
-                        </span>
+                        <CategoryBadge category={post.category} size="sm" />
+                      </div>
+                    )}
+                    
+                    {/* Series badge */}
+                    {post.series && (
+                      <div className="absolute top-4 right-4 z-10">
+                        <SeriesBadge series={post.series} part={post.seriesPart} size="sm" />
                       </div>
                     )}
                     

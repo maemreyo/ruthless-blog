@@ -2,6 +2,9 @@
 title: 'Tạo style với Tailwind CSS'
 date: '2024-01-20'
 author: 'Wehttam'
+category: 'Design'
+series: 'Next.js Fundamentals'
+seriesPart: 2
 excerpt: 'Khám phá sức mạnh của CSS tiện ích với Tailwind CSS và cách nó có thể tăng tốc quy trình phát triển của bạn.'
 tags: ['tailwind css', 'css', 'web design']
 thumbnail: '/images/uploads/tailwind-thumbnail.jpg'

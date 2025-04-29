@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wehttam Blog
 
-## Getting Started
+Một blog cá nhân được xây dựng bằng Next.js, hỗ trợ đa ngôn ngữ, và có nhiều tính năng hiện đại.
 
-First, run the development server:
+## Tính Năng
+
+- 🌐 Hỗ trợ đa ngôn ngữ (Tiếng Việt và Tiếng Anh)
+- 🎨 Giao diện hiện đại, responsive với Tailwind CSS
+- 🌓 Chế độ sáng/tối
+- 📝 Viết bài bằng Markdown
+- 🔍 Tìm kiếm bài viết
+- 📊 Phân loại bài viết theo categories
+- 📚 Tổ chức bài viết theo series
+- 🏷️ Hỗ trợ tags cho bài viết
+- 🔄 Tự động tạo sitemap
+- 📱 Trải nghiệm mobile tối ưu
+
+## Bắt Đầu
+
+Đầu tiên, cài đặt các dependencies:
+
+```bash
+npm install
+```
+
+Sau đó, chạy server phát triển:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mở [http://localhost:3000](http://localhost:3000) với trình duyệt để xem kết quả.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts Tiện Ích
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Dự án này đi kèm với các scripts tiện ích để giúp quản lý nội dung blog một cách hiệu quả. Trước tiên, cài đặt các dependencies cần thiết:
 
-## Learn More
+```bash
+node scripts/install-dependencies.js
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Tạo Bài Viết Mới
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run new-post -- --title "Tiêu đề bài viết" --locale vi
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Tạo Series Mới
 
-## Deploy on Vercel
+```bash
+npm run new-series -- --name "Tên Series" --parts 3
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Tạo Category Mới
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run new-category -- --name "Tên Category" --posts 3
+```
+
+### Liệt Kê Bài Viết
+
+```bash
+npm run list-posts -- --locale vi
+```
+
+Xem thêm thông tin chi tiết về các scripts trong [scripts/README.md](scripts/README.md).
+
+## Cấu Trúc Dự Án
+
+```
+wehttam-blog/
+├── public/             # Tài nguyên tĩnh
+├── scripts/            # Scripts tiện ích
+├── src/
+│   ├── app/            # Các trang của ứng dụng (App Router)
+│   ├── components/     # Components React
+│   ├── content/        # Nội dung blog (Markdown)
+│   ├── i18n/           # Cấu hình đa ngôn ngữ
+│   ├── lib/            # Thư viện và tiện ích
+│   └── messages/       # File ngôn ngữ
+└── ...
+```
+
+## Triển Khai
+
+Cách dễ nhất để triển khai ứng dụng Next.js là sử dụng [Vercel Platform](https://vercel.com/new) từ các nhà sáng tạo của Next.js.
+
+Xem thêm [tài liệu triển khai Next.js](https://nextjs.org/docs/app/building-your-application/deploying) để biết thêm chi tiết.

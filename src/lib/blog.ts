@@ -133,3 +133,73 @@ export const getAllTags = (locale: string = 'vi') => {
   
   return Array.from(tags);
 };
+
+// Lấy tất cả các category
+export const getAllCategories = (locale: string = 'vi') => {
+  const posts = getAllPosts(locale);
+  const categories = new Set<string>();
+  
+  posts.forEach(post => {
+    if (post.category) {
+      categories.add(post.category);
+    }
+  });
+  
+  return Array.from(categories);
+};
+
+// Lấy tất cả các bài viết theo category
+export const getPostsByCategory = (category: string, locale: string = 'vi') => {
+  const allPosts = getAllPosts(locale);
+  return allPosts.filter(post => post.category === category);
+};
+
+// Lấy tất cả các series
+export const getAllSeries = (locale: string = 'vi') => {
+  const posts = getAllPosts(locale);
+  const seriesMap = new Map<string, number>();
+  
+  posts.forEach(post => {
+    if (post.series) {
+      const count = seriesMap.get(post.series) || 0;
+      seriesMap.set(post.series, count + 1);
+    }
+  });
+  
+  return Array.from(seriesMap).map(([name, count]) => ({
+    name,
+    count,
+  }));
+};
+
+// Lấy tất cả các bài viết trong một series
+export const getPostsBySeries = (seriesName: string, locale: string = 'vi') => {
+  const allPosts = getAllPosts(locale);
+  return allPosts
+    .filter(post => post.series === seriesName)
+    .sort((a, b) => (a.seriesPart || 0) - (b.seriesPart || 0));
+};
+
+// Lấy bài viết tiếp theo trong series
+export const getNextPostInSeries = (currentSlug: string, seriesName: string, locale: string = 'vi') => {
+  const seriesPosts = getPostsBySeries(seriesName, locale);
+  const currentIndex = seriesPosts.findIndex(post => post.slug === currentSlug);
+  
+  if (currentIndex !== -1 && currentIndex < seriesPosts.length - 1) {
+    return seriesPosts[currentIndex + 1];
+  }
+  
+  return null;
+};
+
+// Lấy bài viết trước đó trong series
+export const getPreviousPostInSeries = (currentSlug: string, seriesName: string, locale: string = 'vi') => {
+  const seriesPosts = getPostsBySeries(seriesName, locale);
+  const currentIndex = seriesPosts.findIndex(post => post.slug === currentSlug);
+  
+  if (currentIndex > 0) {
+    return seriesPosts[currentIndex - 1];
+  }
+  
+  return null;
+};

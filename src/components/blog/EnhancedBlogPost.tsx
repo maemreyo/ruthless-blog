@@ -7,6 +7,8 @@ import { Link } from '@/i18n/navigation';
 import { Calendar, User, ArrowRight, ArrowLeft, BookOpen, Clock, Tag, Share, Heart, Bookmark, Copy, Check, Fire, PaperPlaneTilt, ChatText } from '@/components/icons/PhosphorIcons';
 import ClientMarkdown from '@/components/blog/ClientMarkdown';
 import ShareButtons from '@/components/blog/ShareButtons';
+import CategoryBadge from '@/components/blog/CategoryBadge';
+import SeriesBadge from '@/components/blog/SeriesBadge';
 import { useTheme } from 'next-themes';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import React from 'react';
@@ -24,6 +26,9 @@ interface EnhancedBlogPostProps {
   author: string;
   readingTime: string;
   thumbnail?: string;
+  category?: string;
+  series?: string;
+  seriesPart?: number;
   tags?: string[];
   relatedPosts: RelatedPost[];
   slug: string;
@@ -40,6 +45,9 @@ export default function EnhancedBlogPost({
   author,
   readingTime,
   thumbnail,
+  category,
+  series,
+  seriesPart,
   tags,
   relatedPosts,
   slug,
@@ -400,7 +408,7 @@ export default function EnhancedBlogPost({
                 {title}
               </h1>
               
-              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-gray-300 mb-8">
+              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-gray-300 mb-4">
                 <div className="flex items-center gap-2">
                   <User weight="fill" className="w-5 h-5" />
                   <span>{author}</span>
@@ -413,6 +421,16 @@ export default function EnhancedBlogPost({
                   <Clock weight="fill" className="w-5 h-5" />
                   <span>{readingTime}</span>
                 </div>
+              </div>
+              
+              {/* Category and Series badges */}
+              <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+                {category && (
+                  <CategoryBadge category={category} size="md" />
+                )}
+                {series && (
+                  <SeriesBadge series={series} part={seriesPart} size="md" />
+                )}
               </div>
               
               {tags && tags.length > 0 && (

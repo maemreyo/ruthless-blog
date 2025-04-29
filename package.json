@@ -6,12 +6,15 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "new-post": "node scripts/create-post.js",
+    "new-series": "node scripts/create-series.js",
+    "new-category": "node scripts/create-category.js",
+    "list-posts": "node scripts/list-posts.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
     "framer-motion": "12.9.2",
-    "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "next": "15.3.1",
     "next-intl": "^4.1.0",
@@ -30,8 +33,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cli-table3": "^0.6.5",
+    "commander": "^13.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
+    "gray-matter": "^4.0.3",
+    "slugify": "^1.6.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

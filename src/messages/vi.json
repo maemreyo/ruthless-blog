@@ -30,6 +30,7 @@
     "backToList": "Quay lại tất cả bài viết",
     "categories": "Danh mục",
     "tags": "Thẻ",
+    "series": "Series",
     "relatedPosts": "Bài viết liên quan",
     "noPostsFound": "Không tìm thấy bài viết nào.",
     "exploreCollection": "Khám phá bộ sưu tập bài viết, hướng dẫn và kiến thức của chúng tôi",
@@ -37,7 +38,9 @@
     "filterByCategory": "Lọc theo danh mục",
     "showing": "Hiển thị",
     "articles": "bài viết",
-    "clearFilters": "Xóa bộ lọc"
+    "clearFilters": "Xóa bộ lọc",
+    "viewAllCategories": "Xem tất cả danh mục",
+    "viewAllSeries": "Xem tất cả series"
   },
   "BlogPost": {
     "tableOfContents": "Mục lục",
@@ -105,6 +108,31 @@
     "description": "Đã xảy ra lỗi khi tải trang này.",
     "tryAgain": "Thử lại",
     "contactSupport": "Liên hệ hỗ trợ"
+  },
+  "Categories": {
+    "title": "Danh mục",
+    "description": "Duyệt bài viết theo danh mục để tìm nội dung bạn quan tâm.",
+    "postCount": "{{count}} bài viết",
+    "categoryDescription": "Tất cả bài viết trong danh mục {{category}}",
+    "noPostsInCategory": "Không tìm thấy bài viết nào trong danh mục {{category}}.",
+    "backToCategories": "Quay lại Danh mục",
+    "readMore": "Đọc tiếp"
+  },
+  "Series": {
+    "title": "Series",
+    "description": "Duyệt các series bài viết của chúng tôi để có cái nhìn sâu sắc về nhiều chủ đề khác nhau.",
+    "partCount": "{{count}} phần",
+    "seriesDescription": "Tất cả bài viết trong series {{series}}",
+    "noPostsInSeries": "Không tìm thấy bài viết nào trong series {{series}}.",
+    "backToSeries": "Quay lại Series",
+    "partOf": "Phần của series {{series}}",
+    "part": "Phần",
+    "of": "của",
+    "viewSeries": "Xem toàn bộ series",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "seriesParts": "Các phần trong series",
+    "totalParts": "Tổng cộng {{count}} phần"
   },
   "Common": {
     "loading": "Đang tải...",

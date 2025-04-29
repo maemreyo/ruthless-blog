@@ -2,6 +2,9 @@
 title: 'Bắt đầu với Next.js'
 date: '2024-01-15'
 author: 'Wehttam'
+category: 'Technology'
+series: 'Next.js Fundamentals'
+seriesPart: 1
 excerpt: 'Hướng dẫn toàn diện về cách bắt đầu với Next.js, một framework React mạnh mẽ cho phát triển web hiện đại.'
 tags: ['next.js', 'react', 'web development']
 thumbnail: '/images/uploads/nextjs-thumbnail.jpg'
