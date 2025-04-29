@@ -5,6 +5,7 @@ import { setRequestLocale } from 'next-intl/server';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import { SplashProvider } from '@/components/providers/SplashProvider';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -30,13 +31,15 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 dark:text-white">
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
+        <SplashProvider>
+          <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 dark:text-white">
+            <Header />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </SplashProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   );

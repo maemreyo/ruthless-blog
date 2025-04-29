@@ -1,8 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
-import AnimatedBlogGrid from '@/components/blog/AnimatedBlogGrid';
-import ImmersiveBlogHeader from '@/components/blog/ImmersiveBlogHeader';
+import ImmersiveBlogGrid from '@/components/blog/ImmersiveBlogGrid';
+import ImmersiveHeader from '@/components/blog/ImmersiveHeader';
 import { getAllPosts } from '@/lib/blog';
+import CursorFollower from '@/components/ui/CursorFollower';
 
 export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -27,13 +28,16 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   
   return (
     <div className="overflow-hidden">
-      <ImmersiveBlogHeader 
+      {/* Custom cursor effect */}
+      <CursorFollower trailEffect={true} />
+      
+      <ImmersiveHeader 
         title={t('title')}
         subtitle={t('subtitle')}
       />
       
       <div className="container mx-auto px-4 py-12">
-        <AnimatedBlogGrid 
+        <ImmersiveBlogGrid 
           posts={formattedPosts}
           readMoreText={t('readMore') || 'Read More'}
         />

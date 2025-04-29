@@ -4,8 +4,9 @@ import { getFeaturedPosts, getAllPosts } from '@/lib/blog';
 import fs from 'fs';
 import path from 'path';
 import { Metadata } from 'next';
-import ParallaxHero from '@/components/home/ParallaxHero';
-import FeaturedPostsCarousel from '@/components/home/FeaturedPostsCarousel';
+import ImmersiveHero from '@/components/home/ImmersiveHero';
+import ImmersiveFeaturedPosts from '@/components/home/ImmersiveFeaturedPosts';
+import CursorFollower from '@/components/ui/CursorFollower';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -48,14 +49,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   
   return (
     <div className="overflow-hidden">
-      <ParallaxHero 
+      {/* Custom cursor effect */}
+      <CursorFollower trailEffect={true} />
+      
+      <ImmersiveHero 
         title={siteData.title}
         description={siteData.description}
         viewBlogText={t('viewBlog')}
         aboutMeText={t('aboutMe')}
       />
       
-      <FeaturedPostsCarousel 
+      <ImmersiveFeaturedPosts 
         title="Featured Posts"
         viewAllText={commonT('viewAll')}
         posts={formattedPosts}

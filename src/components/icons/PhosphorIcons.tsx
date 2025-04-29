@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   House,
@@ -28,8 +28,9 @@ import {
   Heart,
   Bookmark,
   Tag,
-  FacebookLogo
-} from '@phosphor-icons/react';
+  FacebookLogo,
+  Globe,
+} from "@phosphor-icons/react";
 
 // Export all icons as named exports
 export {
@@ -60,5 +61,6 @@ export {
   Heart,
   Bookmark,
   Tag,
-  FacebookLogo
+  FacebookLogo,
+  Globe,
 };

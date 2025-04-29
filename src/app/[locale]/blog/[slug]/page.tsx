@@ -5,6 +5,7 @@ import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/blog';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import { Metadata } from 'next';
 import ImmersiveBlogPost from '@/components/blog/ImmersiveBlogPost';
+import CursorFollower from '@/components/ui/CursorFollower';
 
 // Tạo metadata cho trang
 export async function generateMetadata({ 
@@ -75,6 +76,9 @@ export default async function BlogPostPage({
   
   return (
     <div className="overflow-hidden">
+      {/* Custom cursor effect */}
+      <CursorFollower trailEffect={true} />
+      
       <ImmersiveBlogPost 
         title={frontmatter.title as string}
         content={content}
