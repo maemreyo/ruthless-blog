@@ -9,7 +9,7 @@ interface ClientMarkdownProps {
 
 export default function ClientMarkdown({ children, className }: ClientMarkdownProps) {
   return (
-    <ReactMarkdown className={className}>
+    <ReactMarkdown>
       {children}
     </ReactMarkdown>
   );
