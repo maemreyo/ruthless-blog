@@ -32,7 +32,10 @@ import {
   Globe,
   Clock,
   Fire,
-  Funnel
+  Funnel,
+  Copy,
+  ArrowUpRight,
+  Share
 } from "@phosphor-icons/react";
 
 // Export all icons as named exports
@@ -68,5 +71,8 @@ export {
   Globe,
   Clock,
   Fire,
-  Funnel
+  Funnel,
+  Copy,
+  ArrowUpRight,
+  Share
 };

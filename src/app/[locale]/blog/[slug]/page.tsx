@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/blog';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import { Metadata } from 'next';
-import ImmersiveBlogPost from '@/components/blog/ImmersiveBlogPost';
+import EnhancedBlogPost from '@/components/blog/EnhancedBlogPost';
 import CursorFollower from '@/components/ui/CursorFollower';
 
 // Tạo metadata cho trang
@@ -79,7 +79,7 @@ export default async function BlogPostPage({
       {/* Custom cursor effect */}
       <CursorFollower trailEffect={true} />
       
-      <ImmersiveBlogPost 
+      <EnhancedBlogPost 
         title={frontmatter.title as string}
         content={content}
         formattedDate={formattedDate}

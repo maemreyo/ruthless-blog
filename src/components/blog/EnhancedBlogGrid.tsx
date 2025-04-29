@@ -335,7 +335,7 @@ export default function EnhancedBlogGrid({
                     >
                       <Link 
                         href={`/blog/${post.slug}`}
-                        className="px-6 py-3 bg-white text-primary font-medium rounded-full transform transition-transform duration-300 hover:scale-105"
+                        className="px-6 py-3 bg-primary text-white font-medium rounded-full transform transition-transform duration-300 hover:scale-105 shadow-md"
                       >
                         Read Article
                       </Link>

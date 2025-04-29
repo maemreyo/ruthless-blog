@@ -364,7 +364,7 @@ export default function EnhancedFeaturedPosts({
                                 
                                 {/* Animated background */}
                                 <motion.div 
-                                  className="absolute inset-0 bg-gradient-to-r from-white via-gray-100 to-white"
+                                  className="absolute inset-0 bg-gradient-to-r from-gray-100 via-white to-gray-100"
                                   initial={{ x: '-100%' }}
                                   whileHover={{ x: 0 }}
                                   transition={{ duration: 0.4 }}
