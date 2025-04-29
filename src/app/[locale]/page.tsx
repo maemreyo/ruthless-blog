@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { Metadata } from 'next';
 import ImmersiveHero from '@/components/home/ImmersiveHero';
-import ImmersiveFeaturedPosts from '@/components/home/ImmersiveFeaturedPosts';
+import EnhancedFeaturedPosts from '@/components/home/EnhancedFeaturedPosts';
 import CursorFollower from '@/components/ui/CursorFollower';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -27,14 +27,26 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   }
   
   // Chuyển đổi dữ liệu để phù hợp với component BlogPostList
-  const formattedPosts = featuredPosts.map(post => ({
-    title: post.title as string,
-    excerpt: post.excerpt as string,
-    date: post.date as string,
-    slug: post.slug as string,
-    author: post.author as string,
-    coverImage: post.thumbnail as string
-  }));
+  const formattedPosts = featuredPosts.map((post, index) => {
+    // Tạo category ngẫu nhiên cho demo
+    const categories = ['Featured', 'Trending', 'Popular'];
+    const randomCategory = categories[index % categories.length];
+    
+    // Tạo readingTime ngẫu nhiên
+    const readingTimes = ['3 min read', '5 min read', '7 min read'];
+    const randomReadingTime = readingTimes[index % readingTimes.length];
+    
+    return {
+      title: post.title as string,
+      excerpt: post.excerpt as string,
+      date: post.date as string,
+      slug: post.slug as string,
+      author: post.author as string,
+      coverImage: post.thumbnail as string,
+      category: randomCategory,
+      readingTime: randomReadingTime
+    };
+  });
   
   // Đọc dữ liệu site từ file JSON
   let siteData = { title: '', description: '' };
@@ -59,7 +71,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         aboutMeText={t('aboutMe')}
       />
       
-      <ImmersiveFeaturedPosts 
+      <EnhancedFeaturedPosts 
         title="Featured Posts"
         viewAllText={commonT('viewAll')}
         posts={formattedPosts}

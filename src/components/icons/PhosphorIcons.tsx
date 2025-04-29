@@ -30,6 +30,9 @@ import {
   Tag,
   FacebookLogo,
   Globe,
+  Clock,
+  Fire,
+  Funnel
 } from "@phosphor-icons/react";
 
 // Export all icons as named exports
@@ -63,4 +66,7 @@ export {
   Tag,
   FacebookLogo,
   Globe,
+  Clock,
+  Fire,
+  Funnel
 };

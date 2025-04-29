@@ -128,7 +128,7 @@ export default function ImmersiveHeader({ title, subtitle }: ImmersiveHeaderProp
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -mr-10 -mt-10 blur-md"></div>
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/5 rounded-full -ml-5 -mb-5 blur-md"></div>
-            </div>
+    {/* Removed search bar from here to avoid duplication */}        </div>
           </ParallaxMouse>
         </div>
       </div>
