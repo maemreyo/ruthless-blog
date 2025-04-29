@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import BlogPostList from '@/components/blog/BlogPostList';
@@ -9,18 +9,19 @@ import { Metadata } from 'next';
 import { motion } from 'framer-motion';
 import { ArrowRight } from '@/components/icons/PhosphorIcons';
 
-export default function HomePage({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   
   // Bật render tĩnh
   setRequestLocale(locale);
   
-  const t = useTranslations('Index');
-  const commonT = useTranslations('Common');
+  // Lấy bản dịch từ server
+  const t = await getTranslations('Index');
+  const commonT = await getTranslations('Common');
   
   // Lấy bài viết nổi bật từ thư mục content
   let featuredPosts = getFeaturedPosts(locale, 2);
-  
+  console.log("Đã lấy được bài viết nổi bật", featuredPosts)
   // Nếu không có bài viết nổi bật, lấy 2 bài viết mới nhất
   if (featuredPosts.length === 0) {
     featuredPosts = getAllPosts(locale).slice(0, 2);
@@ -148,9 +149,9 @@ export function generateStaticParams() {
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { locale: string } 
+  params: Promise<{ locale: string }> 
 }): Promise<Metadata> {
-  const { locale } = params;
+  const { locale } = await params;
   
   // Đọc dữ liệu site từ file JSON
   let siteData = { title: 'Wehttam Blog', description: '' };

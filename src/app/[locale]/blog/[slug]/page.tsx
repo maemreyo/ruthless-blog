@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
@@ -9,14 +9,15 @@ import Image from 'next/image';
 import { Calendar, User, ArrowRight, ArrowLeft, BookOpen } from '@/components/icons/PhosphorIcons';
 import { motion } from 'framer-motion';
 import ClientMarkdown from '@/components/blog/ClientMarkdown';
+import ShareButtons from '@/components/blog/ShareButtons';
 
 // Tạo metadata cho trang
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { locale: string; slug: string } 
+  params: Promise<{ locale: string; slug: string }> 
 }): Promise<Metadata> {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   const post = getPostBySlug(slug, locale);
   
   if (!post) {
@@ -39,18 +40,18 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogPostPage({ 
+export default async function BlogPostPage({ 
   params 
 }: { 
-  params: { locale: string; slug: string } 
+  params: Promise<{ locale: string; slug: string }> 
 }) {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   
   // Bật render tĩnh
   setRequestLocale(locale);
   
-  const t = useTranslations('Blog');
-  const blogPostT = useTranslations('BlogPost');
+  const t = await getTranslations('Blog');
+  const blogPostT = await getTranslations('BlogPost');
   
   const post = getPostBySlug(slug, locale);
   
@@ -194,6 +195,14 @@ export default function BlogPostPage({
       >
         <div className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:border-b prose-headings:border-gray-200 dark:prose-headings:border-gray-700 prose-headings:pb-2 prose-img:rounded-lg prose-a:text-primary">
           <ClientMarkdown>{content}</ClientMarkdown>
+        </div>
+        
+        {/* Share buttons */}
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <ShareButtons 
+            url={`/blog/${slug}`} 
+            title={frontmatter.title as string} 
+          />
         </div>
       </motion.div>
       

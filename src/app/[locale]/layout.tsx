@@ -15,9 +15,9 @@ export default async function LocaleLayout({
   params
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
   
   // Đảm bảo rằng locale đến là hợp lệ
   if (!hasLocale(routing.locales, locale)) {

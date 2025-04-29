@@ -1,16 +1,17 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import BlogPostList from '@/components/blog/BlogPostList';
+import SearchBar from '@/components/blog/SearchBar';
 import { getAllPosts } from '@/lib/blog';
 import { motion } from 'framer-motion';
 
-export default function BlogPage({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   
   // Bật render tĩnh
   setRequestLocale(locale);
   
-  const t = useTranslations('Blog');
+  const t = await getTranslations('Blog');
   
   // Lấy tất cả bài viết từ thư mục content
   const posts = getAllPosts(locale);
@@ -34,23 +35,36 @@ export default function BlogPage({ params }: { params: { locale: string } }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            {t('title')}
-          </motion.h1>
-          
-          <motion.p 
-            className="text-xl max-w-3xl text-gray-700 dark:text-gray-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            {t('subtitle')}
-          </motion.p>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+              <motion.h1 
+                className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+              >
+                {t('title')}
+              </motion.h1>
+              
+              <motion.p 
+                className="text-xl max-w-3xl text-gray-700 dark:text-gray-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                {t('subtitle')}
+              </motion.p>
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="w-full md:w-auto"
+            >
+              <SearchBar className="w-full md:w-64" />
+            </motion.div>
+          </div>
           
           {/* Decorative elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -mr-10 -mt-10"></div>

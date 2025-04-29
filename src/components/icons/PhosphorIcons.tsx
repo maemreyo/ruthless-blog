@@ -18,7 +18,17 @@ import {
   Translate,
   CaretDown,
   Sun,
-  Moon
+  Moon,
+  ChatText,
+  PaperPlaneTilt,
+  Check,
+  Warning,
+  MagnifyingGlass,
+  ShareNetwork,
+  Heart,
+  Bookmark,
+  Tag,
+  FacebookLogo
 } from '@phosphor-icons/react';
 
 // Export all icons as named exports
@@ -40,5 +50,15 @@ export {
   Translate,
   CaretDown,
   Sun,
-  Moon
+  Moon,
+  ChatText,
+  PaperPlaneTilt,
+  Check,
+  Warning,
+  MagnifyingGlass,
+  ShareNetwork,
+  Heart,
+  Bookmark,
+  Tag,
+  FacebookLogo
 };
