@@ -12,7 +12,8 @@ tags:
   - next.js
   - react
   - web development
-thumbnail: /images/uploads/nextjs-thumbnail.jpg
+thumbnail: >-
+  https://raw.githubusercontent.com/maemreyo/wehttam-blog-images/main/posts/2024/01/getting-started-with-nextjs/nextjs-thumbnail.jpg
 featured: true
 ---
 

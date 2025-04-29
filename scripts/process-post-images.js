@@ -22,7 +22,11 @@ program
   .option('-o, --optimize', 'Tối ưu hóa ảnh trước khi upload', false)
   .option('-k, --keep', 'Giữ lại ảnh gốc sau khi upload', false)
   .option('--force', 'Xóa cả ảnh trong thư mục public', false)
-  .option('--no-preserve-structure', 'Không giữ cấu trúc thư mục gốc', false);
+  .option('--force-git', 'Force push lên Git repository nếu cần', false)
+  .option('--no-preserve-structure', 'Không giữ cấu trúc thư mục gốc', false)
+  .option('--service <service>', 'Dịch vụ URL hình ảnh (jsdelivr-latest, jsdelivr-versioned, github-raw, github-blob)', 'jsdelivr-latest')
+  .option('--check-repo', 'Kiểm tra xem repository có phải là public không', false)
+  .option('--update-all-langs', 'Cập nhật tất cả các phiên bản ngôn ngữ của bài viết', false);
 
 program.parse(process.argv);
 
@@ -220,6 +224,94 @@ function findLocalImages(content, postDir, frontmatter) {
   return images;
 }
 
+// Hàm để tìm tất cả các phiên bản ngôn ngữ của bài viết
+function findAllLanguageVersions(postPath) {
+  try {
+    // Phân tích đường dẫn để lấy thông tin
+    const parsedPath = path.parse(postPath);
+    const fileName = parsedPath.base;
+    
+    // Xác định thư mục gốc của blog
+    // Đường dẫn thường có dạng: /path/to/blog/{lang}/{filename}.md
+    const langDir = path.dirname(postPath);
+    const blogDir = path.dirname(langDir);
+    
+    // Lấy tên ngôn ngữ hiện tại
+    const currentLang = path.basename(langDir);
+    
+    // Tìm tất cả các thư mục ngôn ngữ
+    const langDirs = fs.readdirSync(blogDir, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name);
+    
+    // Tìm tất cả các phiên bản ngôn ngữ của bài viết
+    const langVersions = [];
+    
+    for (const lang of langDirs) {
+      const langPostPath = path.join(blogDir, lang, fileName);
+      if (fs.existsSync(langPostPath)) {
+        langVersions.push({
+          lang,
+          path: langPostPath,
+          isCurrent: lang === currentLang
+        });
+      }
+    }
+    
+    return langVersions;
+  } catch (error) {
+    console.warn(`⚠️ Không thể tìm các phiên bản ngôn ngữ: ${error.message}`);
+    return [{ lang: 'unknown', path: postPath, isCurrent: true }];
+  }
+}
+
+// Hàm để cập nhật đường dẫn ảnh trong bài viết
+function updateImagePathsInPost(postPath, imageUrlMap) {
+  try {
+    // Đọc nội dung bài viết
+    const postContent = fs.readFileSync(postPath, 'utf8');
+    
+    // Parse frontmatter và content
+    const { data: frontmatter, content: markdownContent } = matter(postContent);
+    
+    // Tạo bản sao của frontmatter để cập nhật
+    const newFrontmatter = { ...frontmatter };
+    let frontmatterUpdated = false;
+    let newContent = markdownContent;
+    
+    // Cập nhật đường dẫn ảnh trong frontmatter
+    for (const [field, value] of Object.entries(imageUrlMap.frontmatter || {})) {
+      if (frontmatter[field]) {
+        newFrontmatter[field] = value;
+        frontmatterUpdated = true;
+        console.log(`✅ Đã cập nhật ảnh trong frontmatter (${field}) của ${path.basename(postPath)}`);
+      }
+    }
+    
+    // Cập nhật đường dẫn ảnh trong nội dung
+    for (const [pattern, replacement] of Object.entries(imageUrlMap.content || {})) {
+      if (newContent.includes(pattern)) {
+        newContent = newContent.replace(pattern, replacement);
+        console.log(`✅ Đã cập nhật ảnh trong nội dung của ${path.basename(postPath)}`);
+      }
+    }
+    
+    // Lưu lại nội dung bài viết nếu có thay đổi
+    if (frontmatterUpdated || newContent !== markdownContent) {
+      const newPostContent = matter.stringify(newContent, newFrontmatter);
+      fs.writeFileSync(postPath, newPostContent);
+      console.log(`✅ Đã lưu bài viết ${path.basename(postPath)}`);
+      return true;
+    } else {
+      console.log(`ℹ️ Không có thay đổi nào trong bài viết ${path.basename(postPath)}`);
+      return false;
+    }
+  } catch (error) {
+    console.error(`❌ Lỗi khi cập nhật bài viết ${path.basename(postPath)}: ${error.message}`);
+    return false;
+  }
+}
+
 // Hàm chính để xử lý ảnh trong bài viết
 async function main() {
   try {
@@ -230,6 +322,18 @@ async function main() {
     
     // Parse frontmatter và content
     const { data: frontmatter, content } = matter(postContent);
+    
+    // Tìm tất cả các phiên bản ngôn ngữ của bài viết nếu được yêu cầu
+    const langVersions = options.updateAllLangs 
+      ? findAllLanguageVersions(postPath)
+      : [{ lang: 'current', path: postPath, isCurrent: true }];
+    
+    if (langVersions.length > 1) {
+      console.log(`🔍 Tìm thấy ${langVersions.length} phiên bản ngôn ngữ của bài viết:`);
+      langVersions.forEach(version => {
+        console.log(`   - ${version.lang}: ${path.basename(version.path)}${version.isCurrent ? ' (hiện tại)' : ''}`);
+      });
+    }
     
     // Tạo thư mục đích dựa trên thông tin bài viết
     let destFolder = options.folder;
@@ -306,6 +410,18 @@ async function main() {
     
     if (options.optimize) {
       uploadCommand += ' --optimize';
+    }
+    
+    if (options.service) {
+      uploadCommand += ` --service ${options.service}`;
+    }
+    
+    if (options.forceGit) {
+      uploadCommand += ' --force-git';
+    }
+    
+    if (options.checkRepo) {
+      uploadCommand += ' --check-repo';
     }
     
     // Thực thi command và lấy output

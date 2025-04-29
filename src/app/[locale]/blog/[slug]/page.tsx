@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getAllPostSlugs, getRelatedPosts, getNextPostInSeries, getPreviousPostInSeries } from '@/lib/blog';
+import { getPostBySlug, getAllPostSlugs, getRelatedPosts, getNextPostInSeries, getPreviousPostInSeries, getPostsBySeries } from '@/lib/blog';
 import { formatDate, getReadingTime } from '@/lib/utils';
 import { Metadata } from 'next';
 import EnhancedBlogPost from '@/components/blog/EnhancedBlogPost';
