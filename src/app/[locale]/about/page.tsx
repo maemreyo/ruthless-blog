@@ -2,8 +2,10 @@ import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import AboutHero from '@/components/about/AboutHero';
 import AboutBlogSection from '@/components/about/AboutBlogSection';
-import TechnologiesSection from '@/components/about/TechnologiesSection';
+import ProfileSection from '@/components/about/ProfileSection';
+import ExperienceSection from '@/components/about/ExperienceSection';
 import ContactCTA from '@/components/about/ContactCTA';
+import portfolioData from '@/data/portfolioData.json';
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -14,16 +16,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const t = await getTranslations('About');
   const commonT = await getTranslations('Common');
   
-  // Định nghĩa các công nghệ được sử dụng
-  const technologies = [
-    { name: 'Next.js', description: t('nextjsDescription') },
-    { name: 'TypeScript', description: t('typescriptDescription') },
-    { name: 'Tailwind CSS', description: t('tailwindDescription') },
-    { name: 'Framer Motion', description: t('framerDescription') },
-    { name: 'next-intl', description: t('nextIntlDescription') },
-    { name: 'MDX', description: t('mdxDescription') },
-    { name: 'Vercel', description: t('vercelDescription') }
-  ];
+  // Lấy dữ liệu từ portfolioData.json
+  const { personalInfo, profileSummary, keyHighlights } = portfolioData;
   
   return (
     <div className="container mx-auto px-4 py-12">
@@ -32,13 +26,19 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         authorTitle={t('authorTitle')}
       />
       
-      <AboutBlogSection 
-        blogTitle={t('blogTitle')}
+      <ProfileSection 
+        title={t('profileTitle')}
+        personalInfo={personalInfo}
+        profileSummary={profileSummary}
       />
       
-      <TechnologiesSection 
-        techTitle={t('techTitle')}
-        technologies={technologies}
+      <ExperienceSection 
+        title={t('experienceTitle')}
+        keyHighlights={keyHighlights}
+      />
+      
+      <AboutBlogSection 
+        blogTitle={t('blogTitle')}
       />
       
       <ContactCTA 

@@ -67,7 +67,14 @@
     "mdxDescription": "Markdown for the component era",
     "vercelDescription": "Platform for frontend frameworks",
     "contactMe": "Contact Me",
-    "contactDescription": "Have a question, suggestion, or just want to say hello? I'd love to hear from you! Feel free to reach out through the contact form or connect with me on social media."
+    "contactDescription": "Have a question, suggestion, or just want to say hello? I'd love to hear from you! Feel free to reach out through the contact form or connect with me on social media.",
+    "profileTitle": "Professional Profile",
+    "experienceTitle": "Key Experience",
+    "profileSummary": "Professional Summary",
+    "keyStrengths": "Key Strengths",
+    "skills": "Skills & Expertise",
+    "impact": "Impact",
+    "skillsUsed": "Skills Used"
   },
   "Contact": {
     "title": "Contact",

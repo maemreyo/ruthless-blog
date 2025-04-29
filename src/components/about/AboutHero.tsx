@@ -56,8 +56,8 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
           <div className="w-full md:w-1/3 flex justify-center">
             <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-elegant">
               <Image 
-                src="/images/author.jpg" 
-                alt="Author" 
+                src="/images/profile/profile-photo.jpg" 
+                alt="Matthew Ngo" 
                 fill
                 className="object-cover"
                 priority
@@ -78,7 +78,7 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
             
             <div className="flex flex-wrap gap-4">
               <a 
-                href="https://github.com/wehttam" 
+                href="https://github.com/maemreyo" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
@@ -87,7 +87,7 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
                 <span>{t('github')}</span>
               </a>
               <a 
-                href="https://twitter.com/wehttam" 
+                href="https://twitter.com/maemreyo" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
@@ -96,7 +96,7 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
                 <span>{t('twitter')}</span>
               </a>
               <a 
-                href="https://linkedin.com/in/wehttam" 
+                href="https://linkedin.com/in/maemreyo" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"

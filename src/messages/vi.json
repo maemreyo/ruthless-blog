@@ -59,7 +59,14 @@
     "mdxDescription": "Markdown cho thời đại component",
     "vercelDescription": "Nền tảng cho các framework frontend",
     "contactMe": "Liên hệ với tôi",
-    "contactDescription": "Bạn có câu hỏi, đề xuất, hoặc chỉ muốn nói xin chào? Tôi rất muốn nghe từ bạn! Hãy liên hệ thông qua biểu mẫu liên hệ hoặc kết nối với tôi trên mạng xã hội."
+    "contactDescription": "Bạn có câu hỏi, đề xuất, hoặc chỉ muốn nói xin chào? Tôi rất muốn nghe từ bạn! Hãy liên hệ thông qua biểu mẫu liên hệ hoặc kết nối với tôi trên mạng xã hội.",
+    "profileTitle": "Hồ sơ chuyên môn",
+    "experienceTitle": "Kinh nghiệm chính",
+    "profileSummary": "Tóm tắt chuyên môn",
+    "keyStrengths": "Điểm mạnh chính",
+    "skills": "Kỹ năng & Chuyên môn",
+    "impact": "Tác động",
+    "skillsUsed": "Kỹ năng sử dụng"
   },
   "Contact": {
     "title": "Liên hệ",
