@@ -1,0 +1,14 @@
+{
+  "en": {
+    "title": "Wehttam Blog",
+    "description": "A personal blog sharing knowledge, experiences, and thoughts on technology, programming, and life.",
+    "logo": "/images/logo.svg",
+    "favicon": "/favicon.ico"
+  },
+  "vi": {
+    "title": "Wehttam Blog",
+    "description": "Blog cá nhân chia sẻ kiến thức, trải nghiệm và suy nghĩ về công nghệ, lập trình và cuộc sống.",
+    "logo": "/images/logo.svg",
+    "favicon": "/favicon.ico"
+  }
+}

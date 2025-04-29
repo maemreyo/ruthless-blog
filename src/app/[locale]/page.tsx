@@ -2,28 +2,9 @@ import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import BlogPostList from '@/components/blog/BlogPostList';
-
-// Giả lập dữ liệu bài viết nổi bật
-const getFeaturedPosts = () => {
-  return [
-    {
-      title: 'Getting Started with Next.js',
-      excerpt: 'Learn how to build a blog with Next.js, Tailwind CSS, and more.',
-      date: '2024-01-15',
-      slug: 'getting-started-with-nextjs',
-      author: 'Wehttam',
-      coverImage: 'https://via.placeholder.com/800x400'
-    },
-    {
-      title: 'Styling with Tailwind CSS',
-      excerpt: 'Discover the power of utility-first CSS with Tailwind.',
-      date: '2024-01-20',
-      slug: 'styling-with-tailwind-css',
-      author: 'Wehttam',
-      coverImage: 'https://via.placeholder.com/800x400'
-    }
-  ];
-};
+import { getFeaturedPosts, getAllPosts } from '@/lib/blog';
+import fs from 'fs';
+import path from 'path';
 
 export default function HomePage({ params }: { params: { locale: string } }) {
   const { locale } = params;
@@ -33,14 +14,42 @@ export default function HomePage({ params }: { params: { locale: string } }) {
   
   const t = useTranslations('Index');
   const commonT = useTranslations('Common');
-  const featuredPosts = getFeaturedPosts();
+  
+  // Lấy bài viết nổi bật từ thư mục content
+  let featuredPosts = getFeaturedPosts(locale, 2);
+  
+  // Nếu không có bài viết nổi bật, lấy 2 bài viết mới nhất
+  if (featuredPosts.length === 0) {
+    featuredPosts = getAllPosts(locale).slice(0, 2);
+  }
+  
+  // Chuyển đổi dữ liệu để phù hợp với component BlogPostList
+  const formattedPosts = featuredPosts.map(post => ({
+    title: post.title as string,
+    excerpt: post.excerpt as string,
+    date: post.date as string,
+    slug: post.slug as string,
+    author: post.author as string,
+    coverImage: post.thumbnail as string
+  }));
+  
+  // Đọc dữ liệu site từ file JSON
+  let siteData = { title: '', description: '' };
+  try {
+    const siteFilePath = path.join(process.cwd(), 'src', 'data', 'site.json');
+    const siteFileContent = fs.readFileSync(siteFilePath, 'utf8');
+    const siteJson = JSON.parse(siteFileContent);
+    siteData = siteJson[locale] || siteJson['en'];
+  } catch (error) {
+    console.error('Error reading site data:', error);
+  }
   
   return (
     <div className="container mx-auto px-4 py-12">
       {/* Hero Section */}
       <section className="text-center py-16 mb-12 bg-gray-50 rounded-lg">
-        <h1 className="text-5xl font-bold mb-6">{t('title')}</h1>
-        <p className="text-xl mb-8 max-w-3xl mx-auto">{t('subtitle')}</p>
+        <h1 className="text-5xl font-bold mb-6">{siteData.title}</h1>
+        <p className="text-xl mb-8 max-w-3xl mx-auto">{siteData.description}</p>
         <div className="flex gap-4 justify-center">
           <Link 
             href="/blog" 
@@ -69,8 +78,13 @@ export default function HomePage({ params }: { params: { locale: string } }) {
           </Link>
         </div>
         
-        <BlogPostList posts={featuredPosts} />
+        <BlogPostList posts={formattedPosts} />
       </section>
     </div>
   );
+}
+
+// Tạo các tham số tĩnh cho trang
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'vi' }];
 }

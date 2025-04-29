@@ -1,0 +1,114 @@
+{
+  "en": {
+    "main": [
+      {
+        "label": "Home",
+        "url": "/",
+        "order": 1
+      },
+      {
+        "label": "Blog",
+        "url": "/blog",
+        "order": 2
+      },
+      {
+        "label": "About",
+        "url": "/about",
+        "order": 3
+      },
+      {
+        "label": "Contact",
+        "url": "/contact",
+        "order": 4
+      }
+    ],
+    "footer": [
+      {
+        "label": "Home",
+        "url": "/",
+        "order": 1
+      },
+      {
+        "label": "Blog",
+        "url": "/blog",
+        "order": 2
+      },
+      {
+        "label": "About",
+        "url": "/about",
+        "order": 3
+      },
+      {
+        "label": "Contact",
+        "url": "/contact",
+        "order": 4
+      },
+      {
+        "label": "Privacy Policy",
+        "url": "/privacy",
+        "order": 5
+      },
+      {
+        "label": "Terms of Service",
+        "url": "/terms",
+        "order": 6
+      }
+    ]
+  },
+  "vi": {
+    "main": [
+      {
+        "label": "Trang chủ",
+        "url": "/",
+        "order": 1
+      },
+      {
+        "label": "Blog",
+        "url": "/blog",
+        "order": 2
+      },
+      {
+        "label": "Giới thiệu",
+        "url": "/about",
+        "order": 3
+      },
+      {
+        "label": "Liên hệ",
+        "url": "/contact",
+        "order": 4
+      }
+    ],
+    "footer": [
+      {
+        "label": "Trang chủ",
+        "url": "/",
+        "order": 1
+      },
+      {
+        "label": "Blog",
+        "url": "/blog",
+        "order": 2
+      },
+      {
+        "label": "Giới thiệu",
+        "url": "/about",
+        "order": 3
+      },
+      {
+        "label": "Liên hệ",
+        "url": "/contact",
+        "order": 4
+      },
+      {
+        "label": "Chính sách bảo mật",
+        "url": "/privacy",
+        "order": 5
+      },
+      {
+        "label": "Điều khoản dịch vụ",
+        "url": "/terms",
+        "order": 6
+      }
+    ]
+  }
+}

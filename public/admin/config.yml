@@ -1,0 +1,109 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+  commit_messages:
+    create: 'Create {{collection}} "{{slug}}"'
+    update: 'Update {{collection}} "{{slug}}"'
+    delete: 'Delete {{collection}} "{{slug}}"'
+    uploadMedia: 'Upload "{{path}}"'
+    deleteMedia: 'Delete "{{path}}"'
+
+# Publish mode (editorial workflow)
+# This adds an interface for drafting, reviewing, and approving posts
+publish_mode: editorial_workflow
+
+# Media and public folders
+# Media folder is where uploaded files will be stored in the repo
+# Public folder is where the files will be found in the published site
+media_folder: "public/images/uploads" # Media files will be stored in the repo under public/images/uploads
+public_folder: "/images/uploads" # The src attribute for uploaded media will begin with /images/uploads
+
+# Internationalization
+# This allows content to be translated into multiple languages
+i18n:
+  structure: multiple_folders
+  locales: [en, vi]
+  default_locale: vi
+
+# Collections
+collections:
+  # Blog posts collection
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "src/content/blog" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    i18n: true # Enable internationalization for this collection
+    fields: # The fields for each document
+      - {label: "Title", name: "title", widget: "string", i18n: true}
+      - {label: "Publish Date", name: "date", widget: "datetime", i18n: true}
+      - {label: "Featured Image", name: "thumbnail", widget: "image", required: false, i18n: true}
+      - {label: "Author", name: "author", widget: "string", default: "Wehttam", i18n: true}
+      - {label: "Excerpt", name: "excerpt", widget: "text", i18n: true}
+      - {label: "Tags", name: "tags", widget: "list", i18n: true}
+      - {label: "Body", name: "body", widget: "markdown", i18n: true}
+
+  # Pages collection (for static pages like About, Contact)
+  - name: "pages"
+    label: "Pages"
+    folder: "src/content/pages"
+    create: true
+    slug: "{{slug}}"
+    i18n: true
+    fields:
+      - {label: "Title", name: "title", widget: "string", i18n: true}
+      - {label: "Body", name: "body", widget: "markdown", i18n: true}
+
+  # Settings collection (for site-wide settings)
+  - name: "settings"
+    label: "Settings"
+    files:
+      - file: "src/data/site.json"
+        label: "Site Settings"
+        name: "site"
+        i18n: true
+        fields:
+          - {label: "Site Title", name: "title", widget: "string", i18n: true}
+          - {label: "Site Description", name: "description", widget: "text", i18n: true}
+          - {label: "Site Logo", name: "logo", widget: "image", required: false, i18n: true}
+          - {label: "Favicon", name: "favicon", widget: "image", required: false, i18n: true}
+          
+      - file: "src/data/author.json"
+        label: "Author Information"
+        name: "author"
+        i18n: true
+        fields:
+          - {label: "Name", name: "name", widget: "string", i18n: true}
+          - {label: "Avatar", name: "avatar", widget: "image", required: false, i18n: true}
+          - {label: "Bio", name: "bio", widget: "text", i18n: true}
+          - label: "Social Media"
+            name: "social"
+            widget: "object"
+            i18n: true
+            fields:
+              - {label: "Twitter", name: "twitter", widget: "string", required: false, i18n: true}
+              - {label: "GitHub", name: "github", widget: "string", required: false, i18n: true}
+              - {label: "LinkedIn", name: "linkedin", widget: "string", required: false, i18n: true}
+              - {label: "Instagram", name: "instagram", widget: "string", required: false, i18n: true}
+
+      - file: "src/data/navigation.json"
+        label: "Navigation"
+        name: "navigation"
+        i18n: true
+        fields:
+          - label: "Main Menu"
+            name: "main"
+            widget: "list"
+            i18n: true
+            fields:
+              - {label: "Label", name: "label", widget: "string", i18n: true}
+              - {label: "URL", name: "url", widget: "string", i18n: true}
+              - {label: "Order", name: "order", widget: "number", default: 0, i18n: true}
+          - label: "Footer Menu"
+            name: "footer"
+            widget: "list"
+            i18n: true
+            fields:
+              - {label: "Label", name: "label", widget: "string", i18n: true}
+              - {label: "URL", name: "url", widget: "string", i18n: true}
+              - {label: "Order", name: "order", widget: "number", default: 0, i18n: true}
