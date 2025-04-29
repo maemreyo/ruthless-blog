@@ -10,7 +10,13 @@
     "new-post": "node scripts/create-post.js",
     "new-series": "node scripts/create-series.js",
     "new-category": "node scripts/create-category.js",
-    "list-posts": "node scripts/list-posts.js"
+    "list-posts": "node scripts/list-posts.js",
+    "upload-image": "node scripts/upload-images.js",
+    "upload-images": "node scripts/upload-images.js --directory",
+    "process-post": "node scripts/process-post-images.js",
+    "process-post-optimize": "node scripts/process-post-images.js --optimize",
+    "setup-images": "npm install --save-dev sharp clipboardy",
+    "setup-cms-images": "node scripts/setup-decap-cms-images.js"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
@@ -34,10 +40,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cli-table3": "^0.6.5",
+    "clipboardy": "^4.0.0",
     "commander": "^13.1.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "gray-matter": "^4.0.3",
+    "sharp": "^0.34.1",
     "slugify": "^1.6.6",
     "tailwindcss": "^4",
     "typescript": "^5"

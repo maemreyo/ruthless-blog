@@ -1,13 +1,18 @@
 ---
-title: 'Getting Started with Next.js'
+title: Getting Started with Next.js
 date: '2024-01-15'
-author: 'Wehttam'
-category: 'Technology'
-series: 'Next.js Fundamentals'
+author: Wehttam
+category: Technology
+series: Next.js Fundamentals
 seriesPart: 1
-excerpt: 'A comprehensive guide on how to get started with Next.js, a powerful React framework for modern web development.'
-tags: ['next.js', 'react', 'web development']
-thumbnail: '/images/uploads/nextjs-thumbnail.jpg'
+excerpt: >-
+  A comprehensive guide on how to get started with Next.js, a powerful React
+  framework for modern web development.
+tags:
+  - next.js
+  - react
+  - web development
+thumbnail: /images/uploads/nextjs-thumbnail.jpg
 featured: true
 ---
 

@@ -3,3 +3,4 @@ Tính năng tìm kiếm nâng cao: Cho phép tìm kiếm bài viết theo catego
 Trang author: Tạo trang hiển thị thông tin tác giả và các bài viết của họ
 Tính năng đánh dấu bài viết yêu thích: Cho phép người dùng đánh dấu bài viết yêu thích
 Tính năng bình luận: Tích hợp hệ thống bình luận cho bài viết
+

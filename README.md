@@ -39,6 +39,16 @@ Dự án này đi kèm với các scripts tiện ích để giúp quản lý n�
 node scripts/install-dependencies.js
 ```
 
+### Quản Lý Hình Ảnh
+
+Dự án sử dụng GitHub repository riêng (`maemreyo/wehttam-blog-images`) để lưu trữ hình ảnh và jsDelivr làm CDN. Cài đặt dependencies cho quản lý hình ảnh:
+
+```bash
+npm run setup-images
+```
+
+Xem thêm thông tin chi tiết về quản lý hình ảnh trong [scripts/IMAGES-README.md](scripts/IMAGES-README.md).
+
 ### Tạo Bài Viết Mới
 
 ```bash
