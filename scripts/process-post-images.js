@@ -19,14 +19,14 @@ const matter = require('gray-matter');
 program
   .option('-p, --post <path>', 'Đường dẫn đến bài viết Markdown')
   .option('-f, --folder <folder>', 'Thư mục đích trong repository hình ảnh', '')
-  .option('-o, --optimize', 'Tối ưu hóa ảnh trước khi upload', false)
+  .option('-o, --optimize', 'Tối ưu hóa ảnh trước khi upload', true)
   .option('-k, --keep', 'Giữ lại ảnh gốc sau khi upload', false)
-  .option('--force', 'Xóa cả ảnh trong thư mục public', false)
-  .option('--force-git', 'Force push lên Git repository nếu cần', false)
+  .option('--force', 'Xóa cả ảnh trong thư mục public', true)
+  .option('--force-git', 'Force push lên Git repository nếu cần', true)
   .option('--no-preserve-structure', 'Không giữ cấu trúc thư mục gốc', false)
-  .option('--service <service>', 'Dịch vụ URL hình ảnh (jsdelivr-latest, jsdelivr-versioned, github-raw, github-blob)', 'jsdelivr-latest')
-  .option('--check-repo', 'Kiểm tra xem repository có phải là public không', false)
-  .option('--update-all-langs', 'Cập nhật tất cả các phiên bản ngôn ngữ của bài viết', false);
+  .option('--service <service>', 'Dịch vụ URL hình ảnh (jsdelivr-latest, jsdelivr-versioned, github-raw, github-blob)', 'github-raw')
+  .option('--check-repo', 'Kiểm tra xem repository có phải là public không', true)
+  .option('--update-all-langs', 'Cập nhật tất cả các phiên bản ngôn ngữ của bài viết', true);
 
 program.parse(process.argv);
 
