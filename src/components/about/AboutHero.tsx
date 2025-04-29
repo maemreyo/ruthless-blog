@@ -53,7 +53,7 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
         variants={fadeInUp}
       >
         <div className="flex flex-col md:flex-row gap-8 items-center">
-          <div className="w-full md:w-1/3 flex justify-center">
+          {/* <div className="w-full md:w-1/3 flex justify-center">
             <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-elegant">
               <Image 
                 src="/images/profile/profile-photo.jpg" 
@@ -63,20 +63,20 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
                 priority
               />
             </div>
-          </div>
+          </div> */}
           
           <div className="w-full md:w-2/3">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            {/* <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
               {authorTitle}
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-4">
+            </h2> */}
+            {/* <p className="text-gray-700 dark:text-gray-300 mb-4">
               {t('authorIntro')}
-            </p>
-            <p className="text-gray-700 dark:text-gray-300 mb-6">
+            </p> */}
+            {/* <p className="text-gray-700 dark:text-gray-300 mb-6">
               {t('authorExperience')}
-            </p>
+            </p> */}
             
-            <div className="flex flex-wrap gap-4">
+            {/* <div className="flex flex-wrap gap-4">
               <a 
                 href="https://github.com/maemreyo" 
                 target="_blank" 
@@ -104,7 +104,7 @@ export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
                 <LinkedinLogo weight="fill" className="w-5 h-5" />
                 <span>{t('linkedin')}</span>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
         
