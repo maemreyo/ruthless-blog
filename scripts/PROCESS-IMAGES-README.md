@@ -29,6 +29,9 @@ npm run process-all-posts-en
 
 # Xử lý tất cả các bài viết tiếng Việt
 npm run process-all-posts-vi
+
+# Xử lý tất cả các bài viết trong một series cụ thể
+npm run process-series -- --series "Tên Series"
 ```
 
 ## Các Tùy Chọn
@@ -39,6 +42,7 @@ Script hỗ trợ nhiều tùy chọn để tùy chỉnh quá trình xử lý:
 Options:
   -p, --post <path>       Đường dẫn đến bài viết Markdown
   -a, --all               Xử lý tất cả các bài viết trong thư mục blog (default: false)
+  -s, --series <series>   Chỉ xử lý bài viết thuộc series cụ thể
   -f, --folder <folder>   Thư mục đích trong repository hình ảnh (default: "")
   -o, --optimize          Tối ưu hóa ảnh trước khi upload (default: true)
   -k, --keep              Giữ lại ảnh gốc sau khi upload (default: false)

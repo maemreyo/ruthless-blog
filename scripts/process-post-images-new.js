@@ -19,6 +19,7 @@ const matter = require('gray-matter');
 program
   .option('-p, --post <path>', 'Đường dẫn đến bài viết Markdown')
   .option('-a, --all', 'Xử lý tất cả các bài viết trong thư mục blog', false)
+  .option('-s, --series <series>', 'Chỉ xử lý bài viết thuộc series cụ thể')
   .option('-f, --folder <folder>', 'Thư mục đích trong repository hình ảnh', '')
   .option('-o, --optimize', 'Tối ưu hóa ảnh trước khi upload', true)
   .option('-k, --keep', 'Giữ lại ảnh gốc sau khi upload', false)
@@ -34,9 +35,9 @@ program.parse(process.argv);
 
 const options = program.opts();
 
-// Kiểm tra xem có bài viết được chỉ định hoặc tùy chọn --all được sử dụng không
-if (!options.post && !options.all) {
-  console.error('Lỗi: Bạn phải chỉ định bài viết (--post) hoặc sử dụng tùy chọn --all');
+// Kiểm tra xem có bài viết được chỉ định hoặc tùy chọn --all hoặc --series được sử dụng không
+if (!options.post && !options.all && !options.series) {
+  console.error('Lỗi: Bạn phải chỉ định bài viết (--post), sử dụng tùy chọn --all, hoặc chỉ định series (--series)');
   program.help();
   process.exit(1);
 }
@@ -76,7 +77,26 @@ function findAllPosts() {
     
     // Thêm đường dẫn đầy đủ vào danh sách
     for (const mdFile of mdFiles) {
-      posts.push(path.join(langDir, mdFile));
+      const filePath = path.join(langDir, mdFile);
+      
+      // Nếu có chỉ định series, kiểm tra xem bài viết có thuộc series đó không
+      if (options.series) {
+        try {
+          const content = fs.readFileSync(filePath, 'utf8');
+          const { data: frontmatter } = matter(content);
+          
+          // Chỉ thêm bài viết vào danh sách nếu nó thuộc series được chỉ định
+          if (frontmatter.series === options.series) {
+            posts.push(filePath);
+            console.log(`✅ Tìm thấy bài viết thuộc series "${options.series}": ${filePath}`);
+          }
+        } catch (error) {
+          console.warn(`⚠️ Không thể đọc frontmatter của file ${filePath}: ${error.message}`);
+        }
+      } else {
+        // Nếu không chỉ định series, thêm tất cả bài viết vào danh sách
+        posts.push(filePath);
+      }
     }
   }
   
@@ -551,16 +571,24 @@ async function main() {
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
     
-    if (options.all) {
-      // Xử lý tất cả các bài viết
+    if (options.all || options.series) {
+      // Xử lý tất cả các bài viết hoặc bài viết trong series
       const posts = findAllPosts();
       
       if (posts.length === 0) {
-        console.log('⚠️ Không tìm thấy bài viết nào.');
+        if (options.series) {
+          console.log(`⚠️ Không tìm thấy bài viết nào thuộc series "${options.series}".`);
+        } else {
+          console.log('⚠️ Không tìm thấy bài viết nào.');
+        }
         process.exit(0);
       }
       
-      console.log(`🔍 Tìm thấy ${posts.length} bài viết để xử lý.`);
+      if (options.series) {
+        console.log(`🔍 Tìm thấy ${posts.length} bài viết thuộc series "${options.series}" để xử lý.`);
+      } else {
+        console.log(`🔍 Tìm thấy ${posts.length} bài viết để xử lý.`);
+      }
       
       let successCount = 0;
       let failCount = 0;

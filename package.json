@@ -18,6 +18,7 @@
     "process-all-posts": "node scripts/process-post-images-new.js --all",
     "process-all-posts-en": "node scripts/process-post-images-new.js --all --lang en",
     "process-all-posts-vi": "node scripts/process-post-images-new.js --all --lang vi",
+    "process-series": "node scripts/process-post-images-new.js --series",
     "setup-images": "npm install --save-dev sharp clipboardy",
     "setup-cms-images": "node scripts/setup-decap-cms-images.js"
   },
