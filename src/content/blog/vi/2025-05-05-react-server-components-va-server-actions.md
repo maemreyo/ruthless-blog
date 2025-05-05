@@ -8,6 +8,7 @@ thumbnail: '/images/uploads/default-thumbnail.jpg'
 category: 'Web Development'
 series: 'Next.js App Router Deep Dive'
 seriesPart: 1
+featured: true
 ---
 
 # React Server Components và Server Actions
