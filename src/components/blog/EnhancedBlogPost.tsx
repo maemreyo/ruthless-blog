@@ -67,47 +67,94 @@ export default function EnhancedBlogPost({
   const [headings, setHeadings] = useState<{id: string, text: string, level: number}[]>([]);
   const [readingProgress, setReadingProgress] = useState(0);
   
-  // Parallax scroll effect for header
+  // Parallax scroll effect for header - optimized
   const { scrollYProgress } = useScroll({
     target: headerRef,
     offset: ["start start", "end start"]
   });
   
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  // Reduce the amount of transform to improve performance
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.98]);
   
-  // Smooth spring physics for parallax
-  const smoothY = useSpring(y, { damping: 15, stiffness: 100 });
-  const smoothOpacity = useSpring(opacity, { damping: 15, stiffness: 100 });
-  const smoothScale = useSpring(scale, { damping: 15, stiffness: 100 });
+  // Optimize spring physics with higher stiffness for better performance
+  const smoothY = useSpring(y, { damping: 20, stiffness: 200 });
+  const smoothOpacity = useSpring(opacity, { damping: 20, stiffness: 200 });
+  const smoothScale = useSpring(scale, { damping: 20, stiffness: 200 });
   
-  // Reading progress
+  // Reading progress with throttling
   useEffect(() => {
+    let ticking = false;
+    let lastKnownScrollPosition = 0;
+    let cachedContentTop = 0;
+    let cachedContentHeight = 0;
+    
+    // Initialize cached values
+    if (contentRef.current) {
+      const contentBox = contentRef.current.getBoundingClientRect();
+      cachedContentHeight = contentBox.height;
+      cachedContentTop = contentBox.top + window.scrollY;
+    }
+    
     const updateReadingProgress = () => {
       if (!contentRef.current) return;
       
-      const contentBox = contentRef.current.getBoundingClientRect();
-      const contentHeight = contentBox.height;
+      // Only recalculate these values when needed (e.g., on resize)
+      if (cachedContentHeight === 0) {
+        const contentBox = contentRef.current.getBoundingClientRect();
+        cachedContentHeight = contentBox.height;
+        cachedContentTop = contentBox.top + window.scrollY;
+      }
+      
       const windowHeight = window.innerHeight;
-      const scrollTop = window.scrollY;
+      const scrollTop = lastKnownScrollPosition;
       const scrollBottom = scrollTop + windowHeight;
-      const contentTop = contentBox.top + scrollTop;
-      const contentBottom = contentTop + contentHeight;
+      const contentBottom = cachedContentTop + cachedContentHeight;
       
       // Calculate how much of the content is visible
       if (scrollBottom >= contentBottom) {
         setReadingProgress(100);
-      } else if (scrollTop <= contentTop) {
+      } else if (scrollTop <= cachedContentTop) {
         setReadingProgress(0);
       } else {
-        const progress = ((scrollBottom - contentTop) / contentHeight) * 100;
+        const progress = ((scrollBottom - cachedContentTop) / cachedContentHeight) * 100;
         setReadingProgress(Math.min(progress, 100));
+      }
+      
+      ticking = false;
+    };
+    
+    const onScroll = () => {
+      lastKnownScrollPosition = window.scrollY;
+      
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateReadingProgress();
+          ticking = false;
+        });
+        
+        ticking = true;
       }
     };
     
-    window.addEventListener('scroll', updateReadingProgress);
-    return () => window.removeEventListener('scroll', updateReadingProgress);
+    // Reset cached values on resize
+    const onResize = () => {
+      cachedContentHeight = 0;
+      cachedContentTop = 0;
+      updateReadingProgress();
+    };
+    
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', onResize);
+    
+    // Initial calculation
+    updateReadingProgress();
+    
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+    };
   }, []);
   
   // Extract headings from content for table of contents
@@ -129,32 +176,61 @@ export default function EnhancedBlogPost({
     extractHeadings();
   }, [content]);
   
-  // Track active heading based on scroll position
+  // Track active heading based on scroll position with throttling
   useEffect(() => {
-    const handleScroll = () => {
-      if (headings.length === 0) return;
-      
-      const headingElements = headings.map(heading => 
-        document.getElementById(heading.id)
-      ).filter(Boolean) as HTMLElement[];
-      
-      if (headingElements.length === 0) return;
-      
+    if (headings.length === 0) return;
+    
+    // Cache heading elements to avoid repeated DOM queries
+    const headingElements = headings.map(heading => ({
+      id: heading.id,
+      element: document.getElementById(heading.id)
+    })).filter(item => item.element) as {id: string, element: HTMLElement}[];
+    
+    if (headingElements.length === 0) return;
+    
+    let ticking = false;
+    let lastKnownScrollPosition = 0;
+    
+    const updateActiveHeading = () => {
       // Find the heading that's currently in view
+      let activeId = '';
+      
       for (let i = headingElements.length - 1; i >= 0; i--) {
-        const element = headingElements[i];
+        const { id, element } = headingElements[i];
         const rect = element.getBoundingClientRect();
         
         if (rect.top <= 100) {
-          setActiveHeading(headings[i].id);
+          activeId = id;
           break;
         }
       }
+      
+      if (activeId && activeId !== activeHeading) {
+        setActiveHeading(activeId);
+      }
+      
+      ticking = false;
     };
     
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [headings]);
+    const onScroll = () => {
+      lastKnownScrollPosition = window.scrollY;
+      
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateActiveHeading();
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    };
+    
+    // Initial check
+    updateActiveHeading();
+    
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [headings, activeHeading]);
   
   // Copy URL to clipboard
   const copyToClipboard = () => {
@@ -449,7 +525,7 @@ export default function EnhancedBlogPost({
           </div>
         </div>
         
-        {/* Scroll indicator */}
+        {/* Scroll indicator - optimized with will-change */}
         <motion.div 
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
           animate={{ 
@@ -458,8 +534,10 @@ export default function EnhancedBlogPost({
           }}
           transition={{ 
             repeat: Infinity,
-            duration: 2
+            duration: 2,
+            ease: "easeInOut"
           }}
+          style={{ willChange: "transform, opacity" }}
         >
           <div className="w-8 h-12 rounded-full border-2 border-white/50 flex items-center justify-center">
             <motion.div 
@@ -469,8 +547,10 @@ export default function EnhancedBlogPost({
               }}
               transition={{ 
                 repeat: Infinity,
-                duration: 1.5
+                duration: 1.5,
+                ease: "easeInOut"
               }}
+              style={{ willChange: "transform" }}
             />
           </div>
         </motion.div>

@@ -131,15 +131,18 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
       
       if (!inline && match) {
         return (
-          <div className="relative group">
-            <pre className={`${className} rounded-lg overflow-hidden`} {...props}>
-              <code className={className} {...props}>
+          <div className="relative group my-8">
+            <div className="absolute top-0 right-0 left-0 h-10 bg-gray-800 dark:bg-gray-900 rounded-t-lg flex items-center px-4">
+              <span className="text-xs font-mono text-gray-400">{match[1]}</span>
+            </div>
+            <pre className={`${className} rounded-lg overflow-hidden mt-0 pt-12 pb-6 px-6 bg-gray-800 dark:bg-gray-900 border border-gray-700 dark:border-gray-800 shadow-xl`} {...props}>
+              <code className={`${className} text-base`} {...props}>
                 {children}
               </code>
             </pre>
             <button
               onClick={() => copyToClipboard(code)}
-              className="absolute top-2 right-2 p-2 rounded-md bg-gray-700/50 text-gray-300 hover:bg-gray-700 transition-colors opacity-0 group-hover:opacity-100"
+              className="absolute top-2 right-2 p-2 rounded-md bg-gray-700/70 text-gray-300 hover:bg-gray-600 transition-colors opacity-0 group-hover:opacity-100"
               aria-label="Copy code"
             >
               {copiedCode === code ? (
@@ -153,7 +156,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
       }
       
       return (
-        <code className="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+        <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono border border-gray-200 dark:border-gray-700" {...props}>
           {children}
         </code>
       );
@@ -220,15 +223,15 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
     
     // Enhanced tables
     table: ({ node, ...props }: any) => (
-      <div className="overflow-x-auto my-8">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden" {...props} />
+      <div className="overflow-x-auto my-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden" {...props} />
       </div>
     ),
     thead: ({ node, ...props }: any) => (
-      <thead className="bg-gray-50 dark:bg-gray-800" {...props} />
+      <thead className="bg-gray-100 dark:bg-gray-800" {...props} />
     ),
     th: ({ node, ...props }: any) => (
-      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider" {...props} />
+      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 tracking-wider border-b-2 border-gray-300 dark:border-gray-600" {...props} />
     ),
     tbody: ({ node, ...props }: any) => (
       <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800" {...props} />
@@ -237,7 +240,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
       <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" {...props} />
     ),
     td: ({ node, ...props }: any) => (
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400" {...props} />
+      <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 border-r border-gray-100 dark:border-gray-800 last:border-r-0" {...props} />
     ),
     
     // Horizontal rule
@@ -247,7 +250,15 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
   };
 
   return (
-    <div className={`markdown-content prose dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 ${className}`}>
+    <div className={`markdown-content prose dark:prose-invert max-w-none 
+      prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white 
+      prose-p:text-gray-700 dark:prose-p:text-gray-300 
+      prose-a:text-primary prose-a:no-underline hover:prose-a:text-primary-dark
+      prose-strong:text-gray-800 dark:prose-strong:text-gray-200
+      prose-em:text-gray-700 dark:prose-em:text-gray-300
+      prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic
+      prose-img:rounded-xl prose-img:shadow-lg
+      ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, [rehypeHighlight, { ignoreMissing: true }]]}
