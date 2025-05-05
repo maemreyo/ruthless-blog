@@ -1,13 +1,19 @@
 ---
-title: 'Styling with Tailwind CSS'
+title: Styling with Tailwind CSS
 date: '2024-01-20'
-author: 'Wehttam'
-category: 'Design'
-series: 'Next.js Fundamentals'
+author: Wehttam
+category: Design
+series: Next.js Fundamentals
 seriesPart: 2
-excerpt: 'Discover the power of utility-first CSS with Tailwind CSS and how it can speed up your development workflow.'
-tags: ['tailwind css', 'css', 'web design']
-thumbnail: '/images/uploads/tailwind-thumbnail.jpg'
+excerpt: >-
+  Discover the power of utility-first CSS with Tailwind CSS and how it can speed
+  up your development workflow.
+tags:
+  - tailwind css
+  - css
+  - web design
+thumbnail: >-
+  https://raw.githubusercontent.com/maemreyo/wehttam-blog-images/main/posts/2024/01/styling-with-tailwind-css/tailwind-thumbnail.jpg
 featured: true
 ---
 

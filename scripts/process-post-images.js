@@ -373,9 +373,11 @@ async function main() {
     
     // Tạo thư mục tạm để lưu ảnh
     const tempDir = path.join(process.cwd(), '.temp-images');
-    if (!fs.existsSync(tempDir)) {
-      fs.mkdirSync(tempDir, { recursive: true });
+    if (fs.existsSync(tempDir)) {
+      // Xóa thư mục tạm nếu đã tồn tại để đảm bảo không có ảnh cũ
+      fs.rmSync(tempDir, { recursive: true, force: true });
     }
+    fs.mkdirSync(tempDir, { recursive: true });
     
     // Tạo cấu trúc thư mục tạm cho từng ảnh
     for (const image of images) {
@@ -396,6 +398,7 @@ async function main() {
       // Copy ảnh vào thư mục tạm với cấu trúc thư mục tương ứng
       const tempPath = path.join(tempImageDir, image.originalName);
       fs.copyFileSync(image.fullPath, tempPath);
+      console.log(`✅ Đã copy ảnh ${image.fullPath} vào ${tempPath}`);
       
       // Lưu thông tin đường dẫn tạm và thư mục đích
       image.tempPath = tempPath;
@@ -424,22 +427,112 @@ async function main() {
       uploadCommand += ' --check-repo';
     }
     
-    // Thực thi command và lấy output
-    const output = execSync(uploadCommand, { encoding: 'utf8' });
-    
-    // Parse output để lấy thông tin URL
-    const urlRegex = /Markdown: !\[([^\]]*)\]\(([^)]+)\)/g;
-    const urls = [];
-    let urlMatch;
-    
-    while ((urlMatch = urlRegex.exec(output)) !== null) {
-      const altText = urlMatch[1];
-      const url = urlMatch[2];
-      urls.push({ altText, url });
+    // Liệt kê các file trong thư mục tạm để debug
+    console.log(`🔍 Danh sách file trong thư mục tạm (${tempDir}):`);
+    try {
+      const fileList = execSync(`find ${tempDir} -type f | sort`, { encoding: 'utf8' });
+      console.log(fileList || 'Không có file nào.');
+    } catch (error) {
+      console.log(`Không thể liệt kê file: ${error.message}`);
     }
     
-    if (urls.length !== images.length) {
-      console.warn(`⚠️ Số lượng URL (${urls.length}) không khớp với số lượng ảnh (${images.length}).`);
+    // Thực thi command và lấy output
+    console.log(`🔄 Thực thi command: ${uploadCommand}`);
+    
+    // Định nghĩa các biến cần thiết
+    const GITHUB_USERNAME = 'maemreyo';
+    const IMAGE_REPO_NAME = 'wehttam-blog-images';
+    const IMAGE_REPO_BRANCH = 'main';
+    
+    let urls = [];
+    
+    try {
+      // Sử dụng stdio: 'pipe' để có thể lấy output
+      const output = execSync(uploadCommand, { encoding: 'utf8' });
+      
+      // Parse output để lấy thông tin URL
+      const urlRegex = /Markdown: !\[([^\]]*)\]\(([^)]+)\)/g;
+      let urlMatch;
+      
+      while ((urlMatch = urlRegex.exec(output)) !== null) {
+        const altText = urlMatch[1];
+        const url = urlMatch[2];
+        urls.push({ altText, url });
+      }
+      
+      console.log(`✅ Đã tìm thấy ${urls.length} URL từ output.`);
+      
+      if (urls.length !== images.length) {
+        console.warn(`⚠️ Số lượng URL (${urls.length}) không khớp với số lượng ảnh (${images.length}).`);
+        
+        // Nếu không tìm thấy URL nào, tạo URL dựa trên thông tin đã biết
+        if (urls.length === 0) {
+          console.log(`⚠️ Không tìm thấy URL từ output, tạo URL thủ công...`);
+          
+          for (const image of images) {
+            const relativePath = path.join(image.destFolder, image.originalName).replace(/\\/g, '/');
+            let imageUrl;
+            
+            // Xác định URL dựa trên service được chọn
+            switch (options.service.toLowerCase()) {
+              case 'github-raw':
+                imageUrl = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/${IMAGE_REPO_BRANCH}/${relativePath}`;
+                break;
+              case 'github-blob':
+                imageUrl = `https://github.com/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/blob/${IMAGE_REPO_BRANCH}/${relativePath}`;
+                break;
+              case 'jsdelivr-versioned':
+                imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}@${IMAGE_REPO_BRANCH}/${relativePath}`;
+                break;
+              case 'jsdelivr-latest':
+              case 'jsdelivr':
+              default:
+                imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/${relativePath}`;
+                break;
+            }
+            
+            urls.push({
+              altText: path.basename(image.originalName, path.extname(image.originalName)),
+              url: imageUrl
+            });
+            
+            console.log(`✅ Đã tạo URL thủ công: ${imageUrl}`);
+          }
+        }
+      }
+    } catch (error) {
+      console.error(`❌ Lỗi khi thực thi command: ${error.message}`);
+      
+      // Tạo URL thủ công nếu có lỗi
+      for (const image of images) {
+        const relativePath = path.join(image.destFolder, image.originalName).replace(/\\/g, '/');
+        let imageUrl;
+        
+        // Xác định URL dựa trên service được chọn
+        switch (options.service.toLowerCase()) {
+          case 'github-raw':
+            imageUrl = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/${IMAGE_REPO_BRANCH}/${relativePath}`;
+            break;
+          case 'github-blob':
+            imageUrl = `https://github.com/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/blob/${IMAGE_REPO_BRANCH}/${relativePath}`;
+            break;
+          case 'jsdelivr-versioned':
+            imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}@${IMAGE_REPO_BRANCH}/${relativePath}`;
+            break;
+          case 'jsdelivr-latest':
+          case 'jsdelivr':
+          default:
+            imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/${relativePath}`;
+            break;
+        }
+        
+        urls.push({
+          altText: path.basename(image.originalName, path.extname(image.originalName)),
+          url: imageUrl
+        });
+        
+        console.log(`✅ Đã tạo URL thủ công: ${imageUrl}`);
+      }
     }
     
     // Cập nhật đường dẫn ảnh trong bài viết

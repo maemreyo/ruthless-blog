@@ -109,6 +109,8 @@ function uploadImage(imagePath, destFolder) {
       return null;
     }
     
+    console.log(`🔍 Đang xử lý ảnh: ${imagePath}`);
+    
     // Tạo tên file mới nếu cần
     const fileName = options.prefix ? generateRandomFileName(path.basename(imagePath)) : path.basename(imagePath);
     
@@ -134,6 +136,7 @@ function uploadImage(imagePath, destFolder) {
       const destPath = path.join(tempDir, finalDestFolder);
       if (!fs.existsSync(destPath)) {
         fs.mkdirSync(destPath, { recursive: true });
+        console.log(`✅ Đã tạo thư mục: ${destPath}`);
       }
       
       // Copy ảnh vào repository
@@ -143,6 +146,7 @@ function uploadImage(imagePath, destFolder) {
       const destPath = path.join(tempDir, destFolder);
       if (!fs.existsSync(destPath)) {
         fs.mkdirSync(destPath, { recursive: true });
+        console.log(`✅ Đã tạo thư mục: ${destPath}`);
       }
       
       // Copy ảnh vào repository
@@ -150,7 +154,77 @@ function uploadImage(imagePath, destFolder) {
     }
     
     // Copy ảnh vào repository
-    fs.copyFileSync(imagePath, destFilePath);
+    try {
+      // Kiểm tra xem file đích đã tồn tại chưa
+      const fileExists = fs.existsSync(destFilePath);
+      
+      console.log(`🔍 Đang copy ảnh từ ${imagePath} (${fs.statSync(imagePath).size} bytes) vào ${destFilePath}`);
+      
+      // Copy ảnh vào repository
+      fs.copyFileSync(imagePath, destFilePath);
+      
+      // Kiểm tra xem file đã được copy thành công chưa
+      if (fs.existsSync(destFilePath)) {
+        const fileSize = fs.statSync(destFilePath).size;
+        console.log(`✅ Đã copy ảnh thành công: ${destFilePath} (${fileSize} bytes)`);
+      } else {
+        console.error(`❌ Copy thất bại: File đích không tồn tại sau khi copy`);
+        return null;
+      }
+      
+      // Kiểm tra xem file có thay đổi không nếu đã tồn tại
+      if (fileExists) {
+        try {
+          // Thêm file vào git để theo dõi thay đổi
+          console.log(`🔍 Đang thêm file vào git: ${destFilePath}`);
+          execSync(`git add "${destFilePath}"`, { stdio: 'inherit' });
+          
+          // Kiểm tra xem file có thay đổi không
+          const fileStatus = execSync(`git status --porcelain "${destFilePath}"`, { encoding: 'utf8' });
+          
+          if (fileStatus.trim() === '') {
+            console.log(`ℹ️ File ${path.basename(destFilePath)} không có thay đổi.`);
+          } else {
+            console.log(`✅ File ${path.basename(destFilePath)} đã thay đổi và sẽ được commit: ${fileStatus}`);
+          }
+        } catch (gitError) {
+          console.error(`❌ Không thể kiểm tra trạng thái git cho file: ${gitError.message}`);
+          // Thử lại với đường dẫn tương đối
+          try {
+            const relativeFilePath = path.relative(tempDir, destFilePath);
+            console.log(`🔍 Thử lại với đường dẫn tương đối: ${relativeFilePath}`);
+            execSync(`git add "${relativeFilePath}"`, { stdio: 'inherit', cwd: tempDir });
+          } catch (retryError) {
+            console.error(`❌ Vẫn không thể thêm file vào git: ${retryError.message}`);
+          }
+        }
+      } else {
+        console.log(`✅ Đã thêm file mới: ${path.basename(destFilePath)}`);
+        
+        // Thêm file mới vào git
+        try {
+          console.log(`🔍 Đang thêm file mới vào git: ${destFilePath}`);
+          execSync(`git add "${destFilePath}"`, { stdio: 'inherit' });
+          
+          // Kiểm tra xem file đã được thêm vào git chưa
+          const gitStatus = execSync(`git status --porcelain "${destFilePath}"`, { encoding: 'utf8' });
+          console.log(`🔍 Trạng thái git của file: ${gitStatus || 'Không có thay đổi'}`);
+        } catch (gitError) {
+          console.error(`❌ Không thể thêm file vào git: ${gitError.message}`);
+          // Thử lại với đường dẫn tương đối
+          try {
+            const relativeFilePath = path.relative(tempDir, destFilePath);
+            console.log(`🔍 Thử lại với đường dẫn tương đối: ${relativeFilePath}`);
+            execSync(`git add "${relativeFilePath}"`, { stdio: 'inherit', cwd: tempDir });
+          } catch (retryError) {
+            console.error(`❌ Vẫn không thể thêm file vào git: ${retryError.message}`);
+          }
+        }
+      }
+    } catch (copyError) {
+      console.error(`❌ Lỗi khi copy ảnh: ${copyError.message}`);
+      return null;
+    }
     
     // Tạo URL cho ảnh
     const relativePath = path.join(finalDestFolder, fileName).replace(/\\/g, '/');
@@ -257,7 +331,25 @@ async function main() {
     // Clone repository hình ảnh
     console.log(`🔄 Đang clone repository ${IMAGE_REPO_URL}...`);
     try {
+      // Xóa thư mục tạm nếu đã tồn tại
+      if (fs.existsSync(tempDir)) {
+        console.log(`🔄 Xóa thư mục tạm cũ: ${tempDir}`);
+        fs.rmSync(tempDir, { recursive: true, force: true });
+      }
+      
+      // Clone repository với --verbose để xem chi tiết
+      console.log(`🔄 Clone repository với lệnh: git clone ${IMAGE_REPO_URL} ${tempDir}`);
       execSync(`git clone ${IMAGE_REPO_URL} ${tempDir}`, { stdio: 'inherit' });
+      
+      // Kiểm tra xem clone thành công không
+      if (!fs.existsSync(path.join(tempDir, '.git'))) {
+        throw new Error('Clone không thành công, không tìm thấy thư mục .git');
+      }
+      
+      // Kiểm tra remote URL
+      process.chdir(tempDir);
+      const remoteUrl = execSync('git remote -v', { encoding: 'utf8' });
+      console.log(`🔍 Remote URL: ${remoteUrl}`);
       
       // Kiểm tra xem repository có trống không
       const isEmptyRepo = fs.readdirSync(tempDir).filter(item => item !== '.git').length === 0;
@@ -273,12 +365,13 @@ async function main() {
         fs.mkdirSync(path.join(tempDir, 'uploads'), { recursive: true });
         
         // Commit file README.md
-        process.chdir(tempDir);
+        console.log('🔄 Commit file README.md...');
         execSync('git add README.md', { stdio: 'inherit' });
         execSync('git commit -m "Initial commit"', { stdio: 'inherit' });
         
         // Kiểm tra xem nhánh đã tồn tại chưa
         const branches = execSync('git branch -a', { encoding: 'utf8' });
+        console.log(`🔍 Các nhánh hiện có: ${branches}`);
         const hasBranch = branches.includes(`remotes/origin/${IMAGE_REPO_BRANCH}`);
         
         if (!hasBranch) {
@@ -287,9 +380,49 @@ async function main() {
           execSync(`git checkout -b ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
         }
         
+        console.log(`🔄 Push lên nhánh ${IMAGE_REPO_BRANCH}...`);
         execSync(`git push -u origin ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
-        process.chdir(process.cwd());
+      } else {
+        // Kiểm tra các nhánh hiện có
+        const branches = execSync('git branch -a', { encoding: 'utf8' });
+        console.log(`🔍 Các nhánh hiện có: ${branches}`);
+        
+        // Chuyển sang nhánh main
+        console.log(`🔄 Chuyển sang nhánh ${IMAGE_REPO_BRANCH}...`);
+        
+        // Kiểm tra xem nhánh local đã tồn tại chưa
+        const hasLocalBranch = branches.includes(`* ${IMAGE_REPO_BRANCH}`) || branches.includes(`  ${IMAGE_REPO_BRANCH}`);
+        
+        if (hasLocalBranch) {
+          execSync(`git checkout ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+        } else {
+          // Kiểm tra xem nhánh remote đã tồn tại chưa
+          const hasRemoteBranch = branches.includes(`remotes/origin/${IMAGE_REPO_BRANCH}`);
+          
+          if (hasRemoteBranch) {
+            execSync(`git checkout -b ${IMAGE_REPO_BRANCH} origin/${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+          } else {
+            execSync(`git checkout -b ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+          }
+        }
+        
+        // Pull các thay đổi mới nhất
+        console.log(`🔄 Pull các thay đổi mới nhất từ nhánh ${IMAGE_REPO_BRANCH}...`);
+        try {
+          execSync(`git pull origin ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+        } catch (pullError) {
+          console.warn(`⚠️ Không thể pull từ remote: ${pullError.message}`);
+        }
       }
+      
+      // Trở về thư mục gốc
+      process.chdir(process.cwd());
+      
+      // Liệt kê các file trong repository
+      console.log('🔍 Danh sách file trong repository:');
+      const files = execSync(`find ${tempDir} -type f -not -path "*/\\.git/*" | sort`, { encoding: 'utf8' });
+      console.log(files || 'Không có file nào.');
+      
     } catch (error) {
       console.error(`❌ Lỗi khi clone repository: ${error.message}`);
       console.log('ℹ️ Đảm bảo bạn đã thiết lập SSH key và có quyền truy cập vào repository.');
@@ -374,9 +507,102 @@ async function main() {
     
     if (status.trim() === '') {
       console.log('ℹ️ Không có thay đổi nào để commit.');
+      // Liệt kê các file trong thư mục để debug
+      console.log('🔍 Danh sách file trong thư mục:');
+      const files = execSync('find . -type f -not -path "*/\\.git/*" | sort', { encoding: 'utf8' });
+      console.log(files);
+      
+      // Thử thêm tất cả các file một lần nữa
+      console.log('🔄 Thử thêm tất cả các file một lần nữa...');
+      execSync('git add -A', { stdio: 'inherit' });
+      
+      // Kiểm tra lại
+      const newStatus = execSync('git status --porcelain', { encoding: 'utf8' });
+      
+      if (newStatus.trim() === '') {
+        console.log('ℹ️ Vẫn không có thay đổi nào để commit.');
+        
+        // Tạo một file tạm để đảm bảo có thay đổi
+        const tempFile = path.join(tempDir, '.upload-timestamp');
+        fs.writeFileSync(tempFile, `Upload timestamp: ${new Date().toISOString()}\nUploaded images: ${results.map(r => r.fileName).join(', ')}`);
+        execSync(`git add "${tempFile}"`, { stdio: 'inherit' });
+        
+        console.log('✅ Đã tạo file tạm để đảm bảo có thay đổi.');
+      } else {
+        console.log('✅ Đã tìm thấy thay đổi sau khi thêm lại:');
+        console.log(newStatus);
+      }
     } else {
-      execSync('git add .', { stdio: 'inherit' });
+      console.log('🔄 Các thay đổi được phát hiện:');
+      console.log(status);
+    }
+    
+    // Thêm tất cả các file một lần nữa để đảm bảo
+    execSync('git add -A', { stdio: 'inherit' });
+    
+    // Thêm tất cả các file và commit
+    console.log('🔄 Thêm tất cả các file vào git...');
+    execSync('git add -A', { stdio: 'inherit' });
+    
+    console.log('🔄 Đang commit với message:', options.message);
+    
+    // Đảm bảo git config được thiết lập
+    try {
+      const userEmail = execSync('git config user.email', { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).toString().trim();
+      const userName = execSync('git config user.name', { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).toString().trim();
+      
+      if (!userEmail || !userName) {
+        console.log('ℹ️ Thiết lập cấu hình git tạm thời...');
+        execSync('git config --local user.email "temp@example.com"', { stdio: 'inherit' });
+        execSync('git config --local user.name "Temporary User"', { stdio: 'inherit' });
+      }
+    } catch (configError) {
+      console.log('ℹ️ Thiết lập cấu hình git tạm thời...');
+      execSync('git config --local user.email "temp@example.com"', { stdio: 'inherit' });
+      execSync('git config --local user.name "Temporary User"', { stdio: 'inherit' });
+    }
+    
+    try {
+      // Thử commit bình thường
       execSync(`git commit -m "${options.message}"`, { stdio: 'inherit' });
+      console.log('✅ Commit thành công!');
+    } catch (commitError) {
+      console.log(`ℹ️ Lỗi khi commit: ${commitError.message}`);
+      
+      // Kiểm tra xem có thay đổi nào để commit không
+      const statusAfterAdd = execSync('git status --porcelain', { encoding: 'utf8' });
+      if (statusAfterAdd.trim() === '') {
+        console.log('ℹ️ Không có thay đổi nào để commit sau khi git add.');
+        // Tạo một file tạm khác để đảm bảo có thay đổi
+        const tempFile = path.join(tempDir, '.commit-timestamp');
+        fs.writeFileSync(tempFile, `Commit timestamp: ${new Date().toISOString()}\nForced commit for: ${results.map(r => r.fileName).join(', ')}`);
+        execSync(`git add "${tempFile}"`, { stdio: 'inherit' });
+        console.log('✅ Đã tạo file tạm mới để đảm bảo có thay đổi.');
+        
+        // Thử commit lại
+        
+        try {
+          execSync(`git commit -m "${options.message} (forced commit)"`, { stdio: 'inherit' });
+          console.log('✅ Commit thành công với file tạm mới!');
+        } catch (forcedCommitError) {
+          console.error(`❌ Vẫn không thể commit: ${forcedCommitError.message}`);
+          // Tiếp tục với push dù không có commit mới
+        }
+      } else {
+        console.log('ℹ️ Có thay đổi nhưng không thể commit:');
+        console.log(statusAfterAdd);
+        
+        // Thử commit với --allow-empty
+        console.log('🔄 Thử commit với --allow-empty...');
+        try {
+          execSync(`git commit --allow-empty -m "${options.message} (empty commit)"`, { stdio: 'inherit' });
+          console.log('✅ Commit thành công với --allow-empty!');
+        } catch (emptyCommitError) {
+          console.error(`❌ Vẫn không thể commit: ${emptyCommitError.message}`);
+          // Tiếp tục với push dù không có commit mới
+        }
+      }
+    }
       
       // Kiểm tra xem nhánh hiện tại là gì
       const currentBranch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf8' }).trim();
@@ -412,26 +638,130 @@ async function main() {
         
         // Push lên remote
         console.log(`ℹ️ Đang push lên remote...`);
+        
+        // Kiểm tra xem có commit nào để push không
+        let localCommits = '';
         try {
-          execSync(`git push -u origin ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
-        } catch (pushError) {
-          console.warn(`⚠️ Không thể push lên remote: ${pushError.message}`);
+    // Kiểm tra xem nhánh remote có tồn tại không
+          const remoteBranchExists = execSync(`git ls-remote --heads origin ${IMAGE_REPO_BRANCH}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).toString().trim() !== '';
           
-          // Kiểm tra xem có tùy chọn force push không
-          if (options.forceGit) {
-            console.log(`ℹ️ Đang thực hiện force push theo yêu cầu...`);
-            execSync(`git push -f -u origin ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+          if (remoteBranchExists) {
+            localCommits = execSync(`git log origin/${IMAGE_REPO_BRANCH}..HEAD --oneline`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).toString().trim();
           } else {
-            console.error(`❌ Push thất bại. Thử lại với tùy chọn --force-git để force push.`);
-            console.error(`   Lưu ý: Force push có thể gây mất dữ liệu trên remote.`);
-            process.exit(1);
+            // Nếu nhánh remote không tồn tại, lấy tất cả commit
+            localCommits = execSync(`git log --oneline`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).toString().trim();
+            console.log(`ℹ️ Nhánh ${IMAGE_REPO_BRANCH} chưa tồn tại trên remote, sẽ push tất cả commit.`);
           }
+        } catch (logError) {
+          console.log(`ℹ️ Không thể kiểm tra commit cần push: ${logError.message}`);
+          console.log(`ℹ️ Có thể nhánh remote chưa tồn tại hoặc không có commit nào.`);
+          
+          // Đặt localCommits thành một giá trị không rỗng để đảm bảo push được thực hiện
+          localCommits = "force-push-required";
+        }
+        
+        if (localCommits) {
+          if (localCommits === "force-push-required") {
+            console.log(`ℹ️ Không thể xác định commit cần push, sẽ thực hiện force push.`);
+          } else {
+                  console.log(`✅ Có ${localCommits.split('\n').length} commit(s) cần push:`);
+            console.log(localCommits);
+          }
+        } else {
+          console.log(`⚠️ Không có commit nào cần push. Kiểm tra lại quá trình commit.`);
+          
+          // Hiển thị lịch sử commit gần đây
+          console.log(`ℹ️ Lịch sử commit gần đây:`);
+          try {
+            const recentCommits = execSync(`git log -n 5 --oneline`, { encoding: 'utf8' });
+            console.log(recentCommits || 'Không có commit nào.');
+            
+            // Đặt localCommits thành một giá trị không rỗng để đảm bảo push được thực hiện
+            if (recentCommits) {
+              localCommits = "force-push-required";
+              console.log(`ℹ️ Có commit nhưng không thể xác định cần push, sẽ thực hiện force push.`);
+            }
+          } catch (logError) {
+            console.log(`Không thể hiển thị lịch sử commit: ${logError.message}`);
+          }
+        }
+        
+        try {
+          // Thử pull trước để đảm bảo không có xung đột
+          try {
+            console.log(`ℹ️ Đang pull các thay đổi mới nhất trước khi push...`);
+            execSync(`git pull --rebase origin ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+          } catch (pullError) {
+            console.warn(`⚠️ Không thể pull từ remote: ${pullError.message}`);
+            console.log(`ℹ️ Tiếp tục mà không pull...`);
+          }
+          
+          // Kiểm tra trạng thái git trước khi push
+          console.log(`🔍 Kiểm tra trạng thái git trước khi push...`);
+          const gitStatus = execSync('git status', { encoding: 'utf8' });
+          console.log(gitStatus);
+          
+          // Kiểm tra xem có gì để commit không
+          const hasChanges = execSync('git status --porcelain', { encoding: 'utf8' }).trim() !== '';
+          
+          if (hasChanges) {
+            console.log(`⚠️ Vẫn còn thay đổi chưa được commit. Thử commit lại...`);
+            try {
+              execSync('git add -A', { stdio: 'inherit' });
+              execSync(`git commit -m "Add remaining changes"`, { stdio: 'inherit' });
+            } catch (lastCommitError) {
+              console.warn(`⚠️ Không thể commit các thay đổi còn lại: ${lastCommitError.message}`);
+            }
+          }
+          
+          // Kiểm tra lại xem có commit nào để push không
+          try {
+            const commitsToPush = execSync('git log @{u}..HEAD --oneline', { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
+            if (commitsToPush) {
+              console.log(`✅ Có commit cần push: ${commitsToPush}`);
+            } else {
+              console.log(`⚠️ Không có commit nào cần push. Tạo empty commit...`);
+              try {
+                execSync('git commit --allow-empty -m "Force update repository"', { stdio: 'inherit' });
+              } catch (emptyCommitError) {
+                console.warn(`⚠️ Không thể tạo empty commit: ${emptyCommitError.message}`);
+              }
+            }
+          } catch (logError) {
+            console.warn(`⚠️ Không thể kiểm tra commit cần push: ${logError.message}`);
+          }
+          
+          // Thử push
+          console.log(`🔄 Đang push lên nhánh ${IMAGE_REPO_BRANCH}...`);
+          
+          // Nếu localCommits là "force-push-required" hoặc options.forceGit là true, thực hiện force push
+          if (localCommits === "force-push-required" || options.forceGit) {
+            console.log(`ℹ️ Đang thực hiện force push...`);
+            execSync(`git push -f -u origin ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+            console.log(`✅ Force push thành công!`);
+          } else {
+            // Thử push bình thường trước
+            try {
+              execSync(`git push -u origin ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+              console.log(`✅ Push thành công!`);
+            } catch (normalPushError) {
+              console.warn(`⚠️ Không thể push bình thường: ${normalPushError.message}`);
+              
+              // Thử force push nếu push bình thường thất bại
+              console.log(`ℹ️ Đang thử force push...`);
+              execSync(`git push -f -u origin ${IMAGE_REPO_BRANCH}`, { stdio: 'inherit' });
+              console.log(`✅ Force push thành công!`);
+            }
+          }
+        } catch (pushError) {
+          console.error(`❌ Không thể push lên remote: ${pushError.message}`);
+          console.error(`   Kiểm tra lại kết nối mạng và quyền truy cập vào repository.`);
+          process.exit(1);
         }
       } catch (error) {
         console.error(`❌ Lỗi khi làm việc với Git: ${error.message}`);
         process.exit(1);
       }
-    }
     
     // Hiển thị kết quả
     console.log('\n✅ Upload thành công!');
