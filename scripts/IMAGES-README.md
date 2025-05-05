@@ -87,6 +87,8 @@ npm run new-post -- --title "Tiêu đề bài viết" --locale vi
 
 # Xử lý ảnh trong bài viết
 npm run process-post -- --post src/content/blog/vi/2023-05-01-tieu-de-bai-viet.md
+
+npm run process-post -- --post src/content/blog/en/2024-01-20-styling-with-tailwind-css.md --optimize --service github-raw --check-repo --force-git --update-all-langs
 ```
 
 ## 5. Tích Hợp Với Decap CMS

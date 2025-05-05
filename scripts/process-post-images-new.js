@@ -350,11 +350,12 @@ function updateImagePathsInPost(postPath, imageUrlMap) {
   }
 }
 
-// Hàm chính để xử lý ảnh trong bài viết
-async function main() {
+// Hàm để xử lý một bài viết
+async function processPost(postPath) {
   try {
+    console.log(`\n🔄 Đang xử lý bài viết: ${postPath}`);
+    
     // Đọc nội dung bài viết
-    const postPath = options.post;
     const postDir = path.dirname(postPath);
     const postContent = fs.readFileSync(postPath, 'utf8');
     
@@ -404,43 +405,35 @@ async function main() {
     
     if (images.length === 0) {
       console.log('✅ Không tìm thấy ảnh local nào trong bài viết.');
-      process.exit(0);
+      return true;
     }
     
     console.log(`🔍 Tìm thấy ${images.length} ảnh local trong bài viết.`);
     
     // Tạo thư mục tạm để lưu ảnh
     const tempDir = path.join(process.cwd(), '.temp-images');
-    if (fs.existsSync(tempDir)) {
-      // Xóa thư mục tạm nếu đã tồn tại để đảm bảo không có ảnh cũ
+    if (!fs.existsSync(tempDir)) {
+      fs.mkdirSync(tempDir, { recursive: true });
+    } else {
+      // Xóa nội dung thư mục tạm trước khi sử dụng
       fs.rmSync(tempDir, { recursive: true, force: true });
+      fs.mkdirSync(tempDir, { recursive: true });
     }
-    fs.mkdirSync(tempDir, { recursive: true });
     
-    // Tạo cấu trúc thư mục tạm cho từng ảnh
+    // Copy ảnh vào thư mục tạm với cấu trúc thư mục đích
     for (const image of images) {
-      // Lưu tên file gốc để dễ dàng tìm kiếm sau này
-      image.originalName = path.basename(image.fullPath);
+      const destFolder = imageDestFolders[image.fullPath];
+      const destPath = path.join(tempDir, destFolder);
       
-      // Xác định thư mục đích cho ảnh này
-      const imageDestFolder = imageDestFolders[image.fullPath];
-      
-      // Tạo đường dẫn đầy đủ trong thư mục tạm
-      const tempImageDir = path.join(tempDir, imageDestFolder);
-      
-      // Tạo thư mục nếu chưa tồn tại
-      if (!fs.existsSync(tempImageDir)) {
-        fs.mkdirSync(tempImageDir, { recursive: true });
+      // Tạo thư mục đích nếu chưa tồn tại
+      if (!fs.existsSync(destPath)) {
+        fs.mkdirSync(destPath, { recursive: true });
       }
       
-      // Copy ảnh vào thư mục tạm với cấu trúc thư mục tương ứng
-      const tempPath = path.join(tempImageDir, image.originalName);
-      fs.copyFileSync(image.fullPath, tempPath);
-      console.log(`✅ Đã copy ảnh ${image.fullPath} vào ${tempPath}`);
-      
-      // Lưu thông tin đường dẫn tạm và thư mục đích
-      image.tempPath = tempPath;
-      image.destFolder = imageDestFolder;
+      // Copy ảnh vào thư mục tạm
+      const destFilePath = path.join(destPath, path.basename(image.fullPath));
+      fs.copyFileSync(image.fullPath, destFilePath);
+      console.log(`✅ Đã copy ảnh ${image.fullPath} vào ${destFilePath}`);
     }
     
     // Upload tất cả ảnh lên repository hình ảnh
@@ -468,19 +461,11 @@ async function main() {
     // Liệt kê các file trong thư mục tạm để debug
     console.log(`🔍 Danh sách file trong thư mục tạm (${tempDir}):`);
     try {
-      const fileList = execSync(`find ${tempDir} -type f | sort`, { encoding: 'utf8' });
-      console.log(fileList || 'Không có file nào.');
+      const files = execSync(`find ${tempDir} -type f | sort`, { encoding: 'utf8' });
+      console.log(files);
     } catch (error) {
-      console.log(`Không thể liệt kê file: ${error.message}`);
+      console.log(`⚠️ Không thể liệt kê file: ${error.message}`);
     }
-    
-    // Thực thi command và lấy output
-    console.log(`🔄 Thực thi command: ${uploadCommand}`);
-    
-    // Định nghĩa các biến cần thiết
-    const GITHUB_USERNAME = 'maemreyo';
-    const IMAGE_REPO_NAME = 'wehttam-blog-images';
-    const IMAGE_REPO_BRANCH = 'main';
     
     let urls = [];
     
@@ -500,144 +485,111 @@ async function main() {
       
       console.log(`✅ Đã tìm thấy ${urls.length} URL từ output.`);
       
-      if (urls.length !== images.length) {
-        console.warn(`⚠️ Số lượng URL (${urls.length}) không khớp với số lượng ảnh (${images.length}).`);
-        
-        // Nếu không tìm thấy URL nào, tạo URL dựa trên thông tin đã biết
-        if (urls.length === 0) {
-          console.log(`⚠️ Không tìm thấy URL từ output, tạo URL thủ công...`);
-          
-          for (const image of images) {
-            const relativePath = path.join(image.destFolder, image.originalName).replace(/\\/g, '/');
-            let imageUrl;
-            
-            // Xác định URL dựa trên service được chọn
-            switch (options.service.toLowerCase()) {
-              case 'github-raw':
-                imageUrl = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/${IMAGE_REPO_BRANCH}/${relativePath}`;
-                break;
-              case 'github-blob':
-                imageUrl = `https://github.com/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/blob/${IMAGE_REPO_BRANCH}/${relativePath}`;
-                break;
-              case 'jsdelivr-versioned':
-                imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}@${IMAGE_REPO_BRANCH}/${relativePath}`;
-                break;
-              case 'jsdelivr-latest':
-              case 'jsdelivr':
-              default:
-                imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/${relativePath}`;
-                break;
-            }
-            
-            urls.push({
-              altText: path.basename(image.originalName, path.extname(image.originalName)),
-              url: imageUrl
-            });
-            
-            console.log(`✅ Đã tạo URL thủ công: ${imageUrl}`);
-          }
-        }
+      // Nếu không tìm thấy URL nào, hiển thị output để debug
+      if (urls.length === 0) {
+        console.log('⚠️ Không tìm thấy URL nào từ output. Dưới đây là output đầy đủ:');
+        console.log(output);
       }
     } catch (error) {
-      console.error(`❌ Lỗi khi thực thi command: ${error.message}`);
-      
-      // Tạo URL thủ công nếu có lỗi
-      for (const image of images) {
-        const relativePath = path.join(image.destFolder, image.originalName).replace(/\\/g, '/');
-        let imageUrl;
-        
-        // Xác định URL dựa trên service được chọn
-        switch (options.service.toLowerCase()) {
-          case 'github-raw':
-            imageUrl = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/${IMAGE_REPO_BRANCH}/${relativePath}`;
-            break;
-          case 'github-blob':
-            imageUrl = `https://github.com/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/blob/${IMAGE_REPO_BRANCH}/${relativePath}`;
-            break;
-          case 'jsdelivr-versioned':
-            imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}@${IMAGE_REPO_BRANCH}/${relativePath}`;
-            break;
-          case 'jsdelivr-latest':
-          case 'jsdelivr':
-          default:
-            imageUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${IMAGE_REPO_NAME}/${relativePath}`;
-            break;
-        }
-        
-        urls.push({
-          altText: path.basename(image.originalName, path.extname(image.originalName)),
-          url: imageUrl
-        });
-        
-        console.log(`✅ Đã tạo URL thủ công: ${imageUrl}`);
-      }
+      console.error(`❌ Lỗi khi upload ảnh: ${error.message}`);
+      return false;
     }
     
-    // Cập nhật đường dẫn ảnh trong bài viết
-    let newContent = content;
-    let newFrontmatter = { ...frontmatter };
-    let frontmatterUpdated = false;
+    // Tạo map để lưu URL mới cho từng ảnh
+    const imageUrlMap = {
+      frontmatter: {},
+      content: {}
+    };
     
-    for (let i = 0; i < Math.min(images.length, urls.length); i++) {
+    // Map URL mới cho từng ảnh
+    for (let i = 0; i < images.length && i < urls.length; i++) {
       const image = images[i];
-      const url = urls[i];
-      
-      // Tìm URL cho ảnh hiện tại
-      let imageUrl = url.url;
-      
-      // Nếu là ảnh từ thư mục public, tìm URL chính xác dựa trên tên file
-      if (image.originalName) {
-        // Tìm URL có chứa tên file gốc
-        for (const u of urls) {
-          if (u.url.includes(image.originalName)) {
-            imageUrl = u.url;
-            break;
-          }
-        }
-      }
+      const url = urls[i].url;
       
       if (image.inFrontmatter) {
-        // Cập nhật đường dẫn trong frontmatter
-        newFrontmatter[image.frontmatterField] = imageUrl;
-        frontmatterUpdated = true;
-        console.log(`✅ Đã cập nhật ảnh trong frontmatter (${image.frontmatterField}): ${path.basename(image.fullPath)} -> ${imageUrl}`);
+        // Nếu là ảnh trong frontmatter
+        imageUrlMap.frontmatter[image.frontmatterField] = url;
+        console.log(`✅ Đã cập nhật ảnh trong frontmatter (${image.frontmatterField}): ${path.basename(image.fullPath)} -> ${url}`);
       } else {
-        // Tạo Markdown mới cho ảnh
-        const newMarkdown = `![${image.altText}](${imageUrl})`;
-        
-        // Thay thế trong nội dung
-        newContent = newContent.replace(image.match, newMarkdown);
-        console.log(`✅ Đã cập nhật ảnh trong nội dung: ${path.basename(image.fullPath)} -> ${imageUrl}`);
+        // Nếu là ảnh trong nội dung
+        imageUrlMap.content[image.match] = `![${image.altText}](${url})`;
+        console.log(`✅ Đã cập nhật ảnh trong nội dung: ${path.basename(image.fullPath)} -> ${url}`);
       }
     }
     
-    // Ghi nội dung mới vào file
-    const newPostContent = matter.stringify(newContent, newFrontmatter);
-    fs.writeFileSync(postPath, newPostContent);
-    
-    if (frontmatterUpdated) {
-      console.log(`✅ Đã cập nhật frontmatter trong bài viết.`);
+    // Cập nhật đường dẫn ảnh trong tất cả các phiên bản ngôn ngữ của bài viết
+    for (const version of langVersions) {
+      const updated = updateImagePathsInPost(version.path, imageUrlMap);
+      if (updated) {
+        console.log(`✅ Đã cập nhật bài viết: ${version.path}`);
+      }
     }
-    
-    console.log(`✅ Đã cập nhật bài viết: ${postPath}`);
     
     // Xóa ảnh gốc nếu không giữ lại
     if (!options.keep) {
       for (const image of images) {
-        // Không xóa ảnh từ thư mục public/images/uploads nếu không có flag --force
-        if (image.isPublicImage && !options.force) {
-          console.log(`⚠️ Bỏ qua xóa ảnh từ thư mục public: ${image.fullPath}`);
-          console.log(`   Sử dụng flag --force nếu bạn muốn xóa ảnh này.`);
-          continue;
+        if (fs.existsSync(image.fullPath)) {
+          fs.unlinkSync(image.fullPath);
+          console.log(`🗑️ Đã xóa ảnh gốc: ${image.fullPath}`);
         }
-        
-        fs.unlinkSync(image.fullPath);
-        console.log(`🗑️ Đã xóa ảnh gốc: ${image.fullPath}`);
       }
     }
     
-    // Xóa thư mục tạm
-    fs.rmSync(tempDir, { recursive: true, force: true });
+    return true;
+  } catch (error) {
+    console.error(`❌ Lỗi khi xử lý bài viết ${postPath}: ${error.message}`);
+    return false;
+  }
+}
+
+// Hàm chính để xử lý ảnh trong bài viết
+async function main() {
+  try {
+    // Tạo thư mục tạm để lưu ảnh
+    const tempDir = path.join(process.cwd(), '.temp-images');
+    if (fs.existsSync(tempDir)) {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
+    
+    if (options.all) {
+      // Xử lý tất cả các bài viết
+      const posts = findAllPosts();
+      
+      if (posts.length === 0) {
+        console.log('⚠️ Không tìm thấy bài viết nào.');
+        process.exit(0);
+      }
+      
+      console.log(`🔍 Tìm thấy ${posts.length} bài viết để xử lý.`);
+      
+      let successCount = 0;
+      let failCount = 0;
+      
+      for (let i = 0; i < posts.length; i++) {
+        const postPath = posts[i];
+        console.log(`\n[${i + 1}/${posts.length}] Đang xử lý bài viết: ${postPath}`);
+        
+        const success = await processPost(postPath);
+        if (success) {
+          successCount++;
+        } else {
+          failCount++;
+        }
+      }
+      
+      console.log(`\n✅ Đã xử lý ${successCount}/${posts.length} bài viết thành công.`);
+      if (failCount > 0) {
+        console.log(`⚠️ Có ${failCount} bài viết xử lý thất bại.`);
+      }
+    } else {
+      // Xử lý một bài viết cụ thể
+      await processPost(options.post);
+    }
+    
+    // Xóa thư mục tạm nếu còn tồn tại
+    if (fs.existsSync(tempDir)) {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
     
   } catch (error) {
     console.error(`❌ Lỗi: ${error.message}`);

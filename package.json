@@ -13,8 +13,11 @@
     "list-posts": "node scripts/list-posts.js",
     "upload-image": "node scripts/upload-images.js",
     "upload-images": "node scripts/upload-images.js --directory",
-    "process-post": "node scripts/process-post-images.js",
-    "process-post-optimize": "node scripts/process-post-images.js --optimize",
+    "process-post": "node scripts/process-post-images-new.js",
+    "process-post-optimize": "node scripts/process-post-images-new.js --optimize",
+    "process-all-posts": "node scripts/process-post-images-new.js --all",
+    "process-all-posts-en": "node scripts/process-post-images-new.js --all --lang en",
+    "process-all-posts-vi": "node scripts/process-post-images-new.js --all --lang vi",
     "setup-images": "npm install --save-dev sharp clipboardy",
     "setup-cms-images": "node scripts/setup-decap-cms-images.js"
   },
