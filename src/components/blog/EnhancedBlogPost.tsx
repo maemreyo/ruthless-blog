@@ -59,7 +59,7 @@ export default function EnhancedBlogPost({
   const { theme } = useTheme();
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const isContentInView = useInView(contentRef, { once: true, amount: 0.1 });
+  const isContentInView = useInView(contentRef, { once: true, amount: 0.01 });
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -565,7 +565,7 @@ export default function EnhancedBlogPost({
               className="lg:w-3/4"
               variants={containerVariants}
               initial="hidden"
-              animate={isContentInView ? "visible" : "hidden"}
+              animate="visible"
             >
               {/* Mobile action buttons */}
               <motion.div 
@@ -640,8 +640,7 @@ export default function EnhancedBlogPost({
                     <motion.div 
                       className="mb-12"
                       initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
                     >
                       <div className="flex items-center gap-3 mb-6">
@@ -656,8 +655,7 @@ export default function EnhancedBlogPost({
                           <motion.span 
                             key={tag}
                             initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
+                            animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.3, delay: index * 0.05 }}
                             whileHover={{ scale: 1.05, y: -2 }}
                             className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all"
@@ -673,8 +671,7 @@ export default function EnhancedBlogPost({
                   <motion.div 
                     className="mb-12"
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                   >
                     <div className="flex items-center gap-3 mb-6">
@@ -690,8 +687,7 @@ export default function EnhancedBlogPost({
                   {/* Author bio */}
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="relative"
                   >
