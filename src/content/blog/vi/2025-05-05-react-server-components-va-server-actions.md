@@ -1,12 +1,15 @@
 ---
-title: 'React Server Components và Server Actions'
-date: '2025-05-05'
-author: 'Wehttam'
-excerpt: 'Phân tích sâu về React Server Components, cách hoạt động, sự khác biệt với Client Components, và cách sử dụng Server Actions hiệu quả.'
+title: React Server Components và Server Actions
+date: "2025-05-05"
+author: Wehttam
+excerpt: >-
+  Phân tích sâu về React Server Components, cách hoạt động, sự khác biệt với
+  Client Components, và cách sử dụng Server Actions hiệu quả.
 tags: []
-thumbnail: '/images/uploads/default-thumbnail.jpg'
-category: 'Web Development'
-series: 'Next.js App Router Deep Dive'
+thumbnail: >-
+  https://raw.githubusercontent.com/maemreyo/wehttam-blog-images/main/posts/2025/05/react-server-components-va-server-actions/rsc-sa-hero.jpg
+category: Web Development
+series: Next.js App Router Deep Dive
 seriesPart: 1
 ---
 
@@ -27,14 +30,14 @@ Server Components là một loại component React được render hoàn toàn t
 
 ### 1.2 Sự khác biệt giữa Server Components và Client Components
 
-| Tính năng | Server Components | Client Components |
-|-----------|------------------|-------------------|
-| Render ở đâu | Server | Client |
-| Có thể sử dụng hooks không? | Không | Có |
-| Có thể truy cập tài nguyên server không? | Có | Không |
-| Có thể xử lý sự kiện người dùng không? | Không | Có |
-| Có thể sử dụng useEffect không? | Không | Có |
-| Có thể truy cập browser APIs không? | Không | Có |
+| Tính năng                                | Server Components | Client Components |
+| ---------------------------------------- | ----------------- | ----------------- |
+| Render ở đâu                             | Server            | Client            |
+| Có thể sử dụng hooks không?              | Không             | Có                |
+| Có thể truy cập tài nguyên server không? | Có                | Không             |
+| Có thể xử lý sự kiện người dùng không?   | Không             | Có                |
+| Có thể sử dụng useEffect không?          | Không             | Có                |
+| Có thể truy cập browser APIs không?      | Không             | Có                |
 
 ### 1.3 Mô hình "Server-first" của Next.js
 
@@ -48,12 +51,14 @@ Next.js App Router áp dụng mô hình "Server-first", trong đó:
 ### 1.4 Khi nào nên sử dụng Server Components vs Client Components
 
 **Sử dụng Server Components khi:**
+
 - Fetch dữ liệu
 - Truy cập tài nguyên backend
 - Giữ thông tin nhạy cảm trên server (API keys, tokens, ...)
 - Giảm JavaScript cho client
 
 **Sử dụng Client Components khi:**
+
 - Cần tương tác người dùng (onClick, onChange, ...)
 - Sử dụng React hooks (useState, useEffect, useContext, ...)
 - Sử dụng browser APIs
@@ -70,14 +75,14 @@ Server Actions là các hàm JavaScript/TypeScript chạy trên server, cho phé
 ```tsx
 // Định nghĩa Server Action
 async function createTodo(formData: FormData) {
-  'use server';
-  
-  const title = formData.get('title') as string;
+  "use server";
+
+  const title = formData.get("title") as string;
   // Lưu vào database
   await db.todo.create({ data: { title } });
-  
+
   // Revalidate cache
-  revalidatePath('/todos');
+  revalidatePath("/todos");
 }
 
 // Sử dụng trong form
@@ -101,9 +106,9 @@ export default function TodoForm() {
 ### 2.4 Xử lý lỗi trong Server Actions
 
 ```tsx
-'use server';
+"use server";
 
-import { z } from 'zod';
+import { z } from "zod";
 
 const schema = z.object({
   email: z.string().email(),
@@ -114,16 +119,16 @@ export async function login(formData: FormData) {
   try {
     // Validate
     const { email, password } = schema.parse({
-      email: formData.get('email'),
-      password: formData.get('password'),
+      email: formData.get("email"),
+      password: formData.get("password"),
     });
-    
+
     // Authenticate
     // ...
-    
+
     return { success: true };
   } catch (error) {
-    return { error: 'Invalid credentials' };
+    return { error: "Invalid credentials" };
   }
 }
 ```
@@ -137,6 +142,7 @@ Server Actions hỗ trợ progressive enhancement, cho phép forms hoạt độn
 ### 3.1 Streaming là gì và tại sao nó quan trọng?
 
 Streaming cho phép server gửi UI từng phần đến client, giúp:
+
 - Giảm Time to First Byte (TTFB)
 - Hiển thị nội dung quan trọng trước
 - Cải thiện trải nghiệm người dùng với loading states
@@ -144,15 +150,15 @@ Streaming cho phép server gửi UI từng phần đến client, giúp:
 ### 3.2 Suspense trong Next.js App Router
 
 ```tsx
-import { Suspense } from 'react';
-import Loading from './loading';
-import SlowComponent from './slow-component';
+import { Suspense } from "react";
+import Loading from "./loading";
+import SlowComponent from "./slow-component";
 
 export default function Page() {
   return (
     <div>
       <h1>Trang chính</h1>
-      
+
       {/* Hiển thị loading state trong khi chờ SlowComponent */}
       <Suspense fallback={<Loading />}>
         <SlowComponent />
@@ -165,18 +171,19 @@ export default function Page() {
 ### 3.3 Parallel và Sequential Data Fetching
 
 **Parallel Data Fetching:**
+
 ```tsx
 // Các requests được thực hiện song song
 async function ParallelDataFetching() {
   const productsPromise = getProducts();
   const categoriesPromise = getCategories();
-  
+
   // Đợi tất cả promises hoàn thành
   const [products, categories] = await Promise.all([
     productsPromise,
-    categoriesPromise
+    categoriesPromise,
   ]);
-  
+
   return (
     <>
       <ProductList products={products} />
@@ -187,15 +194,16 @@ async function ParallelDataFetching() {
 ```
 
 **Sequential Data Fetching:**
+
 ```tsx
 // Các requests được thực hiện tuần tự
 async function SequentialDataFetching() {
   // Đợi products trước
   const products = await getProducts();
-  
+
   // Sau đó mới fetch categories
   const categories = await getCategories();
-  
+
   return (
     <>
       <ProductList products={products} />
@@ -213,16 +221,22 @@ async function SequentialDataFetching() {
 // ServerComponent.tsx
 async function ServerComponent() {
   const data = await fetchData();
-  
+
   return <ClientComponent data={data} />;
 }
 
 // ClientComponent.tsx
-'use client';
+("use client");
 
 function ClientComponent({ data }) {
   // Sử dụng data từ server
-  return <div>{data.map(item => <div key={item.id}>{item.name}</div>)}</div>;
+  return (
+    <div>
+      {data.map((item) => (
+        <div key={item.id}>{item.name}</div>
+      ))}
+    </div>
+  );
 }
 ```
 
@@ -232,7 +246,7 @@ function ClientComponent({ data }) {
 // page.tsx (Server Component)
 export default async function Page() {
   const products = await getProducts();
-  
+
   return (
     <div>
       <h1>Products</h1>
@@ -243,11 +257,11 @@ export default async function Page() {
 }
 
 // ClientSideFeature.tsx
-'use client';
+("use client");
 
 export default function ClientSideFeature() {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <div>
       <button onClick={() => setIsOpen(!isOpen)}>Toggle</button>
@@ -261,16 +275,16 @@ export default function ClientSideFeature() {
 
 ```tsx
 // providers.tsx
-'use client';
+"use client";
 
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from "next-themes";
 
 export function Providers({ children }) {
   return <ThemeProvider>{children}</ThemeProvider>;
 }
 
 // layout.tsx
-import { Providers } from './providers';
+import { Providers } from "./providers";
 
 export default function RootLayout({ children }) {
   return (
@@ -286,36 +300,36 @@ export default function RootLayout({ children }) {
 ### 4.4 Optimistic Updates với Server Actions
 
 ```tsx
-'use client';
+"use client";
 
-import { useOptimistic } from 'react';
-import { addTodo } from './actions';
+import { useOptimistic } from "react";
+import { addTodo } from "./actions";
 
 export function TodoList({ initialTodos }) {
   const [optimisticTodos, addOptimisticTodo] = useOptimistic(
     initialTodos,
     (state, newTodo) => [...state, newTodo]
   );
-  
+
   async function handleSubmit(formData) {
-    const title = formData.get('title');
-    
+    const title = formData.get("title");
+
     // Thêm optimistic todo ngay lập tức
     addOptimisticTodo({ id: Math.random(), title, completed: false });
-    
+
     // Thực hiện server action
     await addTodo(formData);
   }
-  
+
   return (
     <div>
       <form action={handleSubmit}>
         <input name="title" />
         <button type="submit">Add</button>
       </form>
-      
+
       <ul>
-        {optimisticTodos.map(todo => (
+        {optimisticTodos.map((todo) => (
           <li key={todo.id}>{todo.title}</li>
         ))}
       </ul>

@@ -85,8 +85,11 @@ export const getAllPosts = (locale: string = 'vi') => {
         };
       });
     
+    // Lọc bỏ các bài viết có trạng thái draft: true
+    const filteredPosts = allPostsData.filter(post => post.draft !== true);
+    
     // Sắp xếp bài viết theo ngày, mới nhất trước
-    return allPostsData.sort((a, b) => {
+    return filteredPosts.sort((a, b) => {
       if (a.date < b.date) {
         return 1;
       } else {

@@ -96,7 +96,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
     
     // Paragraphs (removed animations)
     p: ({ node, ...props }: any) => (
-      <p {...props} />
+      <p className="text-gray-700 dark:text-gray-300" {...props} />
     ),
     
     // Enhanced blockquotes (removed animations)
@@ -121,7 +121,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
       />
     ),
     li: ({ node, ...props }: any) => (
-      <li {...props} />
+      <li className="text-gray-700 dark:text-gray-300" {...props} />
     ),
     
     // Enhanced code blocks with syntax highlighting and copy button
@@ -247,7 +247,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
   };
 
   return (
-    <div className={`markdown-content ${className}`}>
+    <div className={`markdown-content prose dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, [rehypeHighlight, { ignoreMissing: true }]]}
