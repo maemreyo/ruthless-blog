@@ -132,25 +132,25 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
       if (!inline && match) {
         return (
           <div className="relative group my-8">
-            <div className="absolute top-0 right-0 left-0 h-10 bg-gray-800 dark:bg-gray-900 rounded-t-lg flex items-center px-4">
+            <div className="absolute top-0 right-0 left-0 h-10 bg-gray-800 dark:bg-gray-900 rounded-t-lg flex items-center justify-between px-4">
               <span className="text-xs font-mono text-gray-400">{match[1]}</span>
+              <button
+                onClick={() => copyToClipboard(code)}
+                className="flex items-center justify-center h-6 w-6 rounded bg-gray-700/50 text-gray-300 hover:bg-gray-600 transition-colors opacity-0 group-hover:opacity-100"
+                aria-label="Copy code"
+              >
+                {copiedCode === code ? (
+                  <Check className="w-4 h-4 text-green-400" />
+                ) : (
+                  <Copy className="w-4 h-4" />
+                )}
+              </button>
             </div>
             <pre className={`${className} rounded-lg overflow-hidden mt-0 pt-12 pb-6 px-6 bg-gray-800 dark:bg-gray-900 border border-gray-700 dark:border-gray-800 shadow-xl`} {...props}>
               <code className={`${className} text-base`} {...props}>
                 {children}
               </code>
             </pre>
-            <button
-              onClick={() => copyToClipboard(code)}
-              className="absolute top-2 right-2 p-2 rounded-md bg-gray-700/70 text-gray-300 hover:bg-gray-600 transition-colors opacity-0 group-hover:opacity-100"
-              aria-label="Copy code"
-            >
-              {copiedCode === code ? (
-                <Check className="w-5 h-5 text-green-400" />
-              ) : (
-                <Copy className="w-5 h-5" />
-              )}
-            </button>
           </div>
         );
       }

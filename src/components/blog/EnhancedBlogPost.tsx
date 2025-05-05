@@ -166,7 +166,11 @@ export default function EnhancedBlogPost({
       const extractedHeadings = matches.map(match => {
         const level = match[1].length;
         const text = match[2].trim();
-        const id = text.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-');
+        // Create ID in the same way rehype-slug does
+        const id = text
+          .toLowerCase()
+          .replace(/[^a-z0-9 ]/g, '')  // Remove special chars
+          .replace(/\s+/g, '-');        // Replace spaces with hyphens
         return { id, text, level };
       });
       
@@ -180,11 +184,23 @@ export default function EnhancedBlogPost({
   useEffect(() => {
     if (headings.length === 0) return;
     
-    // Cache heading elements to avoid repeated DOM queries
-    const headingElements = headings.map(heading => ({
-      id: heading.id,
-      element: document.getElementById(heading.id)
-    })).filter(item => item.element) as {id: string, element: HTMLElement}[];
+    // Find all heading elements in the document
+    const allHeadingElements = Array.from(document.querySelectorAll('h1, h2, h3'));
+    
+    // Map our headings to actual DOM elements
+    const headingElements = headings.map(heading => {
+      // Try to find by ID first
+      let element = document.getElementById(heading.id);
+      
+      // If not found by ID, try to find by text content
+      if (!element) {
+        element = allHeadingElements.find(el => 
+          el.textContent?.trim() === heading.text
+        ) as HTMLElement || null;
+      }
+      
+      return { id: heading.id, text: heading.text, element };
+    }).filter(item => item.element) as {id: string, text: string, element: HTMLElement}[];
     
     if (headingElements.length === 0) return;
     
@@ -583,7 +599,20 @@ export default function EnhancedBlogPost({
                         } ${heading.level === 1 ? '' : heading.level === 2 ? 'ml-3' : 'ml-6'}`}
                         onClick={(e) => {
                           e.preventDefault();
-                          document.getElementById(heading.id)?.scrollIntoView({ behavior: 'smooth' });
+                          // Try to find the heading by ID first
+                          const headingElement = document.getElementById(heading.id);
+                          if (headingElement) {
+                            headingElement.scrollIntoView({ behavior: 'smooth' });
+                          } else {
+                            // If ID doesn't match, try to find by text content
+                            const allHeadings = document.querySelectorAll('h1, h2, h3');
+                            for (const element of allHeadings) {
+                              if (element.textContent?.trim() === heading.text) {
+                                element.scrollIntoView({ behavior: 'smooth' });
+                                break;
+                              }
+                            }
+                          }
                         }}
                       >
                         {heading.text}
