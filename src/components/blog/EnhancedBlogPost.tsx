@@ -66,6 +66,10 @@ export default function EnhancedBlogPost({
   const [activeHeading, setActiveHeading] = useState('');
   const [headings, setHeadings] = useState<{id: string, text: string, level: number}[]>([]);
   const [readingProgress, setReadingProgress] = useState(0);
+  const [isMobileTocOpen, setIsMobileTocOpen] = useState(false);
+  const tocRef = useRef<HTMLDivElement>(null);
+  const mobileTocRef = useRef<HTMLDivElement>(null);
+  const tocContainerRef = useRef<HTMLDivElement>(null);
   
   // Parallax scroll effect for header - optimized
   const { scrollYProgress } = useScroll({
@@ -73,10 +77,15 @@ export default function EnhancedBlogPost({
     offset: ["start start", "end start"]
   });
   
+  // Scroll effect for TOC
+  const { scrollYProgress: contentScrollProgress } = useScroll();
+  
   // Reduce the amount of transform to improve performance
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.98]);
+  
+  // We don't need the scroll distance calculation anymore since we'll use sticky positioning
   
   // Optimize spring physics with higher stiffness for better performance
   const smoothY = useSpring(y, { damping: 20, stiffness: 200 });
@@ -166,12 +175,19 @@ export default function EnhancedBlogPost({
       const extractedHeadings = matches.map(match => {
         const level = match[1].length;
         const text = match[2].trim();
-        // Create ID in the same way rehype-slug does
-        const id = text
+        
+        // Create ID exactly like rehype-slug does
+        // This is a simplified version of the GitHub slugger algorithm
+        let id = text
           .toLowerCase()
-          .replace(/[^a-z0-9 ]/g, '')  // Remove special chars
-          .replace(/\s+/g, '-');        // Replace spaces with hyphens
-        return { id, text, level };
+          .trim()
+          // Remove html tags
+          .replace(/<[!\/a-z].*?>/ig, '')
+          // Remove unwanted chars
+          .replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '')
+          .replace(/\s+/g, '-');
+          
+        return { id, text, level, originalText: text };
       });
       
       setHeadings(extractedHeadings);
@@ -187,15 +203,22 @@ export default function EnhancedBlogPost({
     // Find all heading elements in the document
     const allHeadingElements = Array.from(document.querySelectorAll('h1, h2, h3'));
     
-    // Map our headings to actual DOM elements
+    // Map our headings to actual DOM elements using multiple strategies
     const headingElements = headings.map(heading => {
-      // Try to find by ID first
+      // Strategy 1: Try to find by ID first
       let element = document.getElementById(heading.id);
       
-      // If not found by ID, try to find by text content
+      // Strategy 2: Try to find by exact text content
       if (!element) {
         element = allHeadingElements.find(el => 
           el.textContent?.trim() === heading.text
+        ) as HTMLElement || null;
+      }
+      
+      // Strategy 3: Try to find by partial text match
+      if (!element) {
+        element = allHeadingElements.find(el => 
+          el.textContent?.includes(heading.text)
         ) as HTMLElement || null;
       }
       
@@ -204,21 +227,38 @@ export default function EnhancedBlogPost({
     
     if (headingElements.length === 0) return;
     
+    // All headings found and mapped to DOM elements
+    
     let ticking = false;
     let lastKnownScrollPosition = 0;
     
     const updateActiveHeading = () => {
       // Find the heading that's currently in view
       let activeId = '';
+      const scrollOffset = 120; // Adjust based on your header height + some margin
       
       for (let i = headingElements.length - 1; i >= 0; i--) {
         const { id, element } = headingElements[i];
         const rect = element.getBoundingClientRect();
         
-        if (rect.top <= 100) {
+        // Consider a heading "active" if it's above the scroll offset
+        if (rect.top <= scrollOffset) {
           activeId = id;
           break;
         }
+      }
+      
+      // If we're at the very top of the page and no heading is active,
+      // set the first heading as active
+      if (!activeId && window.scrollY < 200 && headingElements.length > 0) {
+        activeId = headingElements[0].id;
+      }
+      
+      // If we're at the very bottom of the page, set the last heading as active
+      if (!activeId && 
+          window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && 
+          headingElements.length > 0) {
+        activeId = headingElements[headingElements.length - 1].id;
       }
       
       if (activeId && activeId !== activeHeading) {
@@ -242,11 +282,57 @@ export default function EnhancedBlogPost({
     };
     
     // Initial check
-    updateActiveHeading();
+    setTimeout(updateActiveHeading, 500); // Delay to ensure content is rendered
     
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [headings, activeHeading]);
+  
+  // Auto-scroll the Table of Contents to keep the active heading visible
+  useEffect(() => {
+    if (!activeHeading) return;
+    
+    // Function to scroll TOC container to make active element visible
+    const scrollTocToActiveHeading = (tocContainer: HTMLDivElement) => {
+      // Find the active heading element in the TOC
+      const activeElement = tocContainer.querySelector(`a[href="#${activeHeading}"]`);
+      if (!activeElement) return;
+      
+      // Calculate the scroll position
+      const tocRect = tocContainer.getBoundingClientRect();
+      const activeRect = activeElement.getBoundingClientRect();
+      
+      // Get the middle position of the TOC container
+      const tocMiddle = tocRect.top + tocRect.height / 2;
+      
+      // Check if the active element is outside the visible area or not centered
+      const isAbove = activeRect.top < tocRect.top + 20; // Add some padding
+      const isBelow = activeRect.bottom > tocRect.bottom - 20; // Add some padding
+      const isNotCentered = Math.abs(activeRect.top + activeRect.height / 2 - tocMiddle) > 50;
+      
+      if (isAbove || isBelow || isNotCentered) {
+        // Calculate the new scroll position to center the active element
+        const scrollTop = tocContainer.scrollTop + 
+          (activeRect.top + activeRect.height / 2 - tocMiddle);
+        
+        // Smooth scroll to the new position
+        tocContainer.scrollTo({
+          top: scrollTop,
+          behavior: 'smooth'
+        });
+      }
+    };
+    
+    // Handle desktop TOC
+    if (tocRef.current) {
+      scrollTocToActiveHeading(tocRef.current);
+    }
+    
+    // Handle mobile TOC if it's open
+    if (isMobileTocOpen && mobileTocRef.current) {
+      scrollTocToActiveHeading(mobileTocRef.current);
+    }
+  }, [activeHeading, isMobileTocOpen]);
   
   // Copy URL to clipboard
   const copyToClipboard = () => {
@@ -290,6 +376,41 @@ export default function EnhancedBlogPost({
     
     .dark .markdown-content {
       color: #e5e7eb;
+    }
+    
+    /* Custom scrollbar for Table of Contents */
+    .toc-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .toc-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .toc-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #d1d5db;
+      border-radius: 20px;
+    }
+    
+    .dark .toc-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #4b5563;
+    }
+    
+    /* Active TOC item highlight */
+    .toc-active-item {
+      position: relative;
+    }
+    
+    .toc-active-item::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 70%;
+      background: var(--color-primary);
+      border-radius: 3px;
     }
     
     .markdown-content h1,
@@ -578,49 +699,84 @@ export default function EnhancedBlogPost({
           <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
             {/* Table of contents - Desktop */}
             <div className="hidden lg:block lg:w-1/4 relative">
-              <div className="sticky top-24">
+              <div 
+                ref={tocContainerRef}
+                className="sticky top-24">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 shadow-md"
+                  className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md flex flex-col"
                 >
-                  <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">Table of Contents</h3>
+                  {/* Header - Fixed */}
+                  <div className="p-6 pb-3 border-b border-gray-200 dark:border-gray-700">
+                    <h3 className="text-lg font-bold text-gray-800 dark:text-white">Table of Contents</h3>
+                  </div>
                   
-                  <nav className="space-y-2">
-                    {headings.map((heading) => (
-                      <a
-                        key={heading.id}
-                        href={`#${heading.id}`}
-                        className={`block text-sm transition-colors duration-200 ${
-                          activeHeading === heading.id
-                            ? 'text-primary font-medium'
-                            : 'text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary'
-                        } ${heading.level === 1 ? '' : heading.level === 2 ? 'ml-3' : 'ml-6'}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          // Try to find the heading by ID first
-                          const headingElement = document.getElementById(heading.id);
-                          if (headingElement) {
-                            headingElement.scrollIntoView({ behavior: 'smooth' });
-                          } else {
-                            // If ID doesn't match, try to find by text content
-                            const allHeadings = document.querySelectorAll('h1, h2, h3');
-                            for (const element of allHeadings) {
-                              if (element.textContent?.trim() === heading.text) {
-                                element.scrollIntoView({ behavior: 'smooth' });
-                                break;
-                              }
+                  {/* Scrollable content */}
+                  <div 
+                    ref={tocRef} 
+                    className="p-6 pt-3 pb-3 overflow-y-auto max-h-[calc(100vh-180px)] toc-scrollbar"
+                  >
+                    <nav className="space-y-2">
+                      {headings.map((heading) => (
+                        <a
+                          key={heading.id}
+                          href={`#${heading.id}`}
+                          className={`block text-sm transition-all duration-200 ${
+                            activeHeading === heading.id
+                              ? 'text-primary font-medium transform translate-x-1 toc-active-item'
+                              : 'text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary'
+                          } ${heading.level === 1 ? '' : heading.level === 2 ? 'ml-3' : 'ml-6'}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            
+                            // Try multiple strategies to find the heading
+                            let headingElement = null;
+                            
+                            // Strategy 1: Try to find by ID directly
+                            headingElement = document.getElementById(heading.id);
+                            
+                            // Strategy 2: Try to find by text content if ID fails
+                            if (!headingElement) {
+                              const allHeadings = Array.from(document.querySelectorAll('h1, h2, h3'));
+                              headingElement = allHeadings.find(el => 
+                                el.textContent?.trim() === heading.text
+                              ) as HTMLElement || null;
                             }
-                          }
-                        }}
-                      >
-                        {heading.text}
-                      </a>
-                    ))}
-                  </nav>
+                            
+                            // Strategy 3: Try to find by partial text match if exact match fails
+                            if (!headingElement) {
+                              const allHeadings = Array.from(document.querySelectorAll('h1, h2, h3'));
+                              headingElement = allHeadings.find(el => 
+                                el.textContent?.includes(heading.text)
+                              ) as HTMLElement || null;
+                            }
+                            
+                            // If we found a heading element, scroll to it
+                            if (headingElement) {
+                              // Calculate offset to account for fixed header
+                              const offset = 80; // Adjust based on your header height
+                              const elementPosition = headingElement.getBoundingClientRect().top;
+                              const offsetPosition = elementPosition + window.pageYOffset - offset;
+                              
+                              window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                              });
+                            } else {
+                              console.warn(`Could not find heading: ${heading.text}`);
+                            }
+                          }}
+                        >
+                          {heading.text}
+                        </a>
+                      ))}
+                    </nav>
+                  </div>
                   
-                  <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  {/* Footer with actions - Fixed */}
+                  <div className="p-6 pt-3 border-t border-gray-200 dark:border-gray-700">
                     <div className="flex flex-col gap-3">
                       <button
                         onClick={() => setIsLiked(!isLiked)}
@@ -691,6 +847,18 @@ export default function EnhancedBlogPost({
                 
                 <div className="flex items-center gap-2">
                   <button
+                    onClick={() => setIsMobileTocOpen(!isMobileTocOpen)}
+                    className={`p-2 rounded-full ${
+                      isMobileTocOpen 
+                        ? 'bg-primary/10 text-primary dark:bg-primary/20' 
+                        : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                    }`}
+                    aria-label="Toggle table of contents"
+                  >
+                    <BookOpen className="w-5 h-5" />
+                  </button>
+                
+                  <button
                     onClick={() => setIsLiked(!isLiked)}
                     className={`p-2 rounded-full ${
                       isLiked 
@@ -724,6 +892,89 @@ export default function EnhancedBlogPost({
                   </button>
                 </div>
               </motion.div>
+              
+              {/* Mobile Table of Contents */}
+              <AnimatePresence>
+                {isMobileTocOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="lg:hidden mb-8 overflow-hidden"
+                  >
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-md flex flex-col">
+                      {/* Header - Fixed */}
+                      <div className="p-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                        <h3 className="text-lg font-bold text-gray-800 dark:text-white">Table of Contents</h3>
+                      </div>
+                      
+                      {/* Scrollable content */}
+                      <div 
+                        ref={mobileTocRef} 
+                        className="p-4 pt-2 overflow-y-auto max-h-[calc(70vh-100px)] toc-scrollbar"
+                      >
+                        <nav className="space-y-2">
+                          {headings.map((heading) => (
+                            <a
+                              key={heading.id}
+                              href={`#${heading.id}`}
+                              className={`block text-sm transition-all duration-200 ${
+                                activeHeading === heading.id
+                                  ? 'text-primary font-medium transform translate-x-1 toc-active-item'
+                                  : 'text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary'
+                              } ${heading.level === 1 ? '' : heading.level === 2 ? 'ml-3' : 'ml-6'}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                
+                                // Try multiple strategies to find the heading
+                                let headingElement = null;
+                                
+                                // Strategy 1: Try to find by ID directly
+                                headingElement = document.getElementById(heading.id);
+                                
+                                // Strategy 2: Try to find by text content if ID fails
+                                if (!headingElement) {
+                                  const allHeadings = Array.from(document.querySelectorAll('h1, h2, h3'));
+                                  headingElement = allHeadings.find(el => 
+                                    el.textContent?.trim() === heading.text
+                                  ) as HTMLElement || null;
+                                }
+                                
+                                // Strategy 3: Try to find by partial text match if exact match fails
+                                if (!headingElement) {
+                                  const allHeadings = Array.from(document.querySelectorAll('h1, h2, h3'));
+                                  headingElement = allHeadings.find(el => 
+                                    el.textContent?.includes(heading.text)
+                                  ) as HTMLElement || null;
+                                }
+                                
+                                // If we found a heading element, scroll to it
+                                if (headingElement) {
+                                  // Calculate offset to account for fixed header
+                                  const offset = 80; // Adjust based on your header height
+                                  const elementPosition = headingElement.getBoundingClientRect().top;
+                                  const offsetPosition = elementPosition + window.pageYOffset - offset;
+                                  
+                                  window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: 'smooth'
+                                  });
+                                }
+                                
+                                // Close mobile TOC after clicking
+                                setIsMobileTocOpen(false);
+                              }}
+                            >
+                              {heading.text}
+                            </a>
+                          ))}
+                        </nav>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               
               {/* Article content */}
               <motion.div 
