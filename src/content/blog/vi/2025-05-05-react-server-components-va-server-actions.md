@@ -1,6 +1,6 @@
 ---
 title: Deep Dive React Server Components (RSC) - Phần 1 Series Next.js
-date: "2024-07-27" # Sử dụng ngày hiện tại hoặc ngày bạn muốn
+date: "2025-05-05"
 author: Wehttam
 excerpt: >-
   Phân tích sâu về React Server Components (RSC): cơ chế hoạt động cốt lõi, sự khác biệt then chốt với Client Components, và tại sao chúng thay đổi cách xây dựng ứng dụng Next.js với mô hình "Server-First".
