@@ -132,11 +132,12 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
       if (!inline && match) {
         return (
           <div className="relative group my-8">
-            <div className="absolute top-0 right-0 left-0 h-10 bg-gray-800 dark:bg-gray-900 rounded-t-lg flex items-center justify-between px-4">
-              <span className="text-xs font-mono text-gray-400">{match[1]}</span>
+            {/* Language indicator and copy button */}
+            <div className="absolute top-2 right-2 z-10 flex items-center gap-2">
+              <span className="text-xs font-mono text-gray-400 bg-gray-800/80 dark:bg-gray-900/80 px-2 py-1 rounded">{match[1]}</span>
               <button
                 onClick={() => copyToClipboard(code)}
-                className="flex items-center justify-center h-6 w-6 rounded bg-gray-700/50 text-gray-300 hover:bg-gray-600 transition-colors opacity-0 group-hover:opacity-100"
+                className="flex items-center justify-center h-7 w-7 rounded bg-gray-700/80 text-gray-300 hover:bg-gray-600 transition-colors"
                 aria-label="Copy code"
               >
                 {copiedCode === code ? (
@@ -146,17 +147,31 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
                 )}
               </button>
             </div>
-            <pre className={`${className} rounded-lg overflow-hidden mt-0 pt-12 pb-6 px-6 bg-gray-800 dark:bg-gray-900 border border-gray-700 dark:border-gray-800 shadow-xl`} {...props}>
-              <code className={`${className} text-base`} {...props}>
-                {children}
-              </code>
+            
+            {/* Code block with proper scrolling */}
+            <pre className="rounded-lg bg-[#1e293b] border border-[#334155] shadow-lg overflow-hidden">
+              {/* Mac-style window dots */}
+              <div className="h-9 bg-gray-800/90 dark:bg-gray-900/90 flex items-center px-4">
+                <div className="flex space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                </div>
+              </div>
+              
+              {/* Scrollable code container */}
+              <div className="overflow-x-auto">
+                <code className={`${className} text-base block py-4 px-4`} {...props}>
+                  {children}
+                </code>
+              </div>
             </pre>
           </div>
         );
       }
       
       return (
-        <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono border border-gray-200 dark:border-gray-700" {...props}>
+        <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono border border-gray-200 dark:border-gray-700 text-rose-600 dark:text-rose-400" {...props}>
           {children}
         </code>
       );

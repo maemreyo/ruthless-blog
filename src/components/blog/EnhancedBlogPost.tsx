@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { Calendar, User, ArrowRight, ArrowLeft, BookOpen, Clock, Tag, Share, Heart, Bookmark, Copy, Check, Fire, PaperPlaneTilt, ChatText } from '@/components/icons/PhosphorIcons';
@@ -9,8 +9,6 @@ import ClientMarkdown from '@/components/blog/ClientMarkdown';
 import ShareButtons from '@/components/blog/ShareButtons';
 import CategoryBadge from '@/components/blog/CategoryBadge';
 import SeriesBadge from '@/components/blog/SeriesBadge';
-import { useTheme } from 'next-themes';
-import ScrollReveal from '@/components/ui/ScrollReveal';
 import React from 'react';
 
 interface RelatedPost {
@@ -56,10 +54,8 @@ export default function EnhancedBlogPost({
   backToListLabel,
   relatedPostsLabel
 }: EnhancedBlogPostProps) {
-  const { theme } = useTheme();
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const isContentInView = useInView(contentRef, { once: true, amount: 0.01 });
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -76,9 +72,6 @@ export default function EnhancedBlogPost({
     target: headerRef,
     offset: ["start start", "end start"]
   });
-  
-  // Scroll effect for TOC
-  const { scrollYProgress: contentScrollProgress } = useScroll();
   
   // Reduce the amount of transform to improve performance
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
@@ -178,7 +171,7 @@ export default function EnhancedBlogPost({
         
         // Create ID exactly like rehype-slug does
         // This is a simplified version of the GitHub slugger algorithm
-        let id = text
+        const id = text
           .toLowerCase()
           .trim()
           // Remove html tags
@@ -230,7 +223,6 @@ export default function EnhancedBlogPost({
     // All headings found and mapped to DOM elements
     
     let ticking = false;
-    let lastKnownScrollPosition = 0;
     
     const updateActiveHeading = () => {
       // Find the heading that's currently in view
@@ -269,7 +261,6 @@ export default function EnhancedBlogPost({
     };
     
     const onScroll = () => {
-      lastKnownScrollPosition = window.scrollY;
       
       if (!ticking) {
         window.requestAnimationFrame(() => {
@@ -413,30 +404,47 @@ export default function EnhancedBlogPost({
       border-radius: 3px;
     }
     
+    /* Improved Headings */
     .markdown-content h1,
     .markdown-content h2,
     .markdown-content h3 {
       font-weight: 700;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.25rem;
       scroll-margin-top: 100px;
       position: relative;
+      color: #1a202c;
+      letter-spacing: -0.025em;
+    }
+    
+    .dark .markdown-content h1,
+    .dark .markdown-content h2,
+    .dark .markdown-content h3 {
+      color: #f3f4f6;
     }
     
     .markdown-content h1 {
       font-size: 2.25rem;
       line-height: 2.5rem;
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.75rem;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
     
     .dark .markdown-content h1 {
       border-color: #374151;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
     
     .markdown-content h2 {
       font-size: 1.875rem;
       line-height: 2.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    
+    .dark .markdown-content h2 {
+      border-color: #1f2937;
     }
     
     .markdown-content h2::before {
@@ -448,11 +456,18 @@ export default function EnhancedBlogPost({
       height: 1.5rem;
       background: linear-gradient(to bottom, var(--color-primary), var(--color-accent));
       border-radius: 4px;
+      opacity: 0.8;
     }
     
     .markdown-content h3 {
       font-size: 1.5rem;
       line-height: 2rem;
+      border-bottom: 1px dashed #f3f4f6;
+      padding-bottom: 0.25rem;
+    }
+    
+    .dark .markdown-content h3 {
+      border-color: #1f2937;
     }
     
     .markdown-content p {
@@ -492,31 +507,35 @@ export default function EnhancedBlogPost({
       margin-bottom: 0.5rem;
     }
     
+    /* Improved Inline Code */
     .markdown-content code {
       background-color: #f3f4f6;
       padding: 0.2rem 0.4rem;
       border-radius: 0.25rem;
-      font-family: monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 0.875rem;
+      color: #e11d48;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
     
     .dark .markdown-content code {
       background-color: #1f2937;
+      color: #fb7185;
+      border-color: #374151;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
     
+    /* Code blocks are now styled in ClientMarkdown component */
+    /* Only keep basic styles here for fallback */
     .markdown-content pre {
-      background-color: #1f2937;
-      color: #e5e7eb;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      overflow-x: auto;
       margin-bottom: 1.5rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
     }
     
     .markdown-content pre code {
-      background-color: transparent;
-      padding: 0;
-      color: inherit;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
     
     .markdown-content img {
@@ -524,6 +543,7 @@ export default function EnhancedBlogPost({
       height: auto;
       border-radius: 0.5rem;
       margin: 1.5rem 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
     
     .markdown-content hr {
@@ -531,17 +551,29 @@ export default function EnhancedBlogPost({
       height: 1px;
       background: linear-gradient(to right, transparent, var(--color-primary), transparent);
       margin: 2rem 0;
+      opacity: 0.5;
     }
     
+    /* Improved Tables */
     .markdown-content table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       margin-bottom: 1.5rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e5e7eb;
+    }
+    
+    .dark .markdown-content table {
+      border-color: #374151;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
     }
     
     .markdown-content th,
     .markdown-content td {
-      padding: 0.75rem;
+      padding: 0.75rem 1rem;
       border: 1px solid #e5e7eb;
     }
     
@@ -551,20 +583,40 @@ export default function EnhancedBlogPost({
     }
     
     .markdown-content th {
-      background-color: #f9fafb;
+      background-color: #f8fafc;
       font-weight: 600;
+      text-align: left;
+      color: #1e293b;
     }
     
     .dark .markdown-content th {
-      background-color: #1f2937;
+      background-color: #1e293b;
+      color: #f1f5f9;
     }
     
     .markdown-content tr:nth-child(even) {
-      background-color: #f3f4f6;
+      background-color: #f1f5f9;
     }
     
     .dark .markdown-content tr:nth-child(even) {
-      background-color: #1f2937;
+      background-color: #0f172a;
+    }
+    
+    .markdown-content tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+    
+    .dark .markdown-content tr:nth-child(odd) {
+      background-color: #1e293b;
+    }
+    
+    /* Hover effect for table rows */
+    .markdown-content tr:hover {
+      background-color: #f8fafc;
+    }
+    
+    .dark .markdown-content tr:hover {
+      background-color: #334155;
     }
   `;
   

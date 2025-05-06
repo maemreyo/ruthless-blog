@@ -6,19 +6,20 @@ import { motion } from 'framer-motion';
 import { ShareNetwork, TwitterLogo, FacebookLogo, LinkedinLogo } from '@/components/icons/PhosphorIcons';
 
 interface ShareButtonsProps {
-  url: string;
+  url?: string;
   title: string;
+  slug?: string;
   className?: string;
 }
 
-export default function ShareButtons({ url, title, className = '' }: ShareButtonsProps) {
+export default function ShareButtons({ url, title, slug, className = '' }: ShareButtonsProps) {
   const t = useTranslations('BlogPost');
   const [copied, setCopied] = useState(false);
   
   // Get the full URL including the domain
   const fullUrl = typeof window !== 'undefined' 
-    ? `${window.location.origin}${url}` 
-    : url;
+    ? `${window.location.origin}${url || (slug ? `/${slug}` : '')}`
+    : url || (slug ? `/${slug}` : '');
   
   const shareLinks = [
     {

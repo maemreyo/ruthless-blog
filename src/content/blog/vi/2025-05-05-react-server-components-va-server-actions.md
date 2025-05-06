@@ -6,7 +6,7 @@ excerpt: >-
   Phân tích sâu về React Server Components (RSC): cơ chế hoạt động cốt lõi, sự khác biệt then chốt với Client Components, và tại sao chúng thay đổi cách xây dựng ứng dụng Next.js với mô hình "Server-First".
 tags: ["React", "Next.js", "Server Components", "RSC", "Web Development", "Frontend", "App Router"]
 thumbnail: >-
-  https://raw.githubusercontent.com/maemreyo/wehttam-blog-images/main/posts/2025/05/react-server-components-va-server-actions/rsc-sa-hero.jpg # Giữ thumbnail từ template, bạn có thể thay đổi nếu cần
+  https://raw.githubusercontent.com/maemreyo/wehttam-blog-images/main/posts/2025/05/react-server-components-va-server-actions/rsc-sa-hero.jpg
 category: Web Development
 series: Next.js App Router Deep Dive
 seriesPart: 1
