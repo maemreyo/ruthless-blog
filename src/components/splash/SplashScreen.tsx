@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useAnimation, useMotionValue, useTransform } from 'framer-motion';
-import { useTheme } from 'next-themes';
 
 interface SplashScreenProps {
   onComplete?: () => void;
@@ -15,7 +14,6 @@ export default function SplashScreen({
 }: SplashScreenProps) {
   const [isVisible, setIsVisible] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
   
@@ -88,36 +86,7 @@ export default function SplashScreen({
     return () => clearInterval(interval);
   }, [duration, onComplete, controls]);
   
-  // Logo animation variants
-  const logoVariants = {
-    hidden: { 
-      opacity: 0,
-      scale: 0.5,
-      rotateY: 90,
-      filter: 'blur(10px)'
-    },
-    visible: { 
-      opacity: 1,
-      scale: 1,
-      rotateY: 0,
-      filter: 'blur(0px)',
-      transition: { 
-        duration: 1.2,
-        ease: [0.16, 1, 0.3, 1],
-        type: 'spring',
-        stiffness: 100
-      }
-    },
-    exit: { 
-      opacity: 0,
-      scale: 1.5,
-      filter: 'blur(20px)',
-      transition: { 
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1]
-      }
-    }
-  };
+  
   
   // Text animation variants
   const textVariants = {

@@ -1,12 +1,9 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
-import Image from 'next/image';
-import Text3D from '@/components/ui/Text3D';
 import LiquidButton from '@/components/ui/LiquidButton';
-import MagneticButton from '@/components/ui/MagneticButton';
 import AnimatedBackground from '@/components/ui/AnimatedBackground';
 import ParallaxMouse from '@/components/ui/ParallaxMouse';
 
@@ -24,8 +21,6 @@ export default function ImmersiveHero({
   aboutMeText 
 }: ImmersiveHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   
   // Parallax scroll effect
   const { scrollYProgress } = useScroll({

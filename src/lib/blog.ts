@@ -2,13 +2,47 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
+// Define the Post type
+export interface Post {
+  slug: string;
+  frontmatter: {
+    title: string;
+    date: string;
+    category: string;
+    series?: string;
+    seriesPart?: number;
+    excerpt: string;
+    author: string;
+    thumbnail: string;
+    tags: string[];
+    draft?: boolean;
+    featured?: boolean;
+  };
+  content: string;
+}
+
+export interface PostData {
+  slug: string;
+  title: string;
+  date: string;
+  category: string;
+  series?: string;
+  seriesPart?: number;
+  excerpt: string;
+  author: string;
+  thumbnail: string;
+  tags: string[];
+  draft?: boolean;
+  featured?: boolean;
+}
+
 // Đường dẫn đến thư mục chứa các bài viết
 const getContentDirectory = (locale: string) => {
   return path.join(process.cwd(), 'src', 'content', 'blog', locale);
 };
 
 // Lấy tất cả các slug của bài viết
-export const getAllPostSlugs = (locale: string = 'vi') => {
+export const getAllPostSlugs = (locale: string = 'vi'): { params: { slug: string } }[] => {
   try {
     const contentDir = getContentDirectory(locale);
     
@@ -35,7 +69,7 @@ export const getAllPostSlugs = (locale: string = 'vi') => {
 };
 
 // Lấy dữ liệu của một bài viết theo slug
-export const getPostBySlug = (slug: string, locale: string = 'vi') => {
+export const getPostBySlug = (slug: string, locale: string = 'vi'): Post | null => {
   try {
     const contentDir = getContentDirectory(locale);
     const fullPath = path.join(contentDir, `${slug}.md`);
@@ -50,7 +84,7 @@ export const getPostBySlug = (slug: string, locale: string = 'vi') => {
     
     return {
       slug,
-      frontmatter: data,
+      frontmatter: data as Post['frontmatter'],
       content
     };
   } catch (error) {
@@ -60,7 +94,7 @@ export const getPostBySlug = (slug: string, locale: string = 'vi') => {
 };
 
 // Lấy tất cả các bài viết và sắp xếp theo ngày (mới nhất trước)
-export const getAllPosts = (locale: string = 'vi') => {
+export const getAllPosts = (locale: string = 'vi'): PostData[] => {
   try {
     const contentDir = getContentDirectory(locale);
     
@@ -82,7 +116,7 @@ export const getAllPosts = (locale: string = 'vi') => {
         return {
           slug,
           ...data
-        };
+        } as PostData;
       });
     
     // Lọc bỏ các bài viết có trạng thái draft: true
@@ -103,7 +137,7 @@ export const getAllPosts = (locale: string = 'vi') => {
 };
 
 // Lấy các bài viết nổi bật
-export const getFeaturedPosts = (locale: string = 'vi', count: number = 3) => {
+export const getFeaturedPosts = (locale: string = 'vi', count: number = 3): PostData[] => {
   const allPosts = getAllPosts(locale);
   return allPosts
     .filter(post => post.featured === true)
@@ -111,7 +145,7 @@ export const getFeaturedPosts = (locale: string = 'vi', count: number = 3) => {
 };
 
 // Lấy các bài viết liên quan (cùng tag)
-export const getRelatedPosts = (currentSlug: string, tags: string[], locale: string = 'vi', count: number = 3) => {
+export const getRelatedPosts = (currentSlug: string, tags: string[], locale: string = 'vi', count: number = 3): PostData[] => {
   const allPosts = getAllPosts(locale);
   
   return allPosts
@@ -124,7 +158,7 @@ export const getRelatedPosts = (currentSlug: string, tags: string[], locale: str
 };
 
 // Lấy tất cả các tag
-export const getAllTags = (locale: string = 'vi') => {
+export const getAllTags = (locale: string = 'vi'): string[] => {
   const posts = getAllPosts(locale);
   const tags = new Set<string>();
   
@@ -138,7 +172,7 @@ export const getAllTags = (locale: string = 'vi') => {
 };
 
 // Lấy tất cả các category
-export const getAllCategories = (locale: string = 'vi') => {
+export const getAllCategories = (locale: string = 'vi'): string[] => {
   const posts = getAllPosts(locale);
   const categories = new Set<string>();
   
@@ -152,13 +186,13 @@ export const getAllCategories = (locale: string = 'vi') => {
 };
 
 // Lấy tất cả các bài viết theo category
-export const getPostsByCategory = (category: string, locale: string = 'vi') => {
+export const getPostsByCategory = (category: string, locale: string = 'vi'): PostData[] => {
   const allPosts = getAllPosts(locale);
   return allPosts.filter(post => post.category === category);
 };
 
 // Lấy tất cả các series
-export const getAllSeries = (locale: string = 'vi') => {
+export const getAllSeries = (locale: string = 'vi'): { name: string; count: number }[] => {
   const posts = getAllPosts(locale);
   const seriesMap = new Map<string, number>();
   
@@ -176,7 +210,7 @@ export const getAllSeries = (locale: string = 'vi') => {
 };
 
 // Lấy tất cả các bài viết trong một series
-export const getPostsBySeries = (seriesName: string, locale: string = 'vi') => {
+export const getPostsBySeries = (seriesName: string, locale: string = 'vi'): PostData[] => {
   const allPosts = getAllPosts(locale);
   return allPosts
     .filter(post => post.series === seriesName)
@@ -184,7 +218,7 @@ export const getPostsBySeries = (seriesName: string, locale: string = 'vi') => {
 };
 
 // Lấy bài viết tiếp theo trong series
-export const getNextPostInSeries = (currentSlug: string, seriesName: string, locale: string = 'vi') => {
+export const getNextPostInSeries = (currentSlug: string, seriesName: string, locale: string = 'vi'): PostData | null => {
   const seriesPosts = getPostsBySeries(seriesName, locale);
   const currentIndex = seriesPosts.findIndex(post => post.slug === currentSlug);
   
@@ -196,7 +230,7 @@ export const getNextPostInSeries = (currentSlug: string, seriesName: string, loc
 };
 
 // Lấy bài viết trước đó trong series
-export const getPreviousPostInSeries = (currentSlug: string, seriesName: string, locale: string = 'vi') => {
+export const getPreviousPostInSeries = (currentSlug: string, seriesName: string, locale: string = 'vi'): PostData | null => {
   const seriesPosts = getPostsBySeries(seriesName, locale);
   const currentIndex = seriesPosts.findIndex(post => post.slug === currentSlug);
   

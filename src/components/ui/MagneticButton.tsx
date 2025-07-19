@@ -79,7 +79,7 @@ export default function MagneticButton({
   };
   
   // Determine which element to render based on 'as' prop
-  const Component = motion[as as keyof typeof motion] as any;
+  const Component = motion[as as keyof typeof motion] as React.ElementType;
   
   return (
     <div 

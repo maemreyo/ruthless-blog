@@ -1,17 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { GithubLogo, TwitterLogo, LinkedinLogo } from '@/components/icons/PhosphorIcons';
+
 
 interface AboutHeroProps {
   title: string;
-  authorTitle: string;
 }
 
-export default function AboutHero({ title, authorTitle }: AboutHeroProps) {
-  const t = useTranslations('About');
+export default function AboutHero({ title }: AboutHeroProps) {
   
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },

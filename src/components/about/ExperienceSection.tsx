@@ -3,9 +3,16 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
+interface ExperienceHighlight {
+  area: string;
+  highlight: string;
+  impact: string;
+  skillsDemonstrated: string[];
+}
+
 interface ExperienceSectionProps {
   title: string;
-  keyHighlights: any[];
+  keyHighlights: ExperienceHighlight[];
 }
 
 export default function ExperienceSection({ title, keyHighlights }: ExperienceSectionProps) {

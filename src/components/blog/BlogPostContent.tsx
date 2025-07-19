@@ -86,11 +86,13 @@ export default function BlogPostContent({
                 priority={true}
               />
             ) : (
-              // Fallback for external images
-              <img 
+              <Image 
                 src={thumbnail} 
                 alt={title}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                className="object-cover"
+                priority={true}
               />
             )}
             
@@ -167,7 +169,7 @@ export default function BlogPostContent({
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         <div className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:border-b prose-headings:border-gray-200 dark:prose-headings:border-gray-700 prose-headings:pb-2 prose-img:rounded-lg prose-a:text-primary">
-          <ClientMarkdown>{content}</ClientMarkdown>
+          <ClientMarkdown content={content} />
         </div>
         
         {/* Share buttons */}

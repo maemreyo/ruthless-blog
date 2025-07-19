@@ -47,7 +47,7 @@ export const generateId = (length: number = 8) => {
 };
 
 // Check if an object is empty
-export const isEmptyObject = (obj: Record<string, any>) => {
+export const isEmptyObject = (obj: Record<string, unknown>) => {
   return Object.keys(obj).length === 0;
 };
 

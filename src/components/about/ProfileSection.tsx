@@ -5,10 +5,31 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { GithubLogo, LinkedinLogo, Globe } from '@/components/icons/PhosphorIcons';
 
+interface PersonalInfo {
+  photoUrl: string;
+  displayName: string;
+  title: string;
+  motto: string;
+  location: {
+    city: string;
+    country: string;
+  };
+  links: {
+    url: string;
+    platform: string;
+  }[];
+}
+
+interface ProfileSummary {
+  fullText: string;
+  keyStrengths: string[];
+  keywords: string[];
+}
+
 interface ProfileSectionProps {
   title: string;
-  personalInfo: any;
-  profileSummary: any;
+  personalInfo: PersonalInfo;
+  profileSummary: ProfileSummary;
 }
 
 export default function ProfileSection({ title, personalInfo, profileSummary }: ProfileSectionProps) {
@@ -75,14 +96,14 @@ export default function ProfileSection({ title, personalInfo, profileSummary }: 
               {personalInfo.title}
             </p>
             <p className="text-gray-700 dark:text-gray-300 mb-4 italic">
-              "{personalInfo.motto}"
+              &quot;{personalInfo.motto}&quot;
             </p>
             <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-6">
               <span>{personalInfo.location.city}, {personalInfo.location.country}</span>
             </div>
             
             <div className="flex flex-wrap gap-4">
-              {personalInfo.links.map((link: any, index: number) => (
+              {personalInfo.links.map((link, index: number) => (
                 <a 
                   key={index}
                   href={link.url} 

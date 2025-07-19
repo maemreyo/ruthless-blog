@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
@@ -65,7 +65,7 @@ export default function ImmersiveBlogPost({
   const smoothScale = useSpring(scale, { damping: 15, stiffness: 100 });
   
   // Progress bar for reading
-  const { scrollYProgress: articleProgress } = useScroll();
+  
   const scaleX = useSpring(scrollYProgress, { 
     stiffness: 100, 
     damping: 30, 
@@ -261,7 +261,7 @@ export default function ImmersiveBlogPost({
           <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/5 rounded-full -ml-5 -mb-5 -z-10"></div>
           
           <div className="prose dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:border-b prose-headings:border-gray-200 dark:prose-headings:border-gray-700 prose-headings:pb-2 prose-img:rounded-lg prose-a:text-primary">
-            <ClientMarkdown>{content}</ClientMarkdown>
+            <ClientMarkdown content={content} />
           </div>
           
           {/* Share buttons */}

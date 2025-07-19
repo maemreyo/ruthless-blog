@@ -5,8 +5,8 @@ import { motion, useAnimation, useInView, AnimatePresence } from 'framer-motion'
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { ArrowRight, Calendar, User, Clock, Tag, MagnifyingGlass, Funnel, X, BookOpen } from '@/components/icons/PhosphorIcons';
-import ScrollReveal from '@/components/ui/ScrollReveal';
+import { ArrowRight, Calendar, User, Clock, MagnifyingGlass, Funnel, X } from '@/components/icons/PhosphorIcons';
+
 import CategoryBadge from '@/components/blog/CategoryBadge';
 import SeriesBadge from '@/components/blog/SeriesBadge';
 
@@ -453,7 +453,7 @@ export default function EnhancedBlogGrid({
               className="text-gray-600 dark:text-gray-400"
               variants={itemVariants}
             >
-              Try adjusting your search or filter to find what you're looking for.
+              Try adjusting your search or filter to find what you&apos;re looking for.
             </motion.p>
           </motion.div>
         )}

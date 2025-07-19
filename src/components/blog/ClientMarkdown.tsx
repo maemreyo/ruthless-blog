@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -10,12 +10,67 @@ import 'highlight.js/styles/atom-one-dark.css';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
-import { ArrowUpRight, ArrowRight, Copy, Check } from '@/components/icons/PhosphorIcons';
+import { ArrowUpRight, Copy, Check } from '@/components/icons/PhosphorIcons';
+import { Element } from 'hast';
 
 interface ClientMarkdownProps {
   content: string;
   className?: string;
 }
+
+
+
+interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  node: Element;
+}
+interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  node: Element;
+}
+interface BlockquoteProps extends React.HTMLAttributes<HTMLQuoteElement> {
+  node: Element;
+}
+interface ListProps extends React.HTMLAttributes<HTMLUListElement | HTMLOListElement> {
+  node: Element;
+}
+interface ListItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  node: Element;
+}
+interface CodeProps extends React.HTMLAttributes<HTMLElement> {
+  node?: Element;
+  inline?: boolean;
+  className?: string;
+}
+interface AnchorProps extends React.HTMLAttributes<HTMLAnchorElement> {
+  node?: Element;
+  href?: string;
+}
+interface ImageComponentProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  node?: Element;
+  src?: string;
+  alt?: string;
+}
+interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+  node: Element;
+}
+interface TableHeadProps extends React.HTMLAttributes<HTMLTableSectionElement> {
+  node: Element;
+}
+interface TableHeaderCellProps extends React.HTMLAttributes<HTMLTableCellElement> {
+  node: Element;
+}
+interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {
+  node: Element;
+}
+interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+  node: Element;
+}
+interface TableCellProps extends React.HTMLAttributes<HTMLTableCellElement> {
+  node: Element;
+}
+interface HrProps extends React.HTMLAttributes<HTMLHRElement> {
+  node: Element;
+}
+
 
 export default function ClientMarkdown({ content, className = '' }: ClientMarkdownProps) {
   // Track copied code blocks
@@ -36,7 +91,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
   // Custom components for ReactMarkdown
   const components = {
     // Headings with anchor links (removed animations to prevent re-rendering issues)
-    h1: ({ node, ...props }: any) => {
+    h1: ({ ...props }: HeadingProps) => {
       const id = props.id || '';
       return (
         <h1
@@ -55,7 +110,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
         </h1>
       );
     },
-    h2: ({ node, ...props }: any) => {
+    h2: ({ ...props }: HeadingProps) => {
       const id = props.id || '';
       return (
         <h2
@@ -74,7 +129,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
         </h2>
       );
     },
-    h3: ({ node, ...props }: any) => {
+    h3: ({ ...props }: HeadingProps) => {
       const id = props.id || '';
       return (
         <h3
@@ -95,12 +150,12 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
     },
     
     // Paragraphs (removed animations)
-    p: ({ node, ...props }: any) => (
+    p: ({ ...props }: ParagraphProps) => (
       <p className="text-gray-700 dark:text-gray-300" {...props} />
     ),
     
     // Enhanced blockquotes (removed animations)
-    blockquote: ({ node, ...props }: any) => (
+    blockquote: ({ ...props }: BlockquoteProps) => (
       <blockquote
         className="border-l-4 border-primary pl-4 italic bg-gray-50 dark:bg-gray-800/50 p-4 rounded-r-lg"
         {...props}
@@ -108,24 +163,24 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
     ),
     
     // Lists (removed animations)
-    ul: ({ node, ...props }: any) => (
+    ul: ({ ...props }: ListProps) => (
       <ul
         className="list-disc pl-6 space-y-2"
         {...props}
       />
     ),
-    ol: ({ node, ...props }: any) => (
+    ol: ({ ...props }: ListProps) => (
       <ol
         className="list-decimal pl-6 space-y-2"
         {...props}
       />
     ),
-    li: ({ node, ...props }: any) => (
+    li: ({ ...props }: ListItemProps) => (
       <li className="text-gray-700 dark:text-gray-300" {...props} />
     ),
     
     // Enhanced code blocks with syntax highlighting and copy button
-    code: ({ node, inline, className, children, ...props }: any) => {
+    code: ({ inline, className, children, ...props }: CodeProps) => {
       const match = /language-(\w+)/.exec(className || '');
       const code = String(children).replace(/\n$/, '');
       
@@ -178,7 +233,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
     },
     
     // Enhanced links
-    a: ({ node, ...props }: any) => {
+    a: ({ ...props }: AnchorProps) => {
       const href = props.href || '';
       const isExternal = href.startsWith('http');
       
@@ -207,7 +262,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
     },
     
     // Enhanced images with Next.js Image component
-    img: ({ node, ...props }: any) => {
+    img: ({ ...props }: ImageComponentProps) => {
       const { src, alt } = props;
       
       return (
@@ -220,7 +275,7 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
             className="relative aspect-video"
           >
             <Image
-              src={src}
+              src={src || ''}
               alt={alt || ''}
               fill
               className="object-cover"
@@ -237,29 +292,29 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
     },
     
     // Enhanced tables
-    table: ({ node, ...props }: any) => (
+    table: ({ ...props }: TableProps) => (
       <div className="overflow-x-auto my-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden" {...props} />
       </div>
     ),
-    thead: ({ node, ...props }: any) => (
+    thead: ({ ...props }: TableHeadProps) => (
       <thead className="bg-gray-100 dark:bg-gray-800" {...props} />
     ),
-    th: ({ node, ...props }: any) => (
+    th: ({ ...props }: TableHeaderCellProps) => (
       <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 tracking-wider border-b-2 border-gray-300 dark:border-gray-600" {...props} />
     ),
-    tbody: ({ node, ...props }: any) => (
+    tbody: ({ ...props }: TableBodyProps) => (
       <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800" {...props} />
     ),
-    tr: ({ node, ...props }: any) => (
+    tr: ({ ...props }: TableRowProps) => (
       <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" {...props} />
     ),
-    td: ({ node, ...props }: any) => (
+    td: ({ ...props }: TableCellProps) => (
       <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 border-r border-gray-100 dark:border-gray-800 last:border-r-0" {...props} />
     ),
     
     // Horizontal rule
-    hr: ({ node, ...props }: any) => (
+    hr: ({ ...props }: HrProps) => (
       <hr className="my-8 border-none h-px bg-gradient-to-r from-transparent via-gray-400 dark:via-gray-600 to-transparent" {...props} />
     ),
   };
@@ -277,6 +332,8 @@ export default function ClientMarkdown({ content, className = '' }: ClientMarkdo
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeSlug, [rehypeHighlight, { ignoreMissing: true }]]}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         components={components}
       >
         {processedContent}

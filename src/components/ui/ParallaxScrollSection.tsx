@@ -32,31 +32,32 @@ export default function ParallaxScrollSection({
     offset: ["start end", "end start"]
   });
   
-  // Calculate parallax values based on direction
-  let x = useTransform(scrollYProgress, [0, 1], [0, 0]);
-  let y = useTransform(scrollYProgress, [0, 1], [0, 0]);
-  
   const distance = 200 * speed;
-  
-  switch (direction) {
-    case 'up':
-      y = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
-      break;
-    case 'down':
-      y = useTransform(scrollYProgress, [0, 1], [-distance, distance]);
-      break;
-    case 'left':
-      x = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
-      break;
-    case 'right':
-      x = useTransform(scrollYProgress, [0, 1], [-distance, distance]);
-      break;
-  }
+
+  // Define all possible useTransform outputs unconditionally
+  const yUpMotionValue = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
+  const yDownMotionValue = useTransform(scrollYProgress, [0, 1], [-distance, distance]);
+  const xLeftMotionValue = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
+  const xRightMotionValue = useTransform(scrollYProgress, [0, 1], [-distance, distance]);
+  const zeroMotionValue = useTransform(scrollYProgress, [0, 1], [0, 0]);
+
+  // Conditionally select the appropriate MotionValue
+  const selectedX = React.useMemo(() => {
+    if (direction === 'left') return xLeftMotionValue;
+    if (direction === 'right') return xRightMotionValue;
+    return zeroMotionValue;
+  }, [direction, xLeftMotionValue, xRightMotionValue, zeroMotionValue]);
+
+  const selectedY = React.useMemo(() => {
+    if (direction === 'up') return yUpMotionValue;
+    if (direction === 'down') return yDownMotionValue;
+    return zeroMotionValue;
+  }, [direction, yUpMotionValue, yDownMotionValue, zeroMotionValue]);
   
   // Add spring physics for smoother animation
   const springConfig = { damping: 15, stiffness: 100 };
-  const smoothX = useSpring(x, springConfig);
-  const smoothY = useSpring(y, springConfig);
+  const smoothX = useSpring(selectedX, springConfig);
+  const smoothY = useSpring(selectedY, springConfig);
   
   return (
     <div 

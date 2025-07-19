@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
 import { usePathname } from 'next/navigation';
-import { X, Sun, Moon, Globe, List } from '@/components/icons/PhosphorIcons';
+import { X, List } from '@/components/icons/PhosphorIcons';
 import LocaleSwitcher from '@/components/layout/LocaleSwitcher';
 import ThemeSwitcher from '@/components/layout/ThemeSwitcher';
 

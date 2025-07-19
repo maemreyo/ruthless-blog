@@ -23,7 +23,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     <div className="container mx-auto px-4 py-12">
       <AboutHero 
         title={t('title')}
-        authorTitle={t('authorTitle')}
+        
       />
       
       <ProfileSection 

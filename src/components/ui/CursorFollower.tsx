@@ -6,7 +6,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 interface CursorFollowerProps {
   color?: string;
   size?: number;
-  mixBlendMode?: string;
+  mixBlendMode?: React.CSSProperties['mixBlendMode'];
   trailEffect?: boolean;
   trailCount?: number;
   disabled?: boolean;
@@ -84,7 +84,7 @@ export default function CursorFollower({
           height: size,
           borderRadius: '50%',
           backgroundColor: color,
-          mixBlendMode: mixBlendMode as any,
+          mixBlendMode: mixBlendMode,
           opacity: isVisible ? 0.6 : 0
         }}
         transition={{ opacity: { duration: 0.2 } }}
@@ -102,7 +102,7 @@ export default function CursorFollower({
             height: size - (index * (size / trailCount)),
             borderRadius: '50%',
             backgroundColor: color,
-            mixBlendMode: mixBlendMode as any,
+            mixBlendMode: mixBlendMode,
             opacity: isVisible ? (1 - index / trailCount) * 0.3 : 0
           }}
           transition={{ opacity: { duration: 0.2 } }}

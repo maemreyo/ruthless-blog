@@ -2,7 +2,6 @@ import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { getAllSeries, getPostsBySeries } from '@/lib/blog';
 import { Link } from '@/i18n/navigation';
-import Image from 'next/image';
 
 interface SeriesPageParams {
   params: Promise<{

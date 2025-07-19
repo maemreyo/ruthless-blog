@@ -48,7 +48,7 @@ export default async function BlogPostPage({
   setRequestLocale(locale);
   
   const t = await getTranslations('Blog');
-  const blogPostT = await getTranslations('BlogPost');
+  
   
   const post = getPostBySlug(slug, locale);
   

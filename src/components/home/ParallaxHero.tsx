@@ -1,9 +1,8 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
-import Image from 'next/image';
 
 interface ParallaxHeroProps {
   title: string;

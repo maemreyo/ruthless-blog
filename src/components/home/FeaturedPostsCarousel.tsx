@@ -34,15 +34,15 @@ export default function FeaturedPostsCarousel({ title, viewAllText, posts }: Fea
     }
   }, [isInView, controls]);
   
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % posts.length);
-  };
+  }, [posts.length]);
   
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setDirection(-1);
     setCurrentIndex((prevIndex) => (prevIndex - 1 + posts.length) % posts.length);
-  };
+  }, [posts.length]);
   
   // Auto-advance slides
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function FeaturedPostsCarousel({ title, viewAllText, posts }: Fea
     }, 6000);
     
     return () => clearTimeout(timer);
-  }, [currentIndex]);
+  }, [currentIndex, nextSlide]);
   
   const variants = {
     hidden: { opacity: 0, y: 50 },

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { motion, useAnimation, useInView, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, useAnimation, useInView, useMotionValue, AnimatePresence } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -43,14 +43,6 @@ export default function EnhancedFeaturedPosts({
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  // Transform values for parallax effect
-  const rotateX = useTransform(mouseY, [-300, 300], [10, -10]);
-  const rotateY = useTransform(mouseX, [-300, 300], [-10, 10]);
-  
-  // Spring physics for smoother animation
-  const springConfig = { damping: 15, stiffness: 150 };
-  const springRotateX = useSpring(rotateX, springConfig);
-  const springRotateY = useSpring(rotateY, springConfig);
   
   // Auto-play carousel
   useEffect(() => {
@@ -61,7 +53,7 @@ export default function EnhancedFeaturedPosts({
     }, 5000);
     
     return () => clearInterval(interval);
-  }, [isHovering, currentIndex]);
+  }, [isHovering, currentIndex, nextSlide]);
   
   useEffect(() => {
     if (isInView) {
@@ -86,15 +78,15 @@ export default function EnhancedFeaturedPosts({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [mouseX, mouseY, isHovering]);
   
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrentIndex((prevIndex) => (prevIndex + 1) % posts.length);
-  };
+  }, [posts.length]);
   
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setDirection(-1);
     setCurrentIndex((prevIndex) => (prevIndex === 0 ? posts.length - 1 : prevIndex - 1));
-  };
+  }, [posts.length]);
   
   // Variants for animations
   const containerVariants = {

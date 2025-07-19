@@ -1,8 +1,7 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import Text3D from '@/components/ui/Text3D';
 import ParallaxMouse from '@/components/ui/ParallaxMouse';
 import AnimatedBackground from '@/components/ui/AnimatedBackground';
 import SearchBar from '@/components/blog/SearchBar';

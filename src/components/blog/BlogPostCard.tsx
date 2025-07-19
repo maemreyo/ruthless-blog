@@ -52,11 +52,13 @@ export default function BlogPostCard({
                 priority={false}
               />
             ) : (
-              // Fallback for external images
-              <img
+              <Image
                 src={coverImage}
                 alt={title}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
+                priority={false}
               />
             )}
           </motion.div>

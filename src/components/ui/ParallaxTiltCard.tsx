@@ -12,7 +12,6 @@ interface ParallaxTiltCardProps {
   glareEnabled?: boolean;
   glareMaxOpacity?: number;
   glareColor?: string;
-  glarePosition?: string;
   scale?: number;
 }
 
@@ -25,12 +24,10 @@ export default function ParallaxTiltCard({
   glareEnabled = true,
   glareMaxOpacity = 0.5,
   glareColor = 'rgba(255, 255, 255, 0.8)',
-  glarePosition = '50%',
-  scale = 1.05
+  scale = 1.05,
 }: ParallaxTiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
-  const [cardSize, setCardSize] = useState({ width: 0, height: 0 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   // Motion values for smooth animations

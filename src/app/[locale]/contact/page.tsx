@@ -33,7 +33,7 @@ export default function ContactPage() {
       await new Promise(resolve => setTimeout(resolve, 1500));
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   };

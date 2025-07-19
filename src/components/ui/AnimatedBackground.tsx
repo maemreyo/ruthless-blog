@@ -32,7 +32,6 @@ export default function AnimatedBackground({
 }: AnimatedBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   // Generate random particles

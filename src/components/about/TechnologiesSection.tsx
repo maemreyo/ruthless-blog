@@ -50,7 +50,7 @@ export default function TechnologiesSection({ techTitle, technologies }: Technol
       </motion.h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {technologies.map((tech, index) => (
+        {technologies.map((tech) => (
           <motion.div 
             key={tech.name}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-elegant p-6 hover:shadow-float transition-all duration-300"

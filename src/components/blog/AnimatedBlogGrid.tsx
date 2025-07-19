@@ -61,7 +61,7 @@ export default function AnimatedBlogGrid({ posts, readMoreText }: AnimatedBlogGr
       animate={controls}
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
     >
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         <motion.article
           key={post.slug}
           variants={itemVariants}
