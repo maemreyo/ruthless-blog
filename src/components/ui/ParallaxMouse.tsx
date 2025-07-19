@@ -10,6 +10,7 @@ interface ParallaxMouseProps {
   lerpFactor?: number;
   perspective?: number;
   disabled?: boolean;
+  mousePosition?: { x: number; y: number } | null;
 }
 
 export default function ParallaxMouse({
@@ -18,12 +19,15 @@ export default function ParallaxMouse({
   strength = 20,
   lerpFactor = 0.1,
   perspective = 1000,
-  disabled = false
+  disabled = false,
+  mousePosition: externalMousePosition = null
 }: ParallaxMouseProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [internalMousePosition, setInternalMousePosition] = useState({ x: 0, y: 0 });
+  
+  const mousePosition = externalMousePosition || internalMousePosition;
   
   // Motion values for smooth animations
   const x = useMotionValue(0);
@@ -61,32 +65,35 @@ export default function ParallaxMouse({
   }, [disabled]);
   
   useEffect(() => {
-    if (!isHovering || disabled) return;
-    
-    // Calculate the center of the container
-    const centerX = containerSize.width / 2;
-    const centerY = containerSize.height / 2;
-    
-    // Calculate the distance from the mouse to the center
-    const distanceX = mousePosition.x - centerX;
-    const distanceY = mousePosition.y - centerY;
-    
-    // Apply lerp (linear interpolation) for smoother movement
-    x.set(distanceX * lerpFactor);
-    y.set(distanceY * lerpFactor);
-    
-    // Clean up
-    return () => {
+    if (disabled) return;
+
+    const isHoveringOrExternal = isHovering || externalMousePosition;
+
+    if (isHoveringOrExternal) {
+      const rect = containerRef.current?.getBoundingClientRect();
+      const mouseX = externalMousePosition ? mousePosition.x - (rect?.left || 0) : mousePosition.x;
+      const mouseY = externalMousePosition ? mousePosition.y - (rect?.top || 0) : mousePosition.y;
+
+      const centerX = containerSize.width / 2;
+      const centerY = containerSize.height / 2;
+      
+      const distanceX = mouseX - centerX;
+      const distanceY = mouseY - centerY;
+      
+      x.set(distanceX * lerpFactor);
+      y.set(distanceY * lerpFactor);
+    } else {
       x.set(0);
       y.set(0);
-    };
-  }, [mousePosition, isHovering, containerSize, lerpFactor, x, y, disabled]);
+    }
+
+  }, [mousePosition, isHovering, externalMousePosition, containerSize, lerpFactor, x, y, disabled]);
   
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (disabled || !containerRef.current) return;
+    if (disabled || !containerRef.current || externalMousePosition) return;
     
     const rect = containerRef.current.getBoundingClientRect();
-    setMousePosition({
+    setInternalMousePosition({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top
     });
@@ -101,9 +108,6 @@ export default function ParallaxMouse({
   const handleMouseLeave = () => {
     if (!disabled) {
       setIsHovering(false);
-      // Reset position when mouse leaves
-      x.set(0);
-      y.set(0);
     }
   };
   

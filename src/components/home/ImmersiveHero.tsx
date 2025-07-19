@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
 import LiquidButton from '@/components/ui/LiquidButton';
@@ -21,6 +21,7 @@ export default function ImmersiveHero({
   aboutMeText 
 }: ImmersiveHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   // Parallax scroll effect
   const { scrollYProgress } = useScroll({
@@ -48,20 +49,10 @@ export default function ImmersiveHero({
       });
     };
     
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
-    };
-    
-    handleResize();
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('resize', handleResize);
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
     };
   }, []);
   
@@ -133,7 +124,7 @@ export default function ImmersiveHero({
       
       {/* Content container */}
       <div className="container mx-auto px-4 h-full flex items-center justify-center">
-        <ParallaxMouse strength={15} className="max-w-4xl text-center relative z-10">
+        <ParallaxMouse strength={15} mousePosition={mousePosition} className="max-w-4xl text-center relative z-10">
           {/* Glowing accent */}
           <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-3xl blur-xl opacity-70"></div>
           

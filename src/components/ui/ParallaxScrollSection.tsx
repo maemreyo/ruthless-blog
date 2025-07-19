@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, ReactNode } from 'react';
+import React, { useRef, ReactNode } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 interface ParallaxScrollSectionProps {

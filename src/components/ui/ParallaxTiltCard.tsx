@@ -29,6 +29,7 @@ export default function ParallaxTiltCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cardSize, setCardSize] = useState({ width: 0, height: 0 });
   
   // Motion values for smooth animations
   const rotateX = useMotionValue(0);
@@ -78,8 +79,8 @@ export default function ParallaxTiltCard({
     const mouseY = e.clientY - centerY;
     
     // Calculate rotation based on mouse position
-    const rotateXVal = (mouseY / (rect.height / 2)) * -10;
-    const rotateYVal = (mouseX / (rect.width / 2)) * 10;
+    const rotateXVal = (mouseY / (cardSize.height / 2)) * -10;
+    const rotateYVal = (mouseX / (cardSize.width / 2)) * 10;
     
     rotateX.set(rotateXVal);
     rotateY.set(rotateYVal);

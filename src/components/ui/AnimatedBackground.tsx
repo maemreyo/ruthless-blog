@@ -33,6 +33,7 @@ export default function AnimatedBackground({
   const containerRef = useRef<HTMLDivElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   
   // Generate random particles
   useEffect(() => {
@@ -45,8 +46,8 @@ export default function AnimatedBackground({
     for (let i = 0; i < particleCount; i++) {
       newParticles.push({
         id: i,
-        x: Math.random() * width,
-        y: Math.random() * height,
+        x: Math.random() * dimensions.width,
+        y: Math.random() * dimensions.height,
         size: Math.random() * 4 + 1,
         color: particleColor,
         speed: Math.random() * 0.5 + 0.1,
@@ -67,7 +68,7 @@ export default function AnimatedBackground({
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [type, particleCount, particleColor]);
+  }, [type, particleCount, particleColor, dimensions.width, dimensions.height]);
   
   // Handle mouse movement for interactive mode
   useEffect(() => {
