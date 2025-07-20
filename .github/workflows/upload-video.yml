@@ -1,0 +1,175 @@
+name: YouTube Video Upload Automation
+
+# This workflow automatically uploads videos to YouTube when they are added to the videos_to_upload directory
+# It processes videos, uploads them via YouTube Data API v3, and saves metadata for blog integration
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'videos_to_upload/**'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      video_path:
+        description: 'Path to video file (relative to repo root)'
+        required: true
+        type: string
+      title:
+        description: 'Video title'
+        required: true
+        type: string
+      description:
+        description: 'Video description'
+        required: false
+        type: string
+      tags:
+        description: 'Comma-separated tags'
+        required: false
+        type: string
+      privacy:
+        description: 'Privacy setting'
+        required: false
+        default: 'unlisted'
+        type: choice
+        options:
+        - 'public'
+        - 'unlisted'
+        - 'private'
+
+jobs:
+  upload-videos:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2  # Fetch current and previous commit to detect changes
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm ci
+        npm install -g typescript
+        
+    - name: Build TypeScript
+      run: |
+        npx tsc --build
+        
+    - name: Install additional dependencies for video upload
+      run: |
+        npm install googleapis commander chalk ora
+        
+    - name: Detect video files to upload
+      id: detect-videos
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          # Manual trigger - use provided video path
+          echo "videos=${{ github.event.inputs.video_path }}" >> $GITHUB_OUTPUT
+        else
+          # Automatic trigger - detect changed files in videos_to_upload
+          CHANGED_VIDEOS=$(git diff --name-only HEAD~1 HEAD | grep '^videos_to_upload/' | grep -E '\.(mp4|mov|avi|mkv|webm|flv|wmv)$' || true)
+          
+          if [ -z "$CHANGED_VIDEOS" ]; then
+            echo "No video files detected in videos_to_upload directory"
+            echo "videos=" >> $GITHUB_OUTPUT
+          else
+            echo "Detected videos: $CHANGED_VIDEOS"
+            echo "videos=$CHANGED_VIDEOS" >> $GITHUB_OUTPUT
+          fi
+        fi
+        
+    - name: Upload videos to YouTube
+      if: steps.detect-videos.outputs.videos != ''
+      env:
+        YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+        YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+        YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        YOUTUBE_REDIRECT_URI: ${{ secrets.YOUTUBE_REDIRECT_URI }}
+      run: |
+        # Create videos data directory if it doesn't exist
+        mkdir -p src/data/videos
+        
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          # Manual upload
+          VIDEO_PATH="${{ github.event.inputs.video_path }}"
+          TITLE="${{ github.event.inputs.title }}"
+          DESCRIPTION="${{ github.event.inputs.description }}"
+          TAGS="${{ github.event.inputs.tags }}"
+          PRIVACY="${{ github.event.inputs.privacy }}"
+          
+          echo "Uploading manually triggered video: $VIDEO_PATH"
+          node scripts/upload-video.js "$VIDEO_PATH" \
+            --title "$TITLE" \
+            --description "$DESCRIPTION" \
+            --tags "$TAGS" \
+            --privacy "$PRIVACY"
+        else
+          # Automatic upload - process each detected video
+          for VIDEO_PATH in ${{ steps.detect-videos.outputs.videos }}; do
+            echo "Processing video: $VIDEO_PATH"
+            
+            # Extract filename without extension for default title
+            FILENAME=$(basename "$VIDEO_PATH")
+            DEFAULT_TITLE="${FILENAME%.*}"
+            
+            # Check if there's a corresponding .json metadata file
+            METADATA_FILE="${VIDEO_PATH%.*}.json"
+            
+            if [ -f "$METADATA_FILE" ]; then
+              echo "Found metadata file: $METADATA_FILE"
+              
+              # Extract metadata using jq
+              TITLE=$(jq -r '.title // "'$DEFAULT_TITLE'"' "$METADATA_FILE")
+              DESCRIPTION=$(jq -r '.description // ""' "$METADATA_FILE")
+              TAGS=$(jq -r '.tags // [] | join(",")' "$METADATA_FILE")
+              PRIVACY=$(jq -r '.privacy // "unlisted"' "$METADATA_FILE")
+            else
+              echo "No metadata file found, using defaults"
+              TITLE="$DEFAULT_TITLE"
+              DESCRIPTION="Uploaded automatically from blog repository"
+              TAGS=""
+              PRIVACY="unlisted"
+            fi
+            
+            echo "Uploading: $TITLE (Privacy: $PRIVACY)"
+            
+            # Upload the video
+            node scripts/upload-video.js "$VIDEO_PATH" \
+              --title "$TITLE" \
+              --description "$DESCRIPTION" \
+              --tags "$TAGS" \
+              --privacy "$PRIVACY"
+              
+            echo "Successfully uploaded: $VIDEO_PATH"
+          done
+        fi
+        
+    - name: Commit video metadata
+      if: steps.detect-videos.outputs.videos != ''
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Add any new video metadata files
+        git add src/data/videos/
+        
+        # Check if there are changes to commit
+        if git diff --staged --quiet; then
+          echo "No video metadata changes to commit"
+        else
+          git commit -m "Add video metadata from YouTube upload
+          
+          🎥 Automatically generated video metadata files
+          🔄 Videos uploaded: ${{ steps.detect-videos.outputs.videos }}
+          🤖 Generated by GitHub Actions"
+          
+          git push
+        fi

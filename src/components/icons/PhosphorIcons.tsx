@@ -50,7 +50,8 @@ import {
   Images,
   ChartBar,
   Gear,
-  Bell
+  Bell,
+  Play
 } from "@phosphor-icons/react";
 
 // Export all icons as named exports
@@ -104,5 +105,6 @@ export {
   Images,
   ChartBar,
   Gear,
-  Bell
+  Bell,
+  Play
 };
