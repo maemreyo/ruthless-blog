@@ -15,7 +15,7 @@ const { execSync } = require('child_process');
 program
   .option('-n, --name <name>', 'Tên series')
   .option('-l, --locale <locale>', 'Ngôn ngữ (vi hoặc en)', 'vi')
-  .option('-p, --parts <parts>', 'Số lượng bài viết trong series', parseInt, 3)
+  .option('-p, --parts <parts>', 'Số lượng bài viết trong series', '3') // Change default to string
   .option('-c, --category <category>', 'Category cho tất cả bài viết trong series', 'Technology')
   .option('-a, --author <author>', 'Tác giả', 'Wehttam')
   .option('-d, --draft', 'Tạo bài viết ở chế độ nháp', false);
@@ -23,6 +23,8 @@ program
 program.parse(process.argv);
 
 const options = program.opts();
+options.parts = parseInt(options.parts); // Parse parts to integer
+console.log(`Debug: options.parts = ${options.parts}, type = ${typeof options.parts}`);
 
 // Kiểm tra tên series
 if (!options.name) {
