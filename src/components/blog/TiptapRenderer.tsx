@@ -69,6 +69,7 @@ interface TableCellProps extends React.HTMLAttributes<HTMLTableCellElement> {
 }
 interface DivProps extends React.HTMLAttributes<HTMLDivElement> {
   node?: Element;
+  [key: string]: any; // Allow arbitrary props, including data attributes
 }
 // interface HrProps extends React.HTMLAttributes<HTMLHRElement> {
 //   node: Element;

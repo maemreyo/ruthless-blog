@@ -4,8 +4,9 @@ import { loadVideoMetadata } from '@/lib/video-utils';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { videoId: string } }
+  context: { params: Promise<{ videoId: string }> }
 ) {
+  const params = await context.params;
   try {
     const { videoId } = params;
     
