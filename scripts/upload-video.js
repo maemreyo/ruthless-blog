@@ -31,14 +31,43 @@
  *     --privacy unlisted
  */
 
-const fs = require('fs/promises');
-const path = require('path');
-const { program } = require('commander');
-const chalk = require('chalk');
-const ora = require('ora');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { program } from 'commander';
+import chalk from 'chalk';
+import ora from 'ora';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import { readFileSync } from 'fs';
+
+// Load environment variables from .env.local
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const projectRoot = dirname(__dirname);
+
+try {
+  const envPath = join(projectRoot, '.env.local');
+  const envContent = readFileSync(envPath, 'utf8');
+  
+  // Parse .env.local file
+  envContent.split('\n').forEach(line => {
+    const trimmedLine = line.trim();
+    if (trimmedLine && !trimmedLine.startsWith('#')) {
+      // Handle both export and direct assignment formats
+      const cleanLine = trimmedLine.replace(/^export\s+/, '');
+      const [key, ...valueParts] = cleanLine.split('=');
+      if (key && valueParts.length > 0) {
+        const value = valueParts.join('=').replace(/^["']|["']$/g, ''); // Remove quotes
+        process.env[key] = value;
+      }
+    }
+  });
+} catch (error) {
+  // .env.local file doesn't exist or can't be read, continue with system env vars
+}
 
 // Import our YouTube library (compiled from TypeScript)
-const { uploadVideoToYouTube, saveVideoMetadata } = require('../dist/lib/youtube');
+import { uploadVideoToYouTube, saveVideoMetadata } from '../src/lib/youtube.js';
 
 // Parse command line arguments
 program
@@ -200,8 +229,4 @@ async function uploadVideo() {
 }
 
 // Run the upload
-if (require.main === module) {
-  uploadVideo();
-}
-
-module.exports = { uploadVideo };
+uploadVideo();

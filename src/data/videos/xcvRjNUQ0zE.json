@@ -1,0 +1,13 @@
+{
+  "id": "xcvRjNUQ0zE",
+  "title": "Inflation Video Test",
+  "description": "Testing YouTube API integration with inflation video",
+  "thumbnailUrl": "https://img.youtube.com/vi/xcvRjNUQ0zE/maxresdefault.jpg",
+  "uploadDate": "2025-07-20T10:55:43.100Z",
+  "tags": [
+    "test",
+    "youtube",
+    "api"
+  ],
+  "privacy": "unlisted"
+}

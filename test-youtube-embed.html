@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Embed Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin: 20px 0;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 YouTube API Integration Test</h1>
+    <p><strong>Status:</strong> ✅ SUCCESS!</p>
+    <p><strong>Video ID:</strong> xcvRjNUQ0zE</p>
+    <p><strong>Upload Time:</strong> 2025-07-20T10:55:43.100Z</p>
+    
+    <h2>📺 Embedded Video</h2>
+    <div class="video-container">
+        <iframe 
+            src="https://www.youtube.com/embed/xcvRjNUQ0zE" 
+            title="Inflation Video Test" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    
+    <h2>🔗 Links</h2>
+    <ul>
+        <li><a href="https://www.youtube.com/watch?v=xcvRjNUQ0zE" target="_blank">Watch on YouTube</a></li>
+        <li><a href="https://img.youtube.com/vi/xcvRjNUQ0zE/maxresdefault.jpg" target="_blank">Thumbnail Image</a></li>
+    </ul>
+    
+    <h2>📋 Integration Examples</h2>
+    
+    <h3>React Component Usage:</h3>
+    <pre><code>&lt;YouTubeEmbed videoId="xcvRjNUQ0zE" /&gt;</code></pre>
+    
+    <h3>Markdown Shortcode:</h3>
+    <pre><code>[video:xcvRjNUQ0zE]</code></pre>
+    
+    <h3>HTML Embed:</h3>
+    <pre><code>&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/xcvRjNUQ0zE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen&gt;&lt;/iframe&gt;</code></pre>
+    
+    <h2>🎯 What's Working</h2>
+    <ul>
+        <li>✅ OAuth 2.0 authentication with refresh tokens</li>
+        <li>✅ Video upload to YouTube via API</li>
+        <li>✅ Metadata extraction and storage</li>
+        <li>✅ Automatic embed code generation</li>
+        <li>✅ Thumbnail URL generation</li>
+        <li>✅ Privacy settings (unlisted)</li>
+        <li>✅ Tags and descriptions</li>
+    </ul>
+    
+    <h2>🚀 Next Steps</h2>
+    <ul>
+        <li>Test GitHub Actions automation workflow</li>
+        <li>Integrate with blog post editing</li>
+        <li>Add video shortcode processing to TiptapRenderer</li>
+        <li>Create admin interface for video management</li>
+    </ul>
+</body>
+</html>

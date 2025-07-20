@@ -42,10 +42,10 @@ You need to obtain a refresh token for automated uploads:
 
 ```bash
 # Run the OAuth flow to get refresh token
+npm run get-youtube-token
+# or directly:
 node scripts/get-youtube-token.js
 ```
-
-*(This script needs to be created for initial setup)*
 
 ### 3. Environment Variables
 
