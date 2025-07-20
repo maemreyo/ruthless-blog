@@ -4,7 +4,7 @@ date: '2025-07-19'
 author: 'Wehttam'
 excerpt: 'Tổng kết bốn nguyên tắc cốt lõi để xây dựng thịnh vượng bền vững và lộ trình 3 bước hành động đơn giản cho người mới bắt đầu.'
 tags: ['tài chính cá nhân', 'nguyên tắc tài chính', 'lộ trình hành động', 'tư duy thịnh vượng', 'học hỏi liên tục']
-thumbnail: '/images/uploads/default-thumbnail.jpg'
+thumbnail: '/images/uploads/fin-5.png'
 category: 'Tài Chính Cá Nhân'
 series: 'Hành Trình Khám Phá Tài Chính'
 seriesPart: 5

@@ -4,7 +4,7 @@ date: '2025-07-19'
 author: 'Wehttam'
 excerpt: 'Khám phá sức mạnh kỳ diệu của lãi kép thông qua câu chuyện so sánh trực quan, chứng minh tại sao thời gian là yếu tố quan trọng nhất trong hành trình xây dựng sự giàu có.'
 tags: ['tài chính cá nhân', 'lãi kép', 'đầu tư sớm', 'thời gian', 'tăng trưởng tài sản']
-thumbnail: '/images/uploads/default-thumbnail.jpg'
+thumbnail: '/images/uploads/fin-2.png'
 category: 'Tài Chính Cá Nhân'
 series: 'Hành Trình Khám Phá Tài Chính'
 seriesPart: 2

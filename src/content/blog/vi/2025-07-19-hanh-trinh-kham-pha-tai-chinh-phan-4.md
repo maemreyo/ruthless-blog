@@ -4,7 +4,7 @@ date: '2025-07-19'
 author: 'Wehttam'
 excerpt: 'Tìm hiểu về lạm phát như một "kẻ thù thầm lặng" bào mòn giá trị tiền tiết kiệm và lý do tại sao đầu tư là hành động bắt buộc để bảo vệ tài sản.'
 tags: ['tài chính cá nhân', 'lạm phát', 'đầu tư', 'tiết kiệm', 'sức mua']
-thumbnail: '/images/uploads/default-thumbnail.jpg'
+thumbnail: '/images/uploads/fin-4.png'
 category: 'Tài Chính Cá Nhân'
 series: 'Hành Trình Khám Phá Tài Chính'
 seriesPart: 4

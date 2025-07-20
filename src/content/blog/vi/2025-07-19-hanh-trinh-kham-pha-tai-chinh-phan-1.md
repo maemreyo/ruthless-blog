@@ -4,7 +4,7 @@ date: '2025-07-19'
 author: 'Wehttam'
 excerpt: 'Khám phá bản chất của tiền tệ trong kỷ nguyên số, từ tiền mặt đến mã QR và tiền mã hóa, cùng những thay đổi trong hành vi thanh toán tại Việt Nam.'
 tags: ['tài chính cá nhân', 'tiền tệ số', 'thanh toán không tiền mặt', 'crypto', 'vùng xám pháp lý']
-thumbnail: '/images/uploads/default-thumbnail.jpg'
+thumbnail: '/images/uploads/fin-1.png'
 category: 'Tài Chính Cá Nhân'
 series: 'Hành Trình Khám Phá Tài Chính'
 seriesPart: 1

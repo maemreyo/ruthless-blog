@@ -4,7 +4,7 @@ date: '2025-07-19'
 author: 'Wehttam'
 excerpt: 'Phân biệt tài sản và tiêu sản qua các ví dụ thực tế, và khám phá cách xây dựng hệ sinh thái tài sản bền vững để đạt được thịnh vượng thực sự.'
 tags: ['tài chính cá nhân', 'tài sản', 'tiêu sản', 'đầu tư', 'quản lý tài chính']
-thumbnail: '/images/uploads/default-thumbnail.jpg'
+thumbnail: '/images/uploads/fin-3.png'
 category: 'Tài Chính Cá Nhân'
 series: 'Hành Trình Khám Phá Tài Chính'
 seriesPart: 3
