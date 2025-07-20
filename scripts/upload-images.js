@@ -12,8 +12,8 @@ const { execSync } = require('child_process');
 const crypto = require('crypto');
 
 // Cấu hình repository hình ảnh
-const IMAGE_REPO_URL = 'git@github.com:maemreyo/wehttam-blog-images.git';
-const IMAGE_REPO_NAME = 'wehttam-blog-images';
+const IMAGE_REPO_URL = 'git@github.com:maemreyo/ruthless-blog-images.git';
+const IMAGE_REPO_NAME = 'ruthless-blog-images';
 const IMAGE_REPO_BRANCH = 'main';
 const GITHUB_USERNAME = 'maemreyo';
 

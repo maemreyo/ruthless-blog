@@ -11,7 +11,7 @@ const { execSync } = require('child_process');
 
 // Cấu hình repository hình ảnh
 const IMAGE_REPO_OWNER = 'maemreyo';
-const IMAGE_REPO_NAME = 'wehttam-blog-images';
+const IMAGE_REPO_NAME = 'ruthless-blog-images';
 const IMAGE_REPO_BRANCH = 'main';
 const JSDELIVR_BASE_URL = `https://cdn.jsdelivr.net/gh/${IMAGE_REPO_OWNER}/${IMAGE_REPO_NAME}@${IMAGE_REPO_BRANCH}`;
 

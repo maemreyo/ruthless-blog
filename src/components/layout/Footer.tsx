@@ -80,10 +80,10 @@ export default function Footer() {
   };
   
   const socialLinks = [
-    { href: 'https://github.com/wehttam', icon: <GithubLogo weight="fill" className="w-5 h-5" />, label: 'GitHub', color: 'hover:text-[#333]' },
-    { href: 'https://twitter.com/wehttam', icon: <TwitterLogo weight="fill" className="w-5 h-5" />, label: 'Twitter', color: 'hover:text-[#1DA1F2]' },
-    { href: 'https://instagram.com/wehttam', icon: <InstagramLogo weight="fill" className="w-5 h-5" />, label: 'Instagram', color: 'hover:text-[#E1306C]' },
-    { href: 'https://linkedin.com/in/wehttam', icon: <LinkedinLogo weight="fill" className="w-5 h-5" />, label: 'LinkedIn', color: 'hover:text-[#0077B5]' },
+    { href: 'https://github.com/ruthless', icon: <GithubLogo weight="fill" className="w-5 h-5" />, label: 'GitHub', color: 'hover:text-[#333]' },
+    { href: 'https://twitter.com/ruthless', icon: <TwitterLogo weight="fill" className="w-5 h-5" />, label: 'Twitter', color: 'hover:text-[#1DA1F2]' },
+    { href: 'https://instagram.com/ruthless', icon: <InstagramLogo weight="fill" className="w-5 h-5" />, label: 'Instagram', color: 'hover:text-[#E1306C]' },
+    { href: 'https://linkedin.com/in/ruthless', icon: <LinkedinLogo weight="fill" className="w-5 h-5" />, label: 'LinkedIn', color: 'hover:text-[#0077B5]' },
   ];
   
   const navT = useTranslations('Navigation');
@@ -455,7 +455,7 @@ export default function Footer() {
             transition={{ delay: 0.5 }}
           >
             <p className="text-gray-500 dark:text-gray-400 text-sm text-center md:text-left">
-              © {currentYear} Wehttam Blog. {t('allRightsReserved')}
+              © {currentYear} Ruthless Blog. {t('allRightsReserved')}
             </p>
             
             <div className="flex items-center gap-4">

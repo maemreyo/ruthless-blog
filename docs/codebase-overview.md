@@ -1,10 +1,10 @@
-# Tổng Quan Codebase Wehttam Blog
+# Tổng Quan Codebase Ruthless Blog
 
-Tài liệu này cung cấp cái nhìn tổng quan về cấu trúc và các công nghệ chính được sử dụng trong dự án Wehttam Blog, giúp bạn dễ dàng nghiên cứu và phát triển thêm.
+Tài liệu này cung cấp cái nhìn tổng quan về cấu trúc và các công nghệ chính được sử dụng trong dự án Ruthless Blog, giúp bạn dễ dàng nghiên cứu và phát triển thêm.
 
 ## 1. Tổng Quan Dự Án
 
-Dự án Wehttam Blog được xây dựng trên nền tảng:
+Dự án Ruthless Blog được xây dựng trên nền tảng:
 -   **Next.js 15.x (App Router):** Framework React mạnh mẽ cho các ứng dụng web hiện đại, hỗ trợ Server Components, Server Actions, định tuyến dựa trên file system, tối ưu hóa hình ảnh và nhiều hơn nữa.
 -   **TypeScript:** Ngôn ngữ lập trình có kiểu tĩnh, giúp tăng cường khả năng bảo trì và phát hiện lỗi sớm.
 -   **Tailwind CSS:** Framework CSS utility-first, giúp xây dựng giao diện nhanh chóng và linh hoạt.
@@ -66,7 +66,7 @@ Hàm `getAllPosts` và các hàm liên quan trong `src/lib/blog.ts` chịu trác
 
 Dự án sử dụng một cơ chế đặc biệt để quản lý hình ảnh, tách biệt chúng khỏi repository chính và phân phát qua CDN:
 
--   **Repository hình ảnh riêng:** Hình ảnh được lưu trữ trong một kho Git riêng biệt (`maemreyo/wehttam-blog-images`).
+-   **Repository hình ảnh riêng:** Hình ảnh được lưu trữ trong một kho Git riêng biệt (`maemreyo/ruthless-blog-images`).
 -   **jsDelivr CDN:** Hình ảnh được phân phát thông qua jsDelivr, hoạt động như một Content Delivery Network để tối ưu hóa tốc độ tải.
 -   **Scripts xử lý hình ảnh:**
     -   `scripts/upload-image.js`: Tải lên một hình ảnh đơn lẻ.
@@ -101,7 +101,7 @@ Hy vọng tài liệu này sẽ giúp bạn có cái nhìn rõ ràng hơn về c
 
 ## 8. Các Mục Tiêu Nâng Cấp và Phát Triển Tương Lai
 
-Dưới đây là một số mục tiêu nâng cấp và phát triển tiềm năng để cải thiện dự án Wehttam Blog:
+Dưới đây là một số mục tiêu nâng cấp và phát triển tiềm năng để cải thiện dự án Ruthless Blog:
 
 -   **Sử dụng Shadcn UI Components:** Thay thế các component UI tự viết bằng các component chất lượng cao từ Shadcn UI để tăng tốc độ phát triển, đảm bảo tính nhất quán và khả năng mở rộng của giao diện người dùng.
 -   **Tích hợp Tiptap (phiên bản miễn phí) cho việc render bài viết:** Thay thế cơ chế render Markdown hiện tại bằng Tiptap để cung cấp trải nghiệm soạn thảo và hiển thị bài viết phong phú hơn, hỗ trợ các tính năng chỉnh sửa nâng cao.

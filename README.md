@@ -1,4 +1,4 @@
-# Wehttam Blog
+# Ruthless Blog
 
 Một blog cá nhân được xây dựng bằng Next.js, hỗ trợ đa ngôn ngữ, và có nhiều tính năng hiện đại.
 
@@ -41,7 +41,7 @@ node scripts/install-dependencies.js
 
 ### Quản Lý Hình Ảnh
 
-Dự án sử dụng GitHub repository riêng (`maemreyo/wehttam-blog-images`) để lưu trữ hình ảnh và jsDelivr làm CDN. Cài đặt dependencies cho quản lý hình ảnh:
+Dự án sử dụng GitHub repository riêng (`maemreyo/ruthless-blog-images`) để lưu trữ hình ảnh và jsDelivr làm CDN. Cài đặt dependencies cho quản lý hình ảnh:
 
 ```bash
 npm run setup-images
@@ -78,7 +78,7 @@ Xem thêm thông tin chi tiết về các scripts trong [scripts/README.md](scri
 ## Cấu Trúc Dự Án
 
 ```
-wehttam-blog/
+ruthless-blog/
 ├── public/             # Tài nguyên tĩnh
 ├── scripts/            # Scripts tiện ích
 ├── src/

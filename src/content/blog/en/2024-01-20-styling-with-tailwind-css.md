@@ -13,7 +13,7 @@ tags:
   - css
   - web design
 thumbnail: >-
-  https://raw.githubusercontent.com/maemreyo/wehttam-blog-images/main/posts/2024/01/styling-with-tailwind-css/tailwind-thumbnail.jpg
+  https://raw.githubusercontent.com/maemreyo/ruthless-blog-images/main/posts/2024/01/styling-with-tailwind-css/tailwind-thumbnail.jpg
 featured: true
 ---
 

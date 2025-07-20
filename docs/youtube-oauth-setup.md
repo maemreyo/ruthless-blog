@@ -28,7 +28,7 @@ Details: The developer has not given you access to this app.
 ### 2. Configure App Information (if not done)
 
 Fill out the required fields:
-- **App name**: "Wehttam Blog YouTube Integration" (or your preferred name)
+- **App name**: "Ruthless Blog YouTube Integration" (or your preferred name)
 - **User support email**: Your email address
 - **Developer contact information**: Your email address
 
@@ -40,7 +40,7 @@ Fill out the required fields:
 │ OAuth consent screen                    │
 │                                         │
 │ App information                         │
-│ ├ App name: Wehttam Blog YouTube...    │
+│ ├ App name: Ruthless Blog YouTube...    │
 │ ├ User support email: your@email.com   │
 │ └ Developer contact: your@email.com     │
 │                                         │

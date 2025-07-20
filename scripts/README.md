@@ -1,4 +1,4 @@
-# Scripts Tiện Ích cho Wehttam Blog
+# Scripts Tiện Ích cho Ruthless Blog
 
 Thư mục này chứa các script tiện ích để giúp quản lý và tạo nội dung cho blog một cách nhanh chóng và hiệu quả.
 
@@ -25,7 +25,7 @@ Các tùy chọn:
 - `--series` hoặc `-s`: Tên series (nếu bài viết thuộc một series)
 - `--series-part` hoặc `-p`: Phần của series (nếu bài viết thuộc một series)
 - `--excerpt` hoặc `-e`: Mô tả ngắn về bài viết
-- `--author` hoặc `-a`: Tác giả (mặc định: Wehttam)
+- `--author` hoặc `-a`: Tác giả (mặc định: Ruthless)
 - `--image` hoặc `-i`: Đường dẫn ảnh thumbnail
 - `--draft` hoặc `-d`: Tạo bài viết ở chế độ nháp
 
@@ -40,7 +40,7 @@ Các tùy chọn:
 - `--locale` hoặc `-l`: Ngôn ngữ (vi hoặc en, mặc định: vi)
 - `--parts` hoặc `-p`: Số lượng bài viết trong series (mặc định: 3)
 - `--category` hoặc `-c`: Category cho tất cả bài viết trong series (mặc định: Technology)
-- `--author` hoặc `-a`: Tác giả (mặc định: Wehttam)
+- `--author` hoặc `-a`: Tác giả (mặc định: Ruthless)
 - `--draft` hoặc `-d`: Tạo bài viết ở chế độ nháp
 
 ### 3. Tạo Category Mới
@@ -53,7 +53,7 @@ Các tùy chọn:
 - `--name` hoặc `-n`: Tên category (bắt buộc)
 - `--locale` hoặc `-l`: Ngôn ngữ (vi hoặc en, mặc định: vi)
 - `--posts` hoặc `-p`: Số lượng bài viết mẫu (mặc định: 3)
-- `--author` hoặc `-a`: Tác giả (mặc định: Wehttam)
+- `--author` hoặc `-a`: Tác giả (mặc định: Ruthless)
 - `--draft` hoặc `-d`: Tạo bài viết ở chế độ nháp
 
 ### 4. Liệt Kê Bài Viết

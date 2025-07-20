@@ -18,7 +18,7 @@ program
   .option('-s, --series <series>', 'Tên series (nếu có)')
   .option('-p, --series-part <part>', 'Phần của series (nếu có)', parseInt)
   .option('-e, --excerpt <excerpt>', 'Mô tả ngắn về bài viết')
-  .option('-a, --author <author>', 'Tác giả', 'Wehttam')
+  .option('-a, --author <author>', 'Tác giả', 'Ruthless')
   .option('-i, --image <image>', 'Đường dẫn ảnh thumbnail', '/images/uploads/default-thumbnail.jpg')
   .option('-d, --draft', 'Tạo bài viết ở chế độ nháp', false);
 

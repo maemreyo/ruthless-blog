@@ -1,4 +1,4 @@
-# Hướng Dẫn Quản Lý Hình Ảnh cho Wehttam Blog
+# Hướng Dẫn Quản Lý Hình Ảnh cho Ruthless Blog
 
 Tài liệu này hướng dẫn cách sử dụng các script để quản lý hình ảnh trong blog, sử dụng GitHub repository riêng làm nơi lưu trữ và jsDelivr làm CDN.
 
@@ -106,10 +106,10 @@ Sau khi chạy script này:
 
 ## Cấu Trúc Repository Hình Ảnh
 
-Repository hình ảnh (`maemreyo/wehttam-blog-images`) được tổ chức như sau:
+Repository hình ảnh (`maemreyo/ruthless-blog-images`) được tổ chức như sau:
 
 ```
-wehttam-blog-images/
+ruthless-blog-images/
 ├── posts/                  # Ảnh cho bài viết
 │   ├── 2023/               # Năm
 │   │   ├── 05/             # Tháng
@@ -126,7 +126,7 @@ wehttam-blog-images/
 Các ảnh được upload lên repository hình ảnh sẽ có URL dạng:
 
 ```
-https://cdn.jsdelivr.net/gh/maemreyo/wehttam-blog-images@main/path/to/image.jpg
+https://cdn.jsdelivr.net/gh/maemreyo/ruthless-blog-images@main/path/to/image.jpg
 ```
 
 ## Lưu Ý

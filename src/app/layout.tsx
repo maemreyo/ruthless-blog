@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Wehttam Blog",
+  title: "Ruthless Blog",
   description: "Blog cá nhân chia sẻ kiến thức, trải nghiệm và suy nghĩ về công nghệ, lập trình và cuộc sống.",
 };
 

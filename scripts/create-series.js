@@ -17,7 +17,7 @@ program
   .option('-l, --locale <locale>', 'Ngôn ngữ (vi hoặc en)', 'vi')
   .option('-p, --parts <parts>', 'Số lượng bài viết trong series', '3') // Change default to string
   .option('-c, --category <category>', 'Category cho tất cả bài viết trong series', 'Technology')
-  .option('-a, --author <author>', 'Tác giả', 'Wehttam')
+  .option('-a, --author <author>', 'Tác giả', 'Ruthless')
   .option('-d, --draft', 'Tạo bài viết ở chế độ nháp', false);
 
 program.parse(process.argv);

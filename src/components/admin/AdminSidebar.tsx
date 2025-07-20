@@ -177,7 +177,7 @@ export default function AdminSidebar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <p className="font-medium">Wehttam Blog</p>
+              <p className="font-medium">Ruthless Blog</p>
               <p className="text-xs">Admin Panel v1.0</p>
             </motion.div>
           )}

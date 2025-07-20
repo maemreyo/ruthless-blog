@@ -16,7 +16,7 @@ program
   .option('-n, --name <name>', 'Tên category')
   .option('-l, --locale <locale>', 'Ngôn ngữ (vi hoặc en)', 'vi')
   .option('-p, --posts <posts>', 'Số lượng bài viết mẫu', parseInt, 3)
-  .option('-a, --author <author>', 'Tác giả', 'Wehttam')
+  .option('-a, --author <author>', 'Tác giả', 'Ruthless')
   .option('-d, --draft', 'Tạo bài viết ở chế độ nháp', false);
 
 program.parse(process.argv);

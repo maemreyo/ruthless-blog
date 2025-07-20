@@ -13,7 +13,7 @@ tags:
   - react
   - web development
 thumbnail: >-
-  https://raw.githubusercontent.com/maemreyo/wehttam-blog-images/main/posts/2024/01/getting-started-with-nextjs/nextjs-thumbnail.jpg
+  https://raw.githubusercontent.com/maemreyo/ruthless-blog-images/main/posts/2024/01/getting-started-with-nextjs/nextjs-thumbnail.jpg
 featured: true
 ---
 

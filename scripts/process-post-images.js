@@ -479,7 +479,7 @@ async function main() {
     
     // Định nghĩa các biến cần thiết
     const GITHUB_USERNAME = 'maemreyo';
-    const IMAGE_REPO_NAME = 'wehttam-blog-images';
+    const IMAGE_REPO_NAME = 'ruthless-blog-images';
     const IMAGE_REPO_BRANCH = 'main';
     
     let urls = [];

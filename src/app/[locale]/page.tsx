@@ -94,7 +94,7 @@ export async function generateMetadata({
   const { locale } = await params;
   
   // Đọc dữ liệu site từ file JSON
-  let siteData = { title: 'Wehttam Blog', description: '' };
+  let siteData = { title: 'Ruthless Blog', description: '' };
   try {
     const siteFilePath = path.join(process.cwd(), 'src', 'data', 'site.json');
     const siteFileContent = fs.readFileSync(siteFilePath, 'utf8');
