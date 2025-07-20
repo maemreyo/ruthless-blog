@@ -1,5 +1,22 @@
 # TODO: Danh sách công việc cho Blog Cá nhân
 
+## 🔍 NGHIÊN CỨU ADMIN UI SYSTEM (ĐANG THỰC HIỆN)
+
+### Phase 1: Phân tích hiện tại (✅ HOÀN THÀNH)
+- [x] Nghiên cứu cấu trúc blog management hiện tại
+- [x] Phân tích workflow quản lý bài viết trong src/lib/blog.ts
+- [x] Kiểm tra cấu trúc content trong src/content/blog/
+- [x] Phân tích Decap CMS configuration
+- [x] Đánh giá các components form và UI hiện có
+- [x] Nghiên cứu scripts quản lý (create-post.js, etc.)
+
+### Phase 2: Lập kế hoạch triển khai Admin UI (🔄 ĐANG THỰC HIỆN)
+- [ ] Thiết kế kiến trúc Admin UI system
+- [ ] Xác định CRUD operations cần thiết
+- [ ] Lập kế hoạch integration với existing architecture
+- [ ] Xác định components cần tạo mới
+- [ ] Thiết kế data flow và state management
+
 ## 1. Thiết lập dự án Next.js
 - [ ] Khởi tạo dự án Next.js với App Router
 - [ ] Cài đặt các dependencies cần thiết (Tailwind CSS, Framer Motion, next-intl, v.v.)

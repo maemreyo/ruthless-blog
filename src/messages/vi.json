@@ -48,6 +48,15 @@
     "nextPost": "Bài tiếp theo",
     "previousPost": "Bài trước đó"
   },
+  "Admin": {
+    "dashboard": "Bảng điều khiển",
+    "posts": "Bài viết",
+    "categories": "Danh mục",
+    "series": "Series",
+    "media": "Thư viện",
+    "analytics": "Phân tích",
+    "settings": "Cài đặt"
+  },
   "About": {
     "title": "Giới thiệu",
     "authorTitle": "Về tác giả",

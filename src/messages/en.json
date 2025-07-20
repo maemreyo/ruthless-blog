@@ -48,6 +48,15 @@
     "nextPost": "Next Post",
     "previousPost": "Previous Post"
   },
+  "Admin": {
+    "dashboard": "Dashboard",
+    "posts": "Posts",
+    "categories": "Categories",
+    "series": "Series",
+    "media": "Media",
+    "analytics": "Analytics",
+    "settings": "Settings"
+  },
   "About": {
     "title": "About",
     "authorTitle": "About the Author",

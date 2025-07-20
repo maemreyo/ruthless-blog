@@ -17,6 +17,8 @@ import {
   LinkedinLogo,
   Translate,
   CaretDown,
+  CaretLeft,
+  CaretRight,
   Sun,
   Moon,
   ChatText,
@@ -41,7 +43,14 @@ import {
   Rocket,
   Star,
   Sparkle,
-  Lightning
+  Lightning,
+  Plus,
+  FileText,
+  FolderOpen,
+  Images,
+  ChartBar,
+  Gear,
+  Bell
 } from "@phosphor-icons/react";
 
 // Export all icons as named exports
@@ -62,6 +71,8 @@ export {
   LinkedinLogo,
   Translate,
   CaretDown,
+  CaretLeft,
+  CaretRight,
   Sun,
   Moon,
   ChatText,
@@ -86,5 +97,12 @@ export {
   Rocket,
   Star,
   Sparkle,
-  Lightning
+  Lightning,
+  Plus,
+  FileText,
+  FolderOpen,
+  Images,
+  ChartBar,
+  Gear,
+  Bell
 };

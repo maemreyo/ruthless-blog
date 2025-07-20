@@ -6,7 +6,6 @@ import { formatDate, getReadingTime } from '@/lib/utils';
 import { Metadata } from 'next';
 import EnhancedBlogPost from '@/components/blog/EnhancedBlogPost';
 import SeriesNavigation from '@/components/blog/SeriesNavigation';
-import CursorFollower from '@/components/ui/CursorFollower';
 
 // Tạo metadata cho trang
 export async function generateMetadata({ 
@@ -94,48 +93,38 @@ export default async function BlogPostPage({
   }
   
   return (
-    <div className="overflow-hidden">
-      {/* Custom cursor effect */}
-      <CursorFollower trailEffect={true} />
-      
-      <div className="container mx-auto px-4">
-        {/* Series Navigation */}
-        {seriesName && (
-          <SeriesNavigation
-            seriesName={seriesName}
-            currentPart={seriesPart || 1}
-            totalParts={totalParts}
-            previousPost={previousPost ? {
-              title: previousPost.title as string,
-              slug: previousPost.slug
-            } : null}
-            nextPost={nextPost ? {
-              title: nextPost.title as string,
-              slug: nextPost.slug
-            } : null}
-          />
-        )}
-      </div>
-      
-      <EnhancedBlogPost 
-        title={frontmatter.title as string}
-        content={content}
-        formattedDate={formattedDate}
-        author={frontmatter.author as string}
-        readingTime={readingTime}
-        thumbnail={frontmatter.thumbnail as string}
-        category={frontmatter.category as string}
-        series={frontmatter.series as string}
-        seriesPart={frontmatter.seriesPart as number}
-        tags={frontmatter.tags as string[]}
-        relatedPosts={formattedRelatedPosts}
-        slug={slug}
-        tagsLabel={t('tags')}
-        readMoreLabel={t('readMore')}
-        backToListLabel={t('backToList')}
-        relatedPostsLabel={t('relatedPosts')}
-      />
-    </div>
+    <EnhancedBlogPost 
+      title={frontmatter.title as string}
+      content={content}
+      formattedDate={formattedDate}
+      author={frontmatter.author as string}
+      readingTime={readingTime}
+      thumbnail={frontmatter.thumbnail as string}
+      category={frontmatter.category as string}
+      series={frontmatter.series as string}
+      seriesPart={frontmatter.seriesPart as number}
+      tags={frontmatter.tags as string[]}
+      relatedPosts={formattedRelatedPosts}
+      slug={slug}
+      tagsLabel={t('tags')}
+      readMoreLabel={t('readMore')}
+      backToListLabel={t('backToList')}
+      relatedPostsLabel={t('relatedPosts')}
+      // Series navigation props
+      seriesNavigation={seriesName ? {
+        seriesName,
+        currentPart: seriesPart || 1,
+        totalParts,
+        previousPost: previousPost ? {
+          title: previousPost.title as string,
+          slug: previousPost.slug
+        } : null,
+        nextPost: nextPost ? {
+          title: nextPost.title as string,
+          slug: nextPost.slug
+        } : null
+      } : undefined}
+    />
   );
 }
 
