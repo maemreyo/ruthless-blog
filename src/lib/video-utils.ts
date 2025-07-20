@@ -2,6 +2,60 @@
 // Handles video metadata, embed code generation, and video management
 
 import { YouTubeVideoData } from './youtube';
+import fs from 'fs';
+import path from 'path';
+
+/**
+ * Load video metadata from JSON file
+ * @param videoId - YouTube video ID
+ * @returns Video metadata or null if not found
+ */
+export async function loadVideoMetadata(videoId: string): Promise<YouTubeVideoData | null> {
+  try {
+    const videoPath = path.join(process.cwd(), 'src', 'data', 'videos', `${videoId}.json`);
+    
+    if (!fs.existsSync(videoPath)) {
+      return null;
+    }
+    
+    const videoData = JSON.parse(fs.readFileSync(videoPath, 'utf-8'));
+    return videoData as YouTubeVideoData;
+  } catch (error) {
+    console.error(`Error loading video metadata for ${videoId}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Load all video metadata
+ * @returns Array of all video metadata
+ */
+export async function loadAllVideoMetadata(): Promise<YouTubeVideoData[]> {
+  try {
+    const videosDir = path.join(process.cwd(), 'src', 'data', 'videos');
+    
+    if (!fs.existsSync(videosDir)) {
+      return [];
+    }
+    
+    const videoFiles = fs.readdirSync(videosDir).filter(file => file.endsWith('.json'));
+    const videos: YouTubeVideoData[] = [];
+    
+    for (const file of videoFiles) {
+      try {
+        const videoData = JSON.parse(fs.readFileSync(path.join(videosDir, file), 'utf-8'));
+        videos.push(videoData as YouTubeVideoData);
+      } catch (error) {
+        console.error(`Error loading video file ${file}:`, error);
+      }
+    }
+    
+    return videos;
+  } catch (error) {
+    console.error('Error loading video metadata:', error);
+    return [];
+  }
+}
 
 /**
  * Extract YouTube video ID from various URL formats

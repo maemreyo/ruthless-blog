@@ -11,19 +11,8 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { ArrowUpRight, Copy, Check } from '@/components/icons/PhosphorIcons';
-// Tiptap imports for future enhancement - currently using ReactMarkdown with Tiptap-style components
-// import { generateHTML } from '@tiptap/html';
-// import { generateJSON } from '@tiptap/html';
-// import StarterKit from '@tiptap/starter-kit';
-// import { Extension } from '@tiptap/core';
-// import { CodeBlock } from '@tiptap/extension-code-block';
-// import { Highlight } from '@tiptap/extension-highlight';
-// import { Image as TiptapImage } from '@tiptap/extension-image';
-// import { Link as TiptapLink } from '@tiptap/extension-link';
-// import { Table } from '@tiptap/extension-table';
-// import { TableRow } from '@tiptap/extension-table-row';
-// import { TableHeader } from '@tiptap/extension-table-header';
-// import { TableCell } from '@tiptap/extension-table-cell';
+import YouTubeEmbed from '@/components/blog/YouTubeEmbed'; // Import YouTubeEmbed
+import remarkYoutubeShortcode from '@/lib/remark-youtube-shortcode'; // Import the new remark plugin
 import { Element } from 'hast';
 
 interface TiptapRendererProps {
@@ -77,6 +66,9 @@ interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
 }
 interface TableCellProps extends React.HTMLAttributes<HTMLTableCellElement> {
   node: Element;
+}
+interface DivProps extends React.HTMLAttributes<HTMLDivElement> {
+  node?: Element;
 }
 // interface HrProps extends React.HTMLAttributes<HTMLHRElement> {
 //   node: Element;
@@ -474,6 +466,97 @@ export default function TiptapRenderer({ content, className = '' }: TiptapRender
     hr: () => (
       <hr className="my-12 border-none h-px bg-gradient-to-r from-transparent via-gray-400 dark:via-gray-600 to-transparent tiptap-hr" />
     ),
+
+    // Custom component for YouTube embeds
+    div: ({ node, children, className, ...props }: DivProps & { className?: string }) => {
+      // Debug logging
+      if (className === 'youtube-embed-wrapper' || (node?.properties?.className && Array.isArray(node.properties.className) && node.properties.className.includes('youtube-embed-wrapper'))) {
+        console.log('YouTube embed detected!', { className, node, props });
+      }
+
+      // Check if this is a YouTube embed div (new approach)
+      if (className === 'youtube-embed-wrapper' || (node?.properties?.className && Array.isArray(node.properties.className) && node.properties.className.includes('youtube-embed-wrapper'))) {
+        const videoId = props['data-video-id'] || node?.properties?.['data-video-id'] as string;
+        const responsive = (props['data-responsive'] || node?.properties?.['data-responsive']) === 'true';
+        
+        console.log('YouTube embed processing:', { videoId, responsive });
+        
+        if (!videoId) return null;
+
+        return (
+          <motion.div 
+            className="my-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <YouTubeEmbed 
+              videoId={videoId} 
+              width={responsive ? undefined : 560} 
+              height={responsive ? undefined : 315} 
+              className={responsive ? 'w-full aspect-video' : ''}
+              showPreview={true}
+            />
+          </motion.div>
+        );
+      }
+
+      // Check if this is a YouTube embed div (old approach)
+      if (node?.properties?.['data-youtube-embed'] !== undefined) {
+        const videoId = node.properties['data-video-id'] as string;
+        const responsive = node.properties['data-responsive'] === 'true';
+        
+        if (!videoId) return null;
+
+        return (
+          <motion.div 
+            className="my-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <YouTubeEmbed 
+              videoId={videoId} 
+              width={responsive ? undefined : 560} 
+              height={responsive ? undefined : 315} 
+              className={responsive ? 'w-full aspect-video' : ''}
+              showPreview={true}
+            />
+          </motion.div>
+        );
+      }
+
+      // Regular div handling
+      return <div className={className} {...props}>{children}</div>;
+    },
+
+    // Custom YouTube embed component
+    'youtube-embed': ({ node, ...props }: { node?: Element; [key: string]: any }) => {
+      const videoId = props['data-video-id'] || node?.properties?.['data-video-id'];
+      const responsive = (props['data-responsive'] || node?.properties?.['data-responsive']) === 'true';
+      
+      if (!videoId) return null;
+
+      return (
+        <motion.div 
+          className="my-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <YouTubeEmbed 
+            videoId={videoId} 
+            width={responsive ? undefined : 560} 
+            height={responsive ? undefined : 315} 
+            className={responsive ? 'w-full aspect-video' : ''}
+            showPreview={true}
+          />
+        </motion.div>
+      );
+    },
   };
 
   // Enhanced Tiptap-style CSS
@@ -687,8 +770,12 @@ export default function TiptapRenderer({ content, className = '' }: TiptapRender
         prose-img:rounded-xl prose-img:shadow-lg
         ${className}`}>
         <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw, rehypeSlug, [rehypeHighlight, { ignoreMissing: true }]]}
+          remarkPlugins={[remarkGfm, remarkYoutubeShortcode]}
+          rehypePlugins={[
+            rehypeRaw, 
+            rehypeSlug, 
+            [rehypeHighlight, { ignoreMissing: true }]
+          ]}
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           components={components}

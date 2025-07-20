@@ -31,6 +31,8 @@ Báo cáo sẽ đi sâu vào **bốn trụ cột nền tảng** mà bất kỳ a
 
 ## Chương 1: Tiền Tệ Trong Kỷ Nguyên Số - Hiểu Cách Dòng Chảy Thay Đổi
 
+[video:9_EVR3ZaeXQ responsive]
+
 Bản chất của tiền không nằm ở tờ giấy polymer hay đồng xu kim loại, mà ở **chức năng và niềm tin** mà xã hội đặt vào nó. Trong thập kỷ qua, đặc biệt là 5 năm trở lại đây, cách người Việt Nam tương tác với tiền đã trải qua một cuộc cách mạng. 
 
 Chương này sẽ không định nghĩa "tiền là gì" theo sách vở, mà sẽ cho thấy bản chất của nó đang thay đổi như thế nào qua cách chúng ta sử dụng hàng ngày và cách các tài sản số mới đang thách thức định nghĩa truyền thống.

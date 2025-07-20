@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Play } from '@/components/icons/PhosphorIcons';
 import { cn } from '@/lib/utils';
+import { YouTubeVideoData } from '@/lib/youtube';
 
 interface YouTubeEmbedProps {
   videoId: string;
@@ -14,6 +15,7 @@ interface YouTubeEmbedProps {
   muted?: boolean;
   controls?: boolean;
   showPreview?: boolean;
+  videoData?: YouTubeVideoData;
 }
 
 export default function YouTubeEmbed({
@@ -25,9 +27,28 @@ export default function YouTubeEmbed({
   autoplay = false,
   muted = false,
   controls = true,
-  showPreview = true
+  showPreview = true,
+  videoData
 }: YouTubeEmbedProps) {
   const [isLoaded, setIsLoaded] = useState(!showPreview);
+  const [metadata, setMetadata] = useState<YouTubeVideoData | null>(videoData || null);
+
+  // Load video metadata if not provided
+  useEffect(() => {
+    if (!videoData && videoId) {
+      // Try to load metadata from client-side (if available)
+      fetch(`/api/videos/${videoId}`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data) {
+            setMetadata(data);
+          }
+        })
+        .catch(() => {
+          // Silently fail - metadata is optional
+        });
+    }
+  }, [videoId, videoData]);
 
   const aspectRatio = (height / width) * 100;
   
@@ -38,7 +59,10 @@ export default function YouTubeEmbed({
   
   const paramString = params.toString();
   const embedSrc = `https://www.youtube.com/embed/${videoId}${paramString ? `?${paramString}` : ''}`;
-  const thumbnailSrc = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  
+  // Use metadata thumbnail if available, otherwise fallback to default
+  const thumbnailSrc = metadata?.thumbnailUrl || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  const videoTitle = metadata?.title || title;
 
   if (!isLoaded && showPreview) {
     return (
@@ -53,7 +77,7 @@ export default function YouTubeEmbed({
         {/* Thumbnail */}
         <img
           src={thumbnailSrc}
-          alt={title}
+          alt={videoTitle}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />
@@ -85,7 +109,7 @@ export default function YouTubeEmbed({
     >
       <iframe
         src={embedSrc}
-        title={title}
+        title={videoTitle}
         className="absolute inset-0 w-full h-full"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
